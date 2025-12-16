@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegionListComponent } from './region-list.component';
+import { MonthlyShowcaseComponent } from './monthly-showcase.component';
 
-describe('RegionListComponent', () => {
-  let component: RegionListComponent;
-  let fixture: ComponentFixture<RegionListComponent>;
+describe('MonthlyShowcaseComponent', () => {
+  let component: MonthlyShowcaseComponent;
+  let fixture: ComponentFixture<MonthlyShowcaseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegionListComponent]
+      imports: [MonthlyShowcaseComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RegionListComponent);
+    fixture = TestBed.createComponent(MonthlyShowcaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 interface Activity {
   title: string;
-  icon: string;
   description: string;
   route?: string;
+  icon?: string;
 }
 
 @Component({
@@ -20,27 +20,27 @@ export class ActivitiesComponent {
   activities: Activity[] = [
     {
       title: 'Explore',
-      icon: '',
       description: 'We are an exploration group.',
-      route: '/regions/new'
+      route: '/regions/new',
+      icon: 'assets/img/explore.png'
     },
     {
       title: 'Document',
-      icon: '',
       description: 'Documentation of our discoveries in our DNA.',
-      route: '/archives'
+      route: '/archives',
+      icon: 'assets/img/document.png'
     },
     {
       title: 'Engage',
-      icon: '',
       description: 'We interact with all travellers, across a variety of platform media.',
-      route: '/engage'
+      route: '/engage',
+      icon: 'assets/img/engage.png'
     },
     {
       title: 'Educate',
-      icon: '',
       description: 'We share what we learn to benefit all travellers.',
-      route: '/educate'
+      route: '/educate',
+      icon: 'assets/img/educate.png'
     }
   ];
 }

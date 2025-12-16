@@ -43,6 +43,16 @@
   left: 100%;
 }
 
+.activity-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .activity-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -81,7 +91,7 @@
   color: #000;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 512px) {
   .activities-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -89,5 +99,10 @@
 
   .activity-icon {
     font-size: 2.5rem;
+  }
+
+  .activity-image {
+    width: 60px;
+    height: 60px;
   }
 }
