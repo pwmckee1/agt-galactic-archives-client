@@ -1,0 +1,49 @@
+.mission {
+  background-color: var(--color-bg-primary);
+}
+
+.mission-quote {
+  text-align: center;
+  margin: 2rem 0 3rem;
+  padding: 2rem;
+  border-left: 4px solid var(--color-primary);
+  border-right: 4px solid var(--color-primary);
+  background-color: var(--color-bg-surface);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md), inset 0 0 20px rgba(232, 148, 26, 0.1);
+}
+
+.mission-quote p {
+  font-size: 1.35rem;
+  color: var(--color-primary);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.mission-description {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mission-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .mission-quote {
+    padding: 1.5rem;
+    border-left-width: 3px;
+    border-right-width: 3px;
+  }
+
+  .mission-quote p {
+    font-size: 1.1rem;
+  }
+
+  .mission-description p {
+    font-size: 1rem;
+  }
+}
