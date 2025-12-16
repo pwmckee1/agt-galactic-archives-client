@@ -1,0 +1,16 @@
+<section class="activities section">
+  <div class="container">
+    <h2 class="text-center">Our Primary Activities</h2>
+
+    <div class="activities-grid">
+      <div *ngFor="let activity of activities" class="activity-card">
+        <div class="activity-icon">{{ activity.icon }}</div>
+        <h3>{{ activity.title }}</h3>
+        <p>{{ activity.description }}</p>
+        <a *ngIf="activity.route" [routerLink]="activity.route" class="activity-link">
+          Learn More →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
