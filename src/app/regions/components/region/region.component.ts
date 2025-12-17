@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { IUpsertRegion } from '@regions/models/upsert-region';
 import { FormHelpers } from '@shared/helpers/form-helpers';
 import { IRegion } from '@regions/models/region';
-import { ActivatedRoute, Params, Route, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RegionService } from '@regions/services/region.service';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';

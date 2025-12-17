@@ -1,4 +1,4 @@
-import { AppEnvironments } from '../app/shared/models/application/app-environments';
+import { AppEnvironments } from '@shared/models/application/app-environments';
 
 export const environment = {
   environment: AppEnvironments.Local,

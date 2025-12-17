@@ -3,7 +3,6 @@ import {
   FormGroup, ValidationErrors, ValidatorFn, Validators
 } from '@angular/forms';
 import { GameHelpers } from '@shared/helpers/game-helpers';
-import { GeneralHelpers } from '@shared/helpers/general-helpers';
 import { FormField } from '@shared/models/application/form-field';
 import _ from 'lodash';
 
@@ -418,11 +417,9 @@ export namespace FormHelpers {
         }
 
         // Labels cannot start or end with hyphen
-        if (label.startsWith('-') || label.endsWith('-')) {
-          return true;
-        }
+        return label.startsWith('-') || label.endsWith('-');
 
-        return false;
+
       });
 
       if (hasInvalidLabel) {
