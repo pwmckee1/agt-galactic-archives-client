@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-regions',
+  selector: 'agt-regions',
   standalone: true,
   imports: [],
   templateUrl: './regions.component.html',

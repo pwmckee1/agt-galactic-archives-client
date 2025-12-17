@@ -1,0 +1,23 @@
+<section class="cards-section section">
+  <div class="container">
+    <h2 class="text-center">Submit Your Discoveries</h2>
+    <p class="section-subtitle">Choose a discovery type to get started</p>
+
+    <div class="cards-grid">
+      <button
+        *ngFor="let discovery of discoveryTypes"
+        [routerLink]="discovery.route"
+        class="discovery-card"
+        [ngClass]="'color-' + discovery.color"
+        [title]="discovery.description"
+      >
+        <div class="card-icon">{{ discovery.icon }}</div>
+        <div class="card-content">
+          <h3>{{ discovery.name }}</h3>
+          <p>{{ discovery.description }}</p>
+        </div>
+        <div class="card-arrow">→</div>
+      </button>
+    </div>
+  </div>
+</section>

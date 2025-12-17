@@ -1,0 +1,34 @@
+<section class="recent-section section">
+  <div class="container">
+    <h2 class="text-center">Recent Discoveries</h2>
+    <p class="section-subtitle">Latest submissions from the community</p>
+
+    <div class="discoveries-list">
+      <a
+        *ngFor="let discovery of recentDiscoveries"
+        [routerLink]="discovery.route"
+        class="discovery-item"
+      >
+        <div class="item-header">
+          <span class="discovery-icon">{{ discovery.icon }}</span>
+          <div class="discovery-meta">
+            <h3>{{ discovery.title }}</h3>
+            <span class="discovery-type">{{ discovery.type }}</span>
+          </div>
+        </div>
+        <p class="discovery-description">{{ discovery.description }}</p>
+        <div class="item-footer">
+          <span class="submitter">by {{ discovery.submittedBy }}</span>
+          <span class="date">{{ discovery.date }}</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="view-all">
+      <button routerLink="/discoveries" class="btn-view-all">
+        View All Discoveries
+        <span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+</section>

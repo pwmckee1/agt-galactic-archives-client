@@ -10,7 +10,7 @@ interface Activity {
 }
 
 @Component({
-  selector: 'app-activities',
+  selector: 'agt-activities',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './activities.component.html',

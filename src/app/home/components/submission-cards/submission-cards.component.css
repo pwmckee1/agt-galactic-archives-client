@@ -1,0 +1,173 @@
+.section {
+  background-color: var(--color-bg-secondary);
+  padding: 4rem 0;
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+}
+
+h2 {
+  color: var(--color-primary);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 0.5px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.discovery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: var(--color-bg-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: inherit;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.discovery-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.discovery-card:hover::before {
+  left: 100%;
+}
+
+.discovery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(232, 148, 26, 0.3);
+}
+
+.discovery-card.color-primary {
+  border-color: var(--color-primary);
+}
+
+.discovery-card.color-primary:hover {
+  background: linear-gradient(135deg, rgba(232, 148, 26, 0.1), transparent);
+  box-shadow: 0 12px 30px rgba(232, 148, 26, 0.3),
+  inset 0 0 30px rgba(232, 148, 26, 0.1);
+}
+
+.discovery-card.color-secondary {
+  border-color: var(--color-secondary);
+}
+
+.discovery-card.color-secondary:hover {
+  background: linear-gradient(135deg, rgba(200, 90, 58, 0.1), transparent);
+  box-shadow: 0 12px 30px rgba(200, 90, 58, 0.3),
+  inset 0 0 30px rgba(200, 90, 58, 0.1);
+}
+
+.discovery-card.color-accent {
+  border-color: var(--color-accent);
+}
+
+.discovery-card.color-accent:hover {
+  background: linear-gradient(135deg, rgba(230, 57, 70, 0.1), transparent);
+  box-shadow: 0 12px 30px rgba(230, 57, 70, 0.3),
+  inset 0 0 30px rgba(230, 57, 70, 0.1);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.discovery-card:hover .card-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.card-content {
+  flex: 1;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.card-content h3 {
+  color: var(--color-text-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.card-content p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.card-arrow {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.discovery-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .discovery-card {
+    min-height: 240px;
+    padding: 1.5rem;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+  }
+
+  .card-content h3 {
+    font-size: 1.1rem;
+  }
+}

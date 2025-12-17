@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-monthly-showcase',
+  selector: 'agt-monthly-showcase',
   standalone: true,
   imports: [],
   templateUrl: './monthly-showcase.component.html',
