@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'agt-footer',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',

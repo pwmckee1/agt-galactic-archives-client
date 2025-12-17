@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'agt-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './navbar.component.html',
