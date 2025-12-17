@@ -1,26 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { RegionComponent } from '@regions/components/region/region.component';
+import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: RegionComponent
+    component: HomeComponent
   },
-  // {
-  //   path: 'regions',
-  //   loadComponent: () => import('./features/regions/components/region-list/region-list.component').then(m => m.RegionListComponent)
-  // },
-  // {
-  //   path: 'regions/new',
-  //   loadComponent: () => import('./features/regions/components/region-form/region-form.component').then(m => m.RegionFormComponent)
-  // }
+  {
+    path: 'regions',
+    loadChildren: () => import('@regions/regions-routing.module').then(m => m.RegionsRoutingModule)
+  }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {})],
-  exports: [RouterModule],
-  providers: []
-})
-export class AppRoutingModule { }

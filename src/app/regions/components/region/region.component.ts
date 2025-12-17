@@ -1,20 +1,23 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUpsertRegion } from '@regions/models/upsert-region';
 import { FormHelpers } from '@shared/helpers/form-helpers';
 import { IRegion } from '@regions/models/region';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
+import { ActivatedRoute, Params, Route, Router, RouterLink } from '@angular/router';
 import { RegionService } from '@regions/services/region.service';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { ToastrService } from 'ngx-toastr';
 import { mergeMap, skipWhile, Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'app-region',
+  selector: 'agt-region',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule],
+  providers: [RegionService, ToastrService],
   templateUrl: './region.component.html',
   styleUrl: './region.component.css'
 })
@@ -66,7 +69,7 @@ export class RegionComponent implements OnInit, OnDestroy {
       galacticCoordinates: new FormControl(null, FormHelpers.getGalacticCoordinateValidator),
       gameRelease: new FormControl(null, Validators.required),
       gamePlatform: new FormControl(null),
-      surveyDate: new FormControl(moment(), Validators.required),
+      surveyDate: new FormControl(null, Validators.required),
       earliestKnownSurveyor: new FormControl(null),
       latestKnownSurveyor: new FormControl(null),
       summaryNotes: new FormControl(null),
