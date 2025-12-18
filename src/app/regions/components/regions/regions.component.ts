@@ -1,48 +1,54 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RegionSearch } from '@regions/models/region-search';
 import { RegionService } from '@regions/services/region.service';
 import { IRegion } from '@regions/models/region';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'agt-regions',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, RouterModule, HttpClientModule, ReactiveFormsModule],
   providers: [RegionService],
   templateUrl: './regions.component.html',
   styleUrl: './regions.component.css'
 })
-export class RegionsComponent implements OnInit, OnDestroy {
+export class RegionsComponent implements OnInit {
   regions: IRegion[] = [];
-  isLoading = true;
+  isLoading = false;
   galaxyTypes: string[] = Object.keys(GalaxyTypes);
-  selectedGalaxy: string = GalaxyTypes.Euclid;
-  subscriptions: Subscription[] = []
+  galaxyControl = new FormControl(GalaxyTypes.Euclid);
 
-  constructor(private regionService: RegionService) {}
+  private destroyRef = inject(DestroyRef);
 
-  ngOnDestroy(): void {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
-
-  ngOnInit(): void {
-    this.loadRegions();
+  constructor(private regionService: RegionService) {
   }
 
-  private loadRegions() {
+  ngOnInit(): void {
+    this.galaxyControl.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((galaxy) => this.loadRegions(galaxy));
+
+    this.loadRegions(GalaxyTypes.Euclid);
+  }
+
+  private loadRegions(galaxy: string) {
+    this.isLoading = true;
+
     const searchRequest = new RegionSearch();
-    searchRequest.galaxy = this.selectedGalaxy as GalaxyTypes;
-    this.subscriptions.push(this.regionService.getRegions(searchRequest)
+    searchRequest.galaxy = galaxy as GalaxyTypes;
+    this.regionService.getRegions(searchRequest)
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res: ApiResponse<IRegion[]>) => {
         if (res.success) {
           this.regions = res.response;
         }
         this.isLoading = false;
-      }));
+      });
   }
 }
