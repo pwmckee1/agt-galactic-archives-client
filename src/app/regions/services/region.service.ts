@@ -20,10 +20,10 @@ export class RegionService {
     return regionId ? `${this.appConfig.apiUrl}/region/${regionId}` : `${this.appConfig.apiUrl}/region`;
   }
 
-  getRegion(regionId: string = null): Observable<ApiResponse<IRegion>> {
+  getRegions(regionId: string = null): Observable<ApiResponse<IRegion[]>> {
     return this.http.get(this.getRegionUrl(regionId))
       .pipe(
-        map((res: ApiResponse<IRegion>) => new ApiResponse<IRegion>(
+        map((res: ApiResponse<IRegion>) => new ApiResponse<IRegion[]>(
           true,
           {
             response: res.response,
