@@ -16,12 +16,8 @@ export class FooterComponent {
     { label: 'Home', route: '/' },
     { label: 'About', route: '/about' },
     { label: 'Team', route: '/team' },
-    { label: 'Contribute', route: '/contribute' },
     { label: 'Galactic Archives', route: '/archives' },
-    { label: 'Engage', route: '/engage' },
-    { label: 'AGT NAVI', route: '/navi' },
     { label: 'Terms', route: '/terms' },
     { label: 'Support', route: '/support' },
-    { label: 'Copyright', route: '/copyright' }
   ];
 }
