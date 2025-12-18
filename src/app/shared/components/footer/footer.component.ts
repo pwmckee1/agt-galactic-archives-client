@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'agt-footer',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+    selector: 'agt-footer',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.css'
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();

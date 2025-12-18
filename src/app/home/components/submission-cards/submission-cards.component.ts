@@ -12,11 +12,10 @@ interface DiscoveryType {
 }
 
 @Component({
-  selector: 'agt-submission-cards',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './submission-cards.component.html',
-  styleUrl: './submission-cards.component.css'
+    selector: 'agt-submission-cards',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './submission-cards.component.html',
+    styleUrl: './submission-cards.component.css'
 })
 export class SubmissionCardsComponent {
   discoveryTypes: DiscoveryType[] = [

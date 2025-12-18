@@ -15,11 +15,10 @@ interface Discovery {
 }
 
 @Component({
-  selector: 'agt-recent-discoveries',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './recent-discoveries.component.html',
-  styleUrl: './recent-discoveries.component.css'
+    selector: 'agt-recent-discoveries',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './recent-discoveries.component.html',
+    styleUrl: './recent-discoveries.component.css'
 })
 export class RecentDiscoveriesComponent {
   recentDiscoveries: Discovery[] = [

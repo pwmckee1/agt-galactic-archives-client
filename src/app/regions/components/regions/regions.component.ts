@@ -11,16 +11,15 @@ import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 
 @Component({
-  selector: 'agt-regions',
-  standalone: true,
-  imports: [CommonModule, RouterModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule, ReactiveFormsModule],
-  providers: [RegionService],
-  templateUrl: './regions.component.html',
-  styleUrl: './regions.component.css'
+    selector: 'agt-regions',
+    imports: [CommonModule, RouterModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule, ReactiveFormsModule],
+    providers: [RegionService],
+    templateUrl: './regions.component.html',
+    styleUrl: './regions.component.css'
 })
 export class RegionsComponent implements OnInit {
   regions: IRegion[] = [];

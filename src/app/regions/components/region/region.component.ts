@@ -14,16 +14,15 @@ import { mergeMap, skipWhile, Subscription } from 'rxjs';
 import moment from 'moment';
 
 @Component({
-  selector: 'agt-region',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, 
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule],
-  providers: [RegionService, ToastrService],
-  templateUrl: './region.component.html',
-  styleUrl: './region.component.css'
+    selector: 'agt-region',
+    imports: [CommonModule, ReactiveFormsModule, FormsModule,
+        // TODO: `HttpClientModule` should not be imported into a component directly.
+        // Please refactor the code to add `provideHttpClient()` call to the provider list in the
+        // application bootstrap logic and remove the `HttpClientModule` import from this component.
+        HttpClientModule],
+    providers: [RegionService, ToastrService],
+    templateUrl: './region.component.html',
+    styleUrl: './region.component.css'
 })
 export class RegionComponent implements OnInit, OnDestroy {
   regionForm: FormGroup;

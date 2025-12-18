@@ -7,16 +7,15 @@ import { SubmissionCardsComponent } from './components/submission-cards/submissi
 import { RecentDiscoveriesComponent } from './components/recent-discoveries/recent-discoveries.component';
 
 @Component({
-  selector: 'agt-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    BannerComponent,
-    SubmissionCardsComponent,
-    RecentDiscoveriesComponent,
-  ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'agt-home',
+    imports: [
+        CommonModule,
+        RouterModule,
+        BannerComponent,
+        SubmissionCardsComponent,
+        RecentDiscoveriesComponent,
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent {}
