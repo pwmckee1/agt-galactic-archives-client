@@ -23,7 +23,7 @@ export class SubmissionCardsComponent {
     {
       id: 'regions',
       name: 'Regions',
-      icon: '🌍',
+      icon: 'assets/img/game-entities/regions-orange.png',
       description: 'Document galactic regions',
       route: '/regions',
       color: 'primary'
@@ -31,7 +31,7 @@ export class SubmissionCardsComponent {
     {
       id: 'systems',
       name: 'Star Systems',
-      icon: '⭐',
+      icon: 'assets/img/game-entities/star-systems-orange.png',
       description: 'Catalog star systems',
       route: '/systems',
       color: 'secondary'
@@ -39,7 +39,7 @@ export class SubmissionCardsComponent {
     {
       id: 'planets',
       name: 'Planets',
-      icon: '🪐',
+      icon: 'assets/img/game-entities/planets-orange.png',
       description: 'Log planetary discoveries',
       route: '/planets',
       color: 'accent'
@@ -47,7 +47,7 @@ export class SubmissionCardsComponent {
     {
       id: 'starships',
       name: 'Starships',
-      icon: '🚀',
+      icon: 'assets/img/game-entities/starships-orange.png',
       description: 'Record starship specs',
       route: '/starships',
       color: 'primary'
@@ -55,7 +55,7 @@ export class SubmissionCardsComponent {
     {
       id: 'multitools',
       name: 'MultiTools',
-      icon: '🔧',
+      icon: 'assets/img/game-entities/multi-tools-orange.png',
       description: 'Share MultiTool finds',
       route: '/multitools',
       color: 'secondary'
@@ -63,7 +63,7 @@ export class SubmissionCardsComponent {
     {
       id: 'fauna',
       name: 'Fauna',
-      icon: '🦖',
+      icon: 'assets/img/game-entities/fauna-orange.png',
       description: 'Catalog alien creatures',
       route: '/fauna',
       color: 'accent'
@@ -71,7 +71,7 @@ export class SubmissionCardsComponent {
     {
       id: 'settlements',
       name: 'Settlements',
-      icon: '🏘️',
+      icon: 'assets/img/game-entities/settlements-orange.png',
       description: 'Map settlements',
       route: '/settlements',
       color: 'primary'
@@ -79,7 +79,7 @@ export class SubmissionCardsComponent {
     {
       id: 'bases',
       name: 'Player Bases',
-      icon: '🏗️',
+      icon: 'assets/img/game-entities/player-bases-orange.png',
       description: 'Publish your bases',
       route: '/bases',
       color: 'secondary'
@@ -87,7 +87,7 @@ export class SubmissionCardsComponent {
     {
       id: 'poi',
       name: 'Points of Interest',
-      icon: '📍',
+      icon: 'assets/img/game-entities/poi-orange.png',
       description: 'Mark special locations',
       route: '/poi',
       color: 'accent'

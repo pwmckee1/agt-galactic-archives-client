@@ -22,11 +22,14 @@ export class NavbarComponent {
 
   navItems = [
     { label: 'Home', route: '/' },
-    { label: 'Events Calendar', route: '/events' },
-    { label: 'About', route: '/about' },
-    { label: 'Team', route: '/team' },
-    { label: 'Contribute', route: '/contribute' },
-    { label: 'Galactic Archives', route: '/archives' },
-    { label: 'Engage', route: '/engage' }
+    { label: 'Regions', route: '/regions' },
+    { label: 'Star Systems', route: '/star-systems' },
+    { label: 'Planets', route: '/planets' },
+    { label: 'Starships', route: '/starships' },
+    { label: 'Multi Tools', route: '/multi-tools' },
+    { label: 'Fauna', route: '/fauna' },
+    { label: 'Bases', route: '/player-bases' },
+    { label: 'POIs', route: '/points-of-interest' },
+    { label: 'Settlements', route: '/settlements' },
   ];
 }
