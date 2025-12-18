@@ -1,4 +1,4 @@
 main {
-  min-height: calc(100vh - 200px);
+  min-height: 100vh; /* Changed from calc to 100vh to ensure it fills the screen */
   padding-top: 80px;
 }
