@@ -1,1 +1,78 @@
-<p>regions works!</p>
+<div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-orange-subtle pb-3">
+  <div>
+    <h1 class="display-6 text-orange mb-0">
+      <img src="assets/img/game-entities/regions-orange.png" height="40" class="me-2">GALACTIC REGIONS
+    </h1>
+    <p class="text-muted small mb-0 font-monospace">ARCHIVE DATA FEED // STATUS: ONLINE</p>
+  </div>
+  <a routerLink="new" class="btn btn-sm btn-outline-warning mb-1">
+    <i class="fa-solid fa-plus me-1"></i>REGISTER NEW REGION
+  </a>
+</div>
+
+<div class="regions-flex-container" *ngIf="!isLoading; else loading">
+  <div class="wiki-infobox bg-black d-flex flex-column" *ngFor="let region of regions">
+    <div class="infobox-header text-center p-2 border-bottom border-orange">
+      <h6 class="mb-0 text-uppercase letter-spacing-1 text-truncate">{{ region.regionName }}</h6>
+    </div>
+
+    <div class="infobox-image overflow-hidden">
+      <img src="assets/img/mock/mock-region.png" class="infobox-img-fixed opacity-75" [alt]="region.regionName">
+      <div class="image-caption text-center x-small text-muted py-1 bg-black bg-opacity-75 border-top border-orange">
+        {{ region.galaxy }} Core
+      </div>
+    </div>
+
+    <div class="infobox-data flex-grow-1">
+      <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Galaxy
+        </div>
+        <div class="data-value px-2 py-1 text-orange-dim">{{ region.galaxy || 'Unknown' }}</div>
+      </div>
+      <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">
+          Quadrant
+        </div>
+        <div class="data-value px-2 py-1 text-success">{{ region.galacticQuadrant || 'Gamma' }}</div>
+      </div>
+      <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Galactic
+          coords
+        </div>
+        <div
+          class="data-value px-2 py-1 font-monospace x-small text-info">{{ region.galacticCoordinates || '0000:0000:0000:xxxx' }}
+        </div>
+      </div>
+      <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Civilized
+          space
+        </div>
+        <div class="data-value px-2 py-1 x-small line-clamp-2">{{ region.civilizedSpaceNotes || 'None documented' }}
+        </div>
+      </div>
+      <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Centre
+          dist
+        </div>
+        <div class="data-value px-2 py-1">{{ region.lightYearsFromCenter | number }} LY</div>
+      </div>
+      <div class="data-row d-flex">
+        <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Updated
+        </div>
+        <div class="data-value px-2 py-1 text-muted">{{ region.gameRelease || 'ExoMech' }}</div>
+      </div>
+    </div>
+
+    <div class="p-2 border-top border-orange bg-black d-grid">
+      <a [routerLink]="[region.regionId]" class="btn btn-xs btn-outline-orange text-uppercase">View Entry</a>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="text-center py-5">
+    <div class="spinner-border text-orange" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>

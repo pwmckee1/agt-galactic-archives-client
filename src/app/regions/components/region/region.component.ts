@@ -47,12 +47,12 @@ export class RegionComponent implements OnInit, OnDestroy {
         skipWhile((params: Params) => !params.regionId),
         mergeMap((params: Params) => {
           this.regionId = params.regionId;
-          return this.regionService.getRegion(this.regionId);
+          return this.regionService.getRegions(this.regionId);
         })
       )
-      .subscribe((res: ApiResponse<IRegion>) => {
+      .subscribe((res: ApiResponse<IRegion[]>) => {
         if (res.success) {
-          this.setRegion(res.response);
+          this.setRegion(res.response[0]);
         } else {
           this.toastr.error(res.messages[0]);
         }
