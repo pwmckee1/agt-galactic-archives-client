@@ -29,8 +29,32 @@
       "@environments/*": [
         "./src/environments/*"
       ],
+      "@fauna/*": [
+        "./src/app/fauna/*"
+      ],
+      "@multi-tools/*": [
+        "./src/app/multi-tools/*"
+      ],
+      "@planets/*": [
+        "./src/app/planets/*"
+      ],
+      "@player-bases/*": [
+        "./src/app/player-bases/*"
+      ],
+      "@pois/*": [
+        "./src/app/pois/*"
+      ],
       "@regions/*": [
         "./src/app/regions/*"
+      ],
+      "@settlements/*": [
+        "./src/app/settlements/*"
+      ],
+      "@star-systems/*": [
+        "./src/app/star-systems/*"
+      ],
+      "@starships/*": [
+        "./src/app/starships/*"
       ],
       "@shared/*": [
         "./src/app/shared/*"
