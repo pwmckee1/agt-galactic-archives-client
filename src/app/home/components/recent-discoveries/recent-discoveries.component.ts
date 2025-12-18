@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 interface Discovery {
@@ -16,7 +16,7 @@ interface Discovery {
 
 @Component({
     selector: 'agt-recent-discoveries',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './recent-discoveries.component.html',
     styleUrl: './recent-discoveries.component.css'
 })

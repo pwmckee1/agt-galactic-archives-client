@@ -17,14 +17,16 @@
 
     <!-- Navigation Links -->
     <div class="navbar-menu" [class.open]="mobileMenuOpen">
-      <a *ngFor="let item of navItems"
-         [routerLink]="item.route"
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact: true }"
-         class="nav-link"
-         (click)="closeMobileMenu()">
-        {{ item.label }}
-      </a>
+      @for (item of navItems; track item) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link"
+          (click)="closeMobileMenu()">
+          {{ item.label }}
+        </a>
+      }
     </div>
 
     <!-- Search Icon -->

@@ -4,17 +4,23 @@
     <h2 class="text-center">Submit Your Discoveries</h2>
 
     <div class="activities-grid">
-      <div *ngFor="let discovery of discoveryTypes" class="activity-card" [title]="discovery.description">
-        <img *ngIf="discovery.icon"
-             [src]="discovery.icon"
-             [alt]="discovery.description"
-             class="activity-image">
-        <h3>{{ discovery.name }}</h3>
-        <p>{{ discovery.description }}</p>
-        <a *ngIf="discovery.route" [routerLink]="discovery.route" class="activity-link">
-          Discover →
-        </a>
-      </div>
+      @for (discovery of discoveryTypes; track discovery) {
+        <div class="activity-card" [title]="discovery.description">
+          @if (discovery.icon) {
+            <img
+              [src]="discovery.icon"
+              [alt]="discovery.description"
+              class="activity-image">
+          }
+          <h3>{{ discovery.name }}</h3>
+          <p>{{ discovery.description }}</p>
+          @if (discovery.route) {
+            <a [routerLink]="discovery.route" class="activity-link">
+              Discover →
+            </a>
+          }
+        </div>
+      }
     </div>
   </div>
 </section>

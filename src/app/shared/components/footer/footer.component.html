@@ -1,11 +1,13 @@
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-links">
-      <a *ngFor="let link of footerLinks"
-         [routerLink]="link.route"
-         class="footer-link">
-        {{ link.label }}
-      </a>
+      @for (link of footerLinks; track link) {
+        <a
+          [routerLink]="link.route"
+          class="footer-link">
+          {{ link.label }}
+        </a>
+      }
     </div>
     <div class="footer-copyright">
       <p>&copy; {{ currentYear }} Alliance of Galactic Travellers. All rights reserved.</p>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 
 interface DiscoveryType {
@@ -13,7 +13,7 @@ interface DiscoveryType {
 
 @Component({
     selector: 'agt-submission-cards',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './submission-cards.component.html',
     styleUrl: './submission-cards.component.css'
 })
