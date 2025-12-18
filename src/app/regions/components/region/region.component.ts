@@ -47,7 +47,7 @@ export class RegionComponent implements OnInit, OnDestroy {
         skipWhile((params: Params) => !params.regionId),
         mergeMap((params: Params) => {
           this.regionId = params.regionId;
-          return this.regionService.getRegions(this.regionId);
+          return this.regionService.getRegionById(this.regionId);
         })
       )
       .subscribe((res: ApiResponse<IRegion[]>) => {
