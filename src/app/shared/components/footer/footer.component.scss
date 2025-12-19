@@ -8,24 +8,13 @@
 }
 
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 1rem .5rem;
-}
-
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: .5rem;
 }
 
 .footer-link {
   color: $color-text-secondary;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  border-right: 1px solid $color-border;
   padding-right: 1rem;
 }
 

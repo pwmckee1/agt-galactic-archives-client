@@ -1,18 +1,18 @@
 <footer class="footer">
   <div class="footer-container">
-    <div class="footer-links">
+    <div class="footer-links flex flex-wrap gap-3 justify-content-center mb-2">
       @for (link of footerLinks; track link) {
         @if (link.externalUrl) {
           <a
             [href]="link.externalUrl"
             target="_blank"
-            class="footer-link">
+            class="footer-link border-right-1 border-300">
             {{ link.label }}
           </a>
         } @else {
           <a
             [routerLink]="link.route"
-            class="footer-link">
+            class="footer-link border-right-1 border-300">
             {{ link.label }}
           </a>
         }
