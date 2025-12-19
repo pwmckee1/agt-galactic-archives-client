@@ -1,15 +1,15 @@
 <div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-orange-subtle pb-3">
   <div>
-    <h1 class="display-6 text-orange mb-0">
+    <h1 class="display-6 mb-0">
       <img src="assets/img/game-entities/regions-orange.png" height="40" class="me-2">GALACTIC REGIONS
     </h1>
-    <p class="text-muted small mb-0 font-monospace">ARCHIVE DATA FEED // STATUS: ONLINE</p>
+    <p class="small mb-0 font-monospace">ARCHIVE DATA FEED // STATUS: ONLINE</p>
   </div>
   <div class="d-flex gap-2 align-items-end mb-1">
     <div class="field-container">
 
       <div class="d-flex gap-2 align-items-end mb-1">
-        <label class="text-orange x-small font-monospace d-block mb-1">SELECT GALAXY</label>
+        <label class="x-small font-monospace d-block mb-1">SELECT GALAXY</label>
         <form [formGroup]="galaxyForm" class="flex flex-col gap-4 w-full sm:w-56">
           <div class="flex flex-col gap-1">
             <p-select formControlName="galaxy" [options]="galaxyTypes" class="w-full md:w-56" />
@@ -26,12 +26,12 @@
     <div class="regions-flex-container">
       @for (region of regions; track region) {
         <div class="wiki-infobox bg-black d-flex flex-column">
-          <div class="infobox-header text-center p-2 border-bottom border-orange">
+          <div class="infobox-header p-2 border-bottom border-orange">
             <h6 class="mb-0 text-uppercase letter-spacing-1 text-truncate">{{ region.regionName }}</h6>
           </div>
           <div class="infobox-image overflow-hidden">
             <img src="assets/img/mock/mock-region.png" class="infobox-img-fixed opacity-75" [alt]="region.regionName">
-            <div class="image-caption text-center x-small text-muted py-1 bg-black bg-opacity-75 border-top border-orange">
+            <div class="image-caption x-small py-1 bg-black bg-opacity-75 border-top border-orange">
               {{ region.galaxy }}
             </div>
           </div>
@@ -39,7 +39,8 @@
             <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
               <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Galaxy
               </div>
-              <div class="data-value px-2 py-1 text-orange-dim">{{ region.galaxy || 'Unknown' }}</div>
+              <div class="data-value px-2 py-1
+">{{ region.galaxy || 'Unknown' }}</div>
             </div>
             <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
               <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">
@@ -81,8 +82,8 @@
       }
     </div>
   } @else {
-    <div class="text-center py-5">
-      <div class="spinner-border text-orange" role="status">
+    <div class="py-5">
+      <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>

@@ -1,15 +1,15 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/regions" class="text-orange text-decoration-none">Regions</a></li>
+    <li class="breadcrumb-item"><a routerLink="/regions" class="text-decoration-none">Regions</a></li>
     <li class="breadcrumb-item active text-light" aria-current="page">{{ regionId ? 'Edit Archive' : 'New Survey' }}</li>
   </ol>
 </nav>
 
 <header class="mb-4">
-  <h1 class="text-orange">
+  <h1>
     {{ currentRegion ? currentRegion.regionName : 'Document New Region' }}
     @if (currentRegion) {
-      <small class="text-muted fs-5 d-block">{{ currentRegion.galaxy }} Galaxy</small>
+      <small class="fs-5 d-block">{{ currentRegion.galaxy }} Galaxy</small>
     }
   </h1>
 </header>
@@ -20,7 +20,8 @@
     <div class="col-12 md:col-8">
       <div class="card bg-dark text-light border-secondary mb-4">
         <div class="card-header border-secondary bg-black bg-opacity-25">
-          <h5 class="mb-0 text-orange-dim"><i class="fa-solid fa-info-circle me-2"></i>Survey Details</h5>
+          <h5 class="mb-0
+"><i class="fa-solid fa-info-circle me-2"></i>Survey Details</h5>
         </div>
         <div class="card-body">
           <div class="grid row-gap-3">
@@ -93,7 +94,8 @@
 
       <div class="card bg-dark text-light border-secondary mb-4">
         <div class="card-header border-secondary bg-black bg-opacity-25">
-          <h5 class="mb-0 text-orange-dim"><i class="fa-solid fa-link me-2"></i>External Archives</h5>
+          <h5 class="mb-0
+"><i class="fa-solid fa-link me-2"></i>External Archives</h5>
         </div>
         <div class="card-body">
           <div class="grid row-gap-3">
@@ -123,7 +125,8 @@
     <div class="col-12 md:col-4">
       <div class="card bg-dark text-light border-secondary mb-4">
         <div class="card-header border-secondary bg-black bg-opacity-25">
-          <h5 class="mb-0 text-orange-dim"><i class="fa-solid fa-user-astronaut me-2"></i>Survey Metadata</h5>
+          <h5 class="mb-0
+"><i class="fa-solid fa-user-astronaut me-2"></i>Survey Metadata</h5>
         </div>
         <div class="card-body">
           <div class="mb-3 flex flex-column gap-2">
@@ -149,7 +152,8 @@
 
       <div class="card bg-dark text-light border-secondary mb-4">
         <div class="card-header border-secondary bg-black bg-opacity-25">
-          <h5 class="mb-0 text-orange-dim"><i class="fa-solid fa-history me-2"></i>History</h5>
+          <h5 class="mb-0
+"><i class="fa-solid fa-history me-2"></i>History</h5>
         </div>
         <div class="card-body small">
           <div class="mb-3">
