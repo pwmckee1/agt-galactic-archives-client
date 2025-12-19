@@ -18,7 +18,7 @@ interface Discovery {
     selector: 'agt-recent-discoveries',
     imports: [RouterModule],
     templateUrl: './recent-discoveries.component.html',
-    styleUrl: './recent-discoveries.component.css'
+    styleUrl: './recent-discoveries.component.scss'
 })
 export class RecentDiscoveriesComponent {
   recentDiscoveries: Discovery[] = [

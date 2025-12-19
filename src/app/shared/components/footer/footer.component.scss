@@ -1,6 +1,7 @@
+@use "../../../themes/_theme-variables.scss" as *;
 .footer {
-  background-color: var(--color-bg-secondary);
-  border-top: 2px solid var(--color-secondary);
+  background-color: $color-bg-secondary;
+  border-top: 2px solid $color-secondary;
   position: sticky;
   bottom: 0;
 }
@@ -20,10 +21,10 @@
 }
 
 .footer-link {
-  color: var(--color-text-secondary);
+  color: $color-text-secondary;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  border-right: 1px solid var(--color-border);
+  border-right: 1px solid $color-border;
   padding-right: 1rem;
 }
 
@@ -33,14 +34,14 @@
 }
 
 .footer-link:hover {
-  color: var(--color-primary);
+  color: $color-primary;
 }
 
 .footer-copyright {
   text-align: center;
-  color: var(--color-text-muted);
+  color: $color-text-muted;
   font-size: 0.85rem;
-  padding-bottom: 0rem;
+  padding-bottom: 0;
 }
 
 @media (max-width: 768px) {

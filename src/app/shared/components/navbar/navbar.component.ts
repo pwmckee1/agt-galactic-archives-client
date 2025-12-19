@@ -5,7 +5,7 @@ import { Image, ImageModule } from 'primeng/image';
 
 @Component({
     selector: 'agt-navbar',
-  imports: [RouterModule, NgOptimizedImage, Image],
+  imports: [RouterModule, Image],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss'
 })

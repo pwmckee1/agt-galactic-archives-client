@@ -1,21 +1,22 @@
-import {} from '@angular/common/http';
 import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { RegionSearch } from '@regions/models/region-search';
 import { RegionService } from '@regions/services/region.service';
 import { IRegion } from '@regions/models/region';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { PrimeNG } from 'primeng/config';
+import { Select, SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'agt-regions',
   imports: [CommonModule, RouterModule, ReactiveFormsModule, SelectModule, Select],
     providers: [RegionService],
     templateUrl: './regions.component.html',
-    styleUrl: './regions.component.css'
+    styleUrl: './regions.component.scss'
 })
 export class RegionsComponent implements OnInit {
   galaxyForm: FormGroup
@@ -26,10 +27,14 @@ export class RegionsComponent implements OnInit {
 
   private destroyRef = inject(DestroyRef);
 
-  constructor(private regionService: RegionService) {
+  constructor(
+    private primeng: PrimeNG,
+    private regionService: RegionService,
+  ) {
   }
 
   ngOnInit(): void {
+    this.primeng.ripple.set(true);
     this.galaxyForm = new FormGroup({
       galaxy: this.galaxyControl
     })

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
+import { Button, ButtonModule } from 'primeng/button';
 
 interface DiscoveryType {
   id: string;
@@ -13,9 +14,9 @@ interface DiscoveryType {
 
 @Component({
     selector: 'agt-submission-cards',
-    imports: [RouterModule],
+  imports: [RouterModule, ButtonModule],
     templateUrl: './submission-cards.component.html',
-    styleUrl: './submission-cards.component.css'
+    styleUrl: './submission-cards.component.scss'
 })
 export class SubmissionCardsComponent {
   discoveryTypes: DiscoveryType[] = [

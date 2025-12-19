@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-multi-tools',
     imports: [],
     templateUrl: './multi-tools.component.html',
-    styleUrl: './multi-tools.component.css'
+    styleUrl: './multi-tools.component.scss'
 })
 export class MultiToolsComponent {
 

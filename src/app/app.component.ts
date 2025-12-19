@@ -7,7 +7,7 @@ import { FooterComponent } from '@shared/components/footer/footer.component';
     selector: 'agt-root',
     imports: [RouterOutlet, NavbarComponent, FooterComponent],
     templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'AGT Galactic Archives';

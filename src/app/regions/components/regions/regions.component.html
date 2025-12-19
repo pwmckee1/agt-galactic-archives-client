@@ -7,13 +7,15 @@
   </div>
   <div class="d-flex gap-2 align-items-end mb-1">
     <div class="field-container">
-      <label class="text-orange x-small font-monospace d-block mb-1">SELECT GALAXY</label>
-      <select class="form-select form-select-sm bg-black text-orange border-orange-subtle"
-        [formControl]="galaxyControl">
-        @for (type of galaxyTypes; track type) {
-          <option [value]="type">{{ type }}</option>
-        }
-      </select>
+
+      <div class="d-flex gap-2 align-items-end mb-1">
+        <label class="text-orange x-small font-monospace d-block mb-1">SELECT GALAXY</label>
+        <form [formGroup]="galaxyForm" class="flex flex-col gap-4 w-full sm:w-56">
+          <div class="flex flex-col gap-1">
+            <p-select formControlName="galaxy" [options]="galaxyTypes" class="w-full md:w-56" />
+          </div>
+        </form>
+      </div>
     </div>
     <a routerLink="new" class="btn btn-sm btn-outline-warning">
       <i class="fa-solid fa-plus me-1"></i>REGISTER NEW REGION

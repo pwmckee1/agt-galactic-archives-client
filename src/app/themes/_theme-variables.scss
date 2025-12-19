@@ -1,0 +1,27 @@
+/* Primary Colors */
+$color-primary: --p-primary-500;
+$color-primary-dark: --p-primary-600;
+$color-secondary: --p-secondary;
+$color-accent: --p-accent;
+
+/* Background Colors */
+$color-bg-primary: --p-primary-500;
+$color-bg-secondary: --p-surface-500;
+$color-bg-surface: --p-surface-400;
+$color-bg-surface-light: --p-surface-300;
+
+/* Text Colors */
+$color-text-primary: --p-surface-0;
+$color-text-secondary: --p-surface-100;
+$color-text-accent: #E63946;
+$color-text-muted: --p-surface-400;
+
+/* Borders */
+$color-border: --p-surface-600;
+$color-border-accent: --p-primary-500;
+
+/* Shadows */
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+$shadow-glow: 0 0 20px rgba(232, 148, 26, 0.3);

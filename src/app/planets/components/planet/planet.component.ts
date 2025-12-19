@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-planet',
     imports: [],
     templateUrl: './planet.component.html',
-    styleUrl: './planet.component.css'
+    styleUrl: './planet.component.scss'
 })
 export class PlanetComponent {
 

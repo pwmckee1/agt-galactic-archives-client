@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-pois',
     imports: [],
     templateUrl: './pois.component.html',
-    styleUrl: './pois.component.css'
+    styleUrl: './pois.component.scss'
 })
 export class POIsComponent {
 

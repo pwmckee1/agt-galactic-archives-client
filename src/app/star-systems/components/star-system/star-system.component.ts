@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-star-system',
     imports: [],
     templateUrl: './star-system.component.html',
-    styleUrl: './star-system.component.css'
+    styleUrl: './star-system.component.scss'
 })
 export class StarSystemComponent {
 

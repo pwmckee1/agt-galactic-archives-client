@@ -3,7 +3,22 @@
   <div class="container">
     <h2 class="text-center">Submit Your Discoveries</h2>
 
+    <a routerLink="/" pButton>
+      <span pButtonLabel>Router Link</span>
+    </a>
     <div class="activities-grid">
+      <div class="activity-card" [title]="'Document galactic regions'">
+
+        <img
+          [src]="'assets/img/game-entities/regions-orange.png'"
+          [alt]="'Document galactic regions'"
+          class="activity-image"/>
+        <h3>Regions</h3>
+        <p>Document galactic regions</p>
+        <a [routerLink]="'/regions'" class="pButton">
+          <span pButtonLabel>Discover →</span>
+        </a>
+      </div>
       @for (discovery of discoveryTypes; track discovery) {
         <div class="activity-card" [title]="discovery.description">
           @if (discovery.icon) {

@@ -18,7 +18,7 @@ import moment from 'moment';
     imports: [ReactiveFormsModule, FormsModule],
     providers: [RegionService, ToastrService],
     templateUrl: './region.component.html',
-    styleUrl: './region.component.css'
+    styleUrl: './region.component.scss'
 })
 export class RegionComponent implements OnInit, OnDestroy {
   regionForm: FormGroup;

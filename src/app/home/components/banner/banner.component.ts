@@ -7,6 +7,6 @@ import { RouterModule } from '@angular/router';
     selector: 'agt-banner',
     imports: [RouterModule],
     templateUrl: './banner.component.html',
-    styleUrl: './banner.component.css'
+    styleUrl: './banner.component.scss'
 })
 export class BannerComponent {}

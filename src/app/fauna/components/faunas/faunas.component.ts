@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-faunas',
     imports: [],
     templateUrl: './faunas.component.html',
-    styleUrl: './faunas.component.css'
+    styleUrl: './faunas.component.scss'
 })
 export class FaunasComponent {
 

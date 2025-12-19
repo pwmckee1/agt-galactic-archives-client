@@ -53,6 +53,9 @@
       "@shared/*": [
         "./src/app/shared/*"
       ],
+      "@themes/*": [
+        "./src/app/themes/*"
+      ],
       "@users/*": [
         "./src/app/users/*"
       ]

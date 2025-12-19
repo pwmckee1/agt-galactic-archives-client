@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-player-bases',
     imports: [],
     templateUrl: './player-bases.component.html',
-    styleUrl: './player-bases.component.css'
+    styleUrl: './player-bases.component.scss'
 })
 export class PlayerBasesComponent {
 

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-starships',
     imports: [],
     templateUrl: './starships.component.html',
-    styleUrl: './starships.component.css'
+    styleUrl: './starships.component.scss'
 })
 export class StarshipsComponent {
 

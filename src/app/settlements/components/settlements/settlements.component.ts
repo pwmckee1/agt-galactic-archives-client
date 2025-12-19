@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-settlements',
     imports: [],
     templateUrl: './settlements.component.html',
-    styleUrl: './settlements.component.css'
+    styleUrl: './settlements.component.scss'
 })
 export class SettlementsComponent {
 
