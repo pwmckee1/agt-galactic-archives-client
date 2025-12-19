@@ -11,9 +11,13 @@
   box-shadow: $shadow-lg;
 }
 
+.logo-icon {
+  display: flex;
+}
+
 .navbar-container {
   display: flex;
-  height: 2.5rem;
+  height: 3rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -70,20 +74,6 @@
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
-}
-
-.search-btn {
-  background: none;
-  border: none;
-  color: $color-primary;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.search-btn:hover {
-  color: $color-primary-dark;
-  transform: scale(1.1);
 }
 
 .mobile-toggle {
