@@ -1,10 +1,6 @@
 @use "../../../themes/_theme-variables.scss" as *;
 @import "primeflex/primeflex.css";
 
-
-.banner {
-}
-
 .banner::before {
   content: '';
   position: absolute;
@@ -15,18 +11,7 @@
   background: linear-gradient(90deg, transparent, $color-primary, transparent);
 }
 
-.banner-gradient {
-  position: absolute;
-  top: 0;
-  right: -200px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(232, 148, 26, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-
 .container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -109,7 +94,7 @@
   left: 50%;
   width: 200%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, $color-primary, transparent);
+  background: $color-primary;
   transform: translateX(-50%);
 }
 

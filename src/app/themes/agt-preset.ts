@@ -17,6 +17,22 @@ export const AgtPreset = definePreset(Aura, {
       950: '#451a03'
     },
     colorScheme: {
+      light: {
+        surface: {
+          0: '#ffffff',
+          50: '#f4f4f4',
+          100: '#e8e8e8',
+          200: '#d1d1d1',
+          300: '#3A3A3A', // --color-bg-surface-light
+          400: '#2D2D2D', // --color-bg-surface
+          500: '#1A1A1A', // --color-bg-secondary
+          600: '#141414',
+          700: '#0B0B0B', // --color-bg-primary
+          800: '#050505',
+          900: '#000000',
+          950: '#000000'
+        }
+      },
       dark: {
         surface: {
           0: '#ffffff',

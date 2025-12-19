@@ -3,10 +3,10 @@
 @import "primeflex/primeflex.css";
 
 html, body {
-  background-color: $color-bg-primary;
+  background-color: $color-bg-secondary;
   font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans Georgian', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: $color-text-primary;
-  margin: 0; /* Ensure no default margins */
+  margin: auto; /* Ensure no default margins */
 }
 
 /* Re-implementing a Container for PrimeFlex */

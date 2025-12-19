@@ -16,7 +16,10 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: AgtPreset
+        preset: AgtPreset,
+        options: {
+          darkModeSelector: false || 'none'
+        }
       }
     }),
     provideAnimationsAsync(),

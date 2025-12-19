@@ -1,24 +1,24 @@
 /* Primary Colors */
-$color-primary: --p-primary-500;
-$color-primary-dark: --p-primary-600;
-$color-secondary: --p-secondary;
-$color-accent: --p-accent;
+$color-primary: var(--p-primary-500);
+$color-primary-dark: var(--p-primary-600);
+$color-secondary: var(--p-secondary);
+$color-accent: var(--p-accent);
 
 /* Background Colors */
-$color-bg-primary: --p-primary-500;
-$color-bg-secondary: --p-surface-500;
-$color-bg-surface: --p-surface-400;
-$color-bg-surface-light: --p-surface-300;
+$color-bg-primary: var(--p-primary-500);
+$color-bg-secondary: var(--p-surface-500);
+$color-bg-surface: var(--p-surface-400);
+$color-bg-surface-light: var(--p-surface-300);
 
 /* Text Colors */
-$color-text-primary: --p-surface-0;
-$color-text-secondary: --p-surface-100;
-$color-text-accent: #E63946;
-$color-text-muted: --p-surface-400;
+$color-text-primary: var(--p-surface-0);
+$color-text-secondary: var(--p-surface-100);
+$color-text-accent: var(--p-accent);
+$color-text-muted: var(--p-surface-400);
 
 /* Borders */
-$color-border: --p-surface-600;
-$color-border-accent: --p-primary-500;
+$color-border: var(--p-surface-600);
+$color-border-accent: var(--p-primary-500);
 
 /* Shadows */
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
