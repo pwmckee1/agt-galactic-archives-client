@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Image, ImageModule } from 'primeng/image';
 
 @Component({
     selector: 'agt-navbar',
-    imports: [RouterModule, NgOptimizedImage],
+  imports: [RouterModule, NgOptimizedImage, Image],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss'
 })

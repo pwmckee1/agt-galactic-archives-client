@@ -12,11 +12,14 @@ export class FooterComponent {
   currentYear = new Date().getFullYear();
 
   footerLinks = [
-    { label: 'Home', route: '/' },
-    { label: 'About', route: '/about' },
-    { label: 'Team', route: '/team' },
-    { label: 'Galactic Archives', route: '/archives' },
-    { label: 'Terms', route: '/terms' },
-    { label: 'Support', route: '/support' },
+    { label: 'AGT', externalUrl: 'https://www.nms-agt.com/alliance-of-galactic-travellers' },
+    { label: 'Home', route: '' },
+    { label: 'About', route: 'about' },
+    { label: 'Team', externalUrl: 'https://www.nms-agt.com/team' },
+    { label: 'Contribute', externalUrl: 'https://www.nms-agt.com/contribute' },
+    { label: 'Engage', externalUrl: 'https://www.nms-agt.com/engage' },
+    { label: 'Terms', externalUrl: 'https://www.nms-agt.com/terms' },
+    { label: 'Support', externalUrl: 'https://www.nms-agt.com/support' },
+    { label: 'Copyright', externalUrl: 'https://www.nms-agt.com/terms/copyright' },
   ];
 }

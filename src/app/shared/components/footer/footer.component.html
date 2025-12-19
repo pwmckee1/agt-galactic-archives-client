@@ -2,15 +2,24 @@
   <div class="footer-container">
     <div class="footer-links">
       @for (link of footerLinks; track link) {
-        <a
-          [routerLink]="link.route"
-          class="footer-link">
-          {{ link.label }}
-        </a>
+        @if (link.externalUrl) {
+          <a
+            [href]="link.externalUrl"
+            target="_blank"
+            class="footer-link">
+            {{ link.label }}
+          </a>
+        } @else {
+          <a
+            [routerLink]="link.route"
+            class="footer-link">
+            {{ link.label }}
+          </a>
+        }
       }
     </div>
     <div class="footer-copyright">
-      <p>&copy; {{ currentYear }} Alliance of Galactic Travellers. All rights reserved.</p>
+      &copy; {{ currentYear }} Alliance of Galactic Travellers. All rights reserved.
     </div>
   </div>
 </footer>
