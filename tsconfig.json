@@ -23,6 +23,9 @@
       "@fauna/*": [
         "./src/app/fauna/*"
       ],
+      "@home/*": [
+        "./src/app/home/*"
+      ],
       "@multi-tools/*": [
         "./src/app/multi-tools/*"
       ],

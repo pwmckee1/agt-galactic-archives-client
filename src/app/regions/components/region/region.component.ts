@@ -15,7 +15,7 @@ import moment from 'moment';
 
 @Component({
     selector: 'agt-region',
-    imports: [ReactiveFormsModule, FormsModule, HttpClientModule],
+    imports: [ReactiveFormsModule, FormsModule],
     providers: [RegionService, ToastrService],
     templateUrl: './region.component.html',
     styleUrl: './region.component.css'
