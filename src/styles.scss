@@ -1,6 +1,7 @@
 /* AGT Galactic Archives - Global Styles */
 @use "./app/themes/_theme-variables.scss" as *;
 @import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
 
 html, body {
   background-color: $color-bg-secondary;
