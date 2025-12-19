@@ -51,7 +51,7 @@ html, body {
 }
 
 h1 {
-  color: $color-text-primary;
+  color: $color-primary;
 }
 
 h2 {
@@ -84,4 +84,68 @@ h3 {
   border-color: $color-primary;
   box-shadow: $shadow-lg, $shadow-glow;
   transform: translateY(-4px);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Global PrimeNG Overrides */
+.button {
+  .p-button {
+    border-color: $color-primary;
+    color: $color-primary;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $color-accent-muted !important;
+      color: $color-bg-secondary !important;
+      border-color: $color-accent-muted !important;
+    }
+  }
+}
+
+.select {
+  /* Main Box Control */
+  /* Default variables */
+  --p-select-background: #{$color-bg-surface}; /* select box bg color */
+  --p-select-color: #{$color-primary}; /* select box text color */
+  --p-select-border-color: #{$color-text-muted}; /* select box border color */
+  --p-select-dropdown-color: #{$color-primary}; /* dropdown chevron color */
+
+  /* Hover Variables */
+  --p-select-hover-border-color: #{$color-text-primary};
+
+  /* When the dropdown is open */
+  /* background color of dropdown */
+  --p-select-overlay-background: #{$color-bg-surface};
+
+  /* border color of dropdown */
+  --p-select-overlay-border-color: #{$color-primary};
+
+  /* background color of selected item while hovering */
+  --p-select-option-selected-focus-background: #{$color-primary};
+
+  /* text color of selected item while hovering */
+  --p-select-option-selected-focus-color: #{$color-text-primary};
+
+  /* background color of selected item while not hovering */
+  --p-select-option-selected-background: #{$color-bg-surface};
+
+  /* text color of selected item while not hovering */
+  --p-select-option-selected-color: #{$color-primary};
+
+  /* text color of unselected items */
+  --p-select-option-color: #{$color-text-secondary};
+
+  /* border color of dropdown box */
+  --p-select-overlay-border-color: #{$color-primary};
+
+  /* background color of focused item */
+  --p-select-option-focus-background: #{$color-primary};
+
+  /* text color of focused item */
+  --p-select-option-focus-color: #{$color-text-primary};
 }

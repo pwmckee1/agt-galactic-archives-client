@@ -1,8 +1,20 @@
+@use "../../../themes/_theme-variables.scss" as *;
 .regions-flex-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: flex-start;
+}
+
+.sub-header {
+  color: $color-accent-muted;
+  letter-spacing: .15rem;
+}
+
+.region-card {
+  max-width: 25rem;
+  flex: 0 16.25rem;
+  overflow: hidden;
 }
 
 .wiki-infobox {

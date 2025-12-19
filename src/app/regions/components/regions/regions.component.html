@@ -1,29 +1,80 @@
-<div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-orange-subtle pb-3">
-  <div>
-    <h1 class="display-6 mb-0">
-      <img src="assets/img/game-entities/regions-orange.png" height="40" class="me-2">GALACTIC REGIONS
-    </h1>
-    <p class="small mb-0 font-monospace">ARCHIVE DATA FEED // STATUS: ONLINE</p>
+<header class="section container">
+  <div  class="flex justify-content-start align-items-bottom">
+    <p-image src="assets/img/game-entities/regions-orange.png" alt="AGT Logo" class="mt-2" width="40"/>
+    <h1 class="my-0 ml-1 mr-2">GALACTIC REGIONS</h1>
+    <p class="sub-header">>_ARCHIVE DATA FEED // STATUS: ONLINE...</p>
   </div>
-  <div class="d-flex gap-2 align-items-end mb-1">
-    <div class="field-container">
 
-      <div class="d-flex gap-2 align-items-end mb-1">
-        <label class="x-small font-monospace d-block mb-1">SELECT GALAXY</label>
-        <form [formGroup]="galaxyForm" class="flex flex-col gap-4 w-full sm:w-56">
-          <div class="flex flex-col gap-1">
-            <p-select formControlName="galaxy" [options]="galaxyTypes" class="w-full md:w-56" />
-          </div>
-        </form>
-      </div>
+  <div class="flex justify-content-between align-items-center mb-1">
+    <div class="flex justify-content-start align-items-center">
+      <label class="x-small font-monospace d-block mr-2">SELECT GALAXY</label>
+      <form [formGroup]="galaxyForm">
+        <p-select formControlName="galaxy" size="small" [options]="galaxyTypes" class="select w-full"/>
+      </form>
     </div>
-    <a routerLink="new" class="btn btn-sm btn-outline-warning">
-      <i class="fa-solid fa-plus me-1"></i>REGISTER NEW REGION
-    </a>
+    <p-button
+      variant="outlined"
+      label="Register New Region"
+      raised="true"
+      class="button"/>
   </div>
-
+</header>
+<div class="section container">
+  <div class="card-grid">
+    <p-card class="region-card">
+      <ng-template #header>
+        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+      </ng-template>
+      <ng-template #title> Advanced Card </ng-template>
+      <ng-template #subtitle> Card subtitle </ng-template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+      </p>
+      <ng-template #footer>
+        <div class="flex gap-4 mt-1">
+          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+          <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+      </ng-template>
+    </p-card>
+    <p-card class="region-card">
+      <ng-template #header>
+        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+      </ng-template>
+      <ng-template #title> Advanced Card </ng-template>
+      <ng-template #subtitle> Card subtitle </ng-template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+      </p>
+      <ng-template #footer>
+        <div class="flex gap-4 mt-1">
+          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+          <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+      </ng-template>
+    </p-card>
+    <p-card class="region-card">
+      <ng-template #header>
+        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+      </ng-template>
+      <ng-template #title> Advanced Card </ng-template>
+      <ng-template #subtitle> Card subtitle </ng-template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+      </p>
+      <ng-template #footer>
+        <div class="flex gap-4 mt-1">
+          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+          <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
   @if (!isLoading) {
-    <div class="regions-flex-container">
+    <div class="card-grid">
       @for (region of regions; track region) {
         <div class="wiki-infobox bg-black d-flex flex-column">
           <div class="infobox-header p-2 border-bottom border-orange">
@@ -88,4 +139,4 @@
       </div>
     </div>
   }
-
+</div>

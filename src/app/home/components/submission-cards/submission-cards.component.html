@@ -4,7 +4,7 @@
       <h2 class="mx-auto mt-0 pb-2">View and Submit Discoveries</h2>
     </div>
 
-    <div class="submissions-grid">
+    <div class="card-grid">
       @for (submission of submissionTypes; track submission) {
         <div class="submission-card" [title]="submission.description">
           @if (submission.icon) {
@@ -23,7 +23,7 @@
               raised="true"
               icon="pi pi-arrow-right"
               iconPos="right"
-              class="submission-button"/>
+              class="button"/>
           }
         </div>
       }

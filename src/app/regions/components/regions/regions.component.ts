@@ -8,15 +8,26 @@ import { RegionService } from '@regions/services/region.service';
 import { IRegion } from '@regions/models/region';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { Button } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { PrimeNG } from 'primeng/config';
+import { Image } from 'primeng/image';
 import { Select, SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'agt-regions',
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, SelectModule, Select],
-    providers: [RegionService],
-    templateUrl: './regions.component.html',
-    styleUrl: './regions.component.scss'
+  selector: 'agt-regions',
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SelectModule,
+    Select,
+    Button,
+    Image,
+    CardModule],
+  providers: [RegionService],
+  templateUrl: './regions.component.html',
+  styleUrl: './regions.component.scss'
 })
 export class RegionsComponent implements OnInit {
   galaxyForm: FormGroup

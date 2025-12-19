@@ -10,7 +10,7 @@
   background: linear-gradient(90deg, transparent, $color-primary, transparent);
 }
 
-.submissions-grid {
+.card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
@@ -91,7 +91,7 @@
 }
 
 @media (max-width: 512px) {
-  .submissions-grid {
+  .card-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
@@ -103,18 +103,5 @@
   .submission-image {
     width: 60px;
     height: 60px;
-  }
-}
-
-.submission-button {
-  ::ng-deep .p-button-outlined {
-    border-color: $color-primary;
-    color: $color-primary;
-
-    &:hover {
-      background-color: $color-accent-muted;
-      color: $color-bg-secondary;
-      border-color: $color-bg-secondary;
-    }
   }
 }
