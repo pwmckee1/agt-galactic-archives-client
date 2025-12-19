@@ -1,39 +1,32 @@
+<div class="mb-4 section container submissions">
+  <div class="submission-content">
+    <div class="flex justify-content-center">
+      <h2 class="mx-auto mt-0 pb-2">View and Submit Discoveries</h2>
+    </div>
 
-<div class="activities section container">
-    <h2>Submit Your Discoveries</h2>
-
-    <a routerLink="/" pButton>
-      <span pButtonLabel>Router Link</span>
-    </a>
-    <div class="activities-grid">
-      <div class="activity-card" [title]="'Document galactic regions'">
-
-        <img
-          [src]="'assets/img/game-entities/regions-orange.png'"
-          [alt]="'Document galactic regions'"
-          class="activity-image"/>
-        <h3>Regions</h3>
-        <p>Document galactic regions</p>
-        <a [routerLink]="'/regions'" class="pButton">
-          <span pButtonLabel>Discover →</span>
-        </a>
-      </div>
-      @for (discovery of discoveryTypes; track discovery) {
-        <div class="activity-card" [title]="discovery.description">
-          @if (discovery.icon) {
+    <div class="submissions-grid">
+      @for (submission of submissionTypes; track submission) {
+        <div class="submission-card" [title]="submission.description">
+          @if (submission.icon) {
             <img
-              [src]="discovery.icon"
-              [alt]="discovery.description"
-              class="activity-image">
+              [src]="submission.icon"
+              [alt]="submission.description"
+              class="submission-image">
           }
-          <h3>{{ discovery.name }}</h3>
-          <p>{{ discovery.description }}</p>
-          @if (discovery.route) {
-            <a [routerLink]="discovery.route" class="activity-link">
-              Discover →
-            </a>
+          <h3>{{ submission.name }}</h3>
+          <p>{{ submission.description }}</p>
+          @if (submission.route) {
+            <p-button
+              [routerLink]="submission.route"
+              variant="outlined"
+              label="Discover"
+              raised="true"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              class="submission-button"/>
           }
         </div>
       }
     </div>
+  </div>
 </div>

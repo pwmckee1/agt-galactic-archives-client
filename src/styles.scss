@@ -4,20 +4,27 @@
 @import "primeicons/primeicons.css";
 
 html, body {
-  background-color: $color-bg-secondary;
+  background-color: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans Georgian', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: $color-text-primary;
   margin: auto; /* Ensure no default margins */
 }
 
+/* Section Styles */
+.section {
+  position: relative;
+  background: linear-gradient(0deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+}
+
 /* Re-implementing a Container for PrimeFlex */
 .container {
   width: 100%;
-  max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding: 1.5rem;
 }
 
 @media (min-width: 768px) { .container { max-width: 720px; } }
@@ -54,7 +61,6 @@ h2 {
 h3 {
   color: $color-text-secondary;
 }
-
 
 /* Cards */
 .card {

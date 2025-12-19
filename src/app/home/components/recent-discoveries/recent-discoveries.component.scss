@@ -1,21 +1,22 @@
 @use "../../../themes/_theme-variables.scss" as *;
 
-.section {
-  background-color: $color-bg-secondary;
-  padding: 4rem 0;
-  border-top: 2px solid $color-border;
-  position: relative;
-}
 
-.section::before {
+/* Section Styles */
+.section {
+  position: relative;
+  background: linear-gradient(180deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+}
+.recent-discoveries::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 200%;
+  left: 0;
+  right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, $color-primary, transparent);
-  transform: translateX(-50%);
 }
 
 h2 {

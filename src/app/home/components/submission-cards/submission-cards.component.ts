@@ -19,7 +19,7 @@ interface DiscoveryType {
     styleUrl: './submission-cards.component.scss'
 })
 export class SubmissionCardsComponent {
-  discoveryTypes: DiscoveryType[] = [
+  submissionTypes: DiscoveryType[] = [
     {
       id: 'regions',
       name: 'Regions',

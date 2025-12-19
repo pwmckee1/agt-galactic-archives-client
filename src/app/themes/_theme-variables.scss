@@ -3,10 +3,12 @@ $color-primary: #E8941A;
 $color-primary-dark: #D17A0A;
 $color-secondary: #eb5a2c;
 $color-accent: #f8100b;
+$color-accent-muted: #c2373f;
 
 /* Background Colors */
 $color-bg-primary: #0B0B0B;
 $color-bg-secondary: #1A1A1A;
+$color-bg-surface-dark: #191919;
 $color-bg-surface: #2D2D2D;
 $color-bg-surface-light: #3A3A3A;
 
@@ -17,8 +19,8 @@ $color-text-accent: #c2373f;
 $color-text-muted: #7d7e7c;
 
 /* Borders */
-$color-border: var(--p-surface-600);
-$color-border-accent: var(--p-primary-500);
+$color-border: #141414;
+$color-border-accent: #b45309;
 
 /* Shadows */
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);

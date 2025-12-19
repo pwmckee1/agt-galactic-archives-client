@@ -1,19 +1,24 @@
 @use "../../../themes/_theme-variables.scss" as *;
-.activities {
-  background-color: $color-bg-secondary;
-  border-bottom: 2px solid $color-secondary;
+
+.submissions::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $color-primary, transparent);
 }
 
-.activities-grid {
+.submissions-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin-top: 3rem;
 }
 
-.activity-card {
+.submission-card {
   background-color: $color-bg-surface;
-  border: 2px solid $color-border;
+  border: 2px solid $color-border-accent;
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
@@ -22,7 +27,7 @@
   overflow: hidden;
 }
 
-.activity-card::before {
+.submission-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -33,48 +38,43 @@
   transition: left 0.5s ease;
 }
 
-.activity-card:hover {
+.submission-card:hover {
   border-color: $color-primary;
   box-shadow: $shadow-lg, $shadow-glow;
   transform: translateY(-8px);
 }
 
-.activity-card:hover::before {
+.submission-card:hover::before {
   left: 100%;
 }
 
-.activity-image {
+.submission-image {
   width: 120px;
   height: 120px;
   object-fit: contain;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.activity-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
-.activity-card:hover .activity-icon {
+.submission-card:hover .submission-image {
   transform: scale(1.1) rotate(-5deg);
 }
 
-.activity-card h3 {
+.submission-card h3 {
   color: $color-primary;
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
 
-.activity-card p {
+.submission-card p {
   color: $color-text-secondary;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
 
-.activity-link {
+.submission-link {
   display: inline-block;
   color: $color-primary;
   font-weight: 600;
@@ -85,23 +85,36 @@
   background-color: transparent;
 }
 
-.activity-link:hover {
+.submission-link:hover {
   background-color: $color-primary;
   color: #000;
 }
 
 @media (max-width: 512px) {
-  .activities-grid {
+  .submissions-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
 
-  .activity-icon {
+  .submission-icon {
     font-size: 2.5rem;
   }
 
-  .activity-image {
+  .submission-image {
     width: 60px;
     height: 60px;
+  }
+}
+
+.submission-button {
+  ::ng-deep .p-button-outlined {
+    border-color: $color-primary;
+    color: $color-primary;
+
+    &:hover {
+      background-color: $color-accent-muted;
+      color: $color-bg-secondary;
+      border-color: $color-bg-secondary;
+    }
   }
 }
