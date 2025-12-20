@@ -25,15 +25,14 @@ export const AgtPreset = definePreset(Aura, {
       colorScheme: {
         light: {
           root: {
-            background: '{surface.500}', // Use your $color-bg-primary (#0B0B0B)
+            background: '{surface.700}', // Use your $color-bg-primary (#0B0B0B)
             color: '{primary.500}',      // Your brand orange (#E8941A)
             borderColor: '{primary.500}',
-            placeholderColor: '{primary.500}',
-            hoverBorderColor: '{primary.600}',
+            placeholderColor: '{surface.200}',
+            hoverBorderColor: '{secondary}',
             focusBorderColor: '{primary.500}',
-            // This is likely what's causing the white background on focus
             filledBackground: '{surface.700}',
-            filledHoverBackground: '{surface.700}',
+            filledHoverBackground: '{surface.400}',
             filledFocusBackground: '{surface.700}',
           },
         },
@@ -42,12 +41,11 @@ export const AgtPreset = definePreset(Aura, {
             background: '{surface.700}', // Use your $color-bg-primary (#0B0B0B)
             color: '{primary.500}',      // Your brand orange (#E8941A)
             borderColor: '{primary.500}',
-            placeholderColor: '{primary.500}',
-            hoverBorderColor: '{primary.600}',
+            placeholderColor: '{surface.200}',
+            hoverBorderColor: '{secondary}',
             focusBorderColor: '{primary.500}',
-            // This is likely what's causing the white background on focus
             filledBackground: '{surface.700}',
-            filledHoverBackground: '{surface.700}',
+            filledHoverBackground: '{surface.400}',
             filledFocusBackground: '{surface.700}',
           }
         },
@@ -69,7 +67,8 @@ export const AgtPreset = definePreset(Aura, {
           text: {
             primary: {
               color: '{surface.0}',
-              hoverBackground: '{primary.500}',
+              hoverBackground: '{accent}',
+              activeBackground: '{primary.500}',
             },
           },
         },
@@ -98,7 +97,7 @@ export const AgtPreset = definePreset(Aura, {
         light: {
           root: {
             primary: {
-              background: 'transparent',
+              background: '{surface.700}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
               hoverBorderColor: '{accentMuted}',
@@ -110,7 +109,7 @@ export const AgtPreset = definePreset(Aura, {
         dark: {
           root: {
             primary: {
-              background: 'transparent',
+              background: '{surface.700}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
               hoverBorderColor: '{accentMuted}',
@@ -118,6 +117,41 @@ export const AgtPreset = definePreset(Aura, {
               hoverColor: '{surface.500}',
             },
           },
+        },
+      },
+    },
+    checkbox: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{surface.700}',
+            filledBackground: '{surface.700}',
+            checkedBackground: '{surface.700}',
+            checkedHoverBackground: '{surface.700}',
+            borderColor: '{primary.500}',
+            hoverBorderColor: '{primary.500}',
+            checkedBorderColor: '{accentMuted}',
+          },
+        },
+        dark: {
+          root: {
+            background: '{surface.700}',
+            filledBackground: '{surface.700}',
+            checkedBackground: '{surface.700}',
+            checkedHoverBackground: '{surface.700}',
+            borderColor: '{primary.500}',
+            hoverBorderColor: '{primary.500}',
+            checkedBorderColor: '{accentMuted}',
+          },
+        },
+      },
+    },
+    iconfield: {
+      colorScheme: {
+        light: {
+          icon: {
+            color: '{primary.500}',
+          }
         },
       },
     },
@@ -132,6 +166,67 @@ export const AgtPreset = definePreset(Aura, {
             filledBackground: '{accentMuted}',
             filledHoverBackground: '{accentMuted}',
             filledFocusBackground: '{accentMuted}',
+          },
+          dropdown: {
+            color: '{primary.500}',
+          },
+          overlay: {
+            background: '{surface.500}',
+            borderColor: '{primary.500}',
+            color: '{primary.500}',
+          },
+          option: {
+            color: '{primary.500}',
+            selectedColor: '{surface.700}',
+            selectedBackground: '{accentMuted}',
+            selectedFocusColor: '{surface.700}',
+            selectedFocusBackground: '{accentMuted}',
+            focusBackground: '{primary.500}',
+            focusColor: '{surface.0}',
+          }
+        },
+        dark: {
+          root: {
+            background: '{surface.700}',
+            borderColor: '{primary.500}',
+            color: '{primary.500}',
+            hoverBorderColor: '{accentMuted}',
+            filledBackground: '{accentMuted}',
+            filledHoverBackground: '{accentMuted}',
+            filledFocusBackground: '{accentMuted}',
+          },
+          dropdown: {
+            color: '{primary.500}',
+          },
+          overlay: {
+            background: '{surface.500}',
+            borderColor: '{primary.500}',
+            color: '{primary.500}',
+          },
+          option: {
+            color: '{primary.500}',
+            selectedColor: '{surface.700}',
+            selectedBackground: '{accentMuted}',
+            selectedFocusColor: '{surface.700}',
+            selectedFocusBackground: '{accentMuted}',
+            focusBackground: '{primary.500}',
+            focusColor: '{surface.0}',
+          }
+        },
+      },
+    },
+    multiselect: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{surface.700}',
+            borderColor: '{primary.500}',
+            color: '{primary.500}',
+            hoverBorderColor: '{accentMuted}',
+            filledBackground: '{accentMuted}',
+            filledHoverBackground: '{accentMuted}',
+            filledFocusBackground: '{accentMuted}',
+            placeholderColor: '{surface.200}',
           },
           dropdown: {
             color: '{primary.500}',

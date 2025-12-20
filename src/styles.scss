@@ -6,7 +6,7 @@
 @font-face {
   font-family: 'GeoNMS';
   src: url('./assets/fonts/NMSFuturaProBook_Kerned.ttf') format('truetype');
-  font-weght: bold;
+  font-weight: bold;
 }
 
 html, body {
@@ -113,6 +113,11 @@ h3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+}
+
+.button {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Global PrimeNG Overrides */
