@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -6,23 +6,27 @@ import { RouterModule } from '@angular/router';
 import { RegionSearch } from '@regions/models/region-search';
 import { RegionService } from '@regions/services/region.service';
 import { IRegion } from '@regions/models/region';
+import {
+  TerminalCommunicationComponent
+} from '@shared/components/terminal-communication/terminal-communication.component';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { MenuItem } from 'primeng/api';
+import { Breadcrumb, BreadcrumbModule } from 'primeng/breadcrumb';
 import { Button } from 'primeng/button';
 import { ButtonGroup } from 'primeng/buttongroup';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PrimeNG } from 'primeng/config';
-import { FloatLabel } from 'primeng/floatlabel';
 import { Image } from 'primeng/image';
 import { InputGroup } from 'primeng/inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { InputText } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Select, SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'agt-regions',
+  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
@@ -34,11 +38,13 @@ import { Select, SelectModule } from 'primeng/select';
     CardModule,
     NgOptimizedImage,
     InputGroup,
-    InputGroupAddon,
     InputText,
     ButtonGroup,
     MultiSelectModule,
     CheckboxModule,
+    Breadcrumb,
+    BreadcrumbModule,
+    TerminalCommunicationComponent,
   ],
   providers: [RegionService],
   templateUrl: './regions.component.html',
@@ -51,6 +57,9 @@ export class RegionsComponent implements OnInit {
   isLoading = false;
   galaxyTypes: string[] = Object.keys(GalaxyTypes);
   galaxyControl = new FormControl(GalaxyTypes.Euclid);
+  breadcrumbItems: MenuItem[] | undefined
+  home: MenuItem | undefined;
+  consoleText: string;
   availableSearchFields: string[] = [
     'Region Name',
     'Surveyed By',
@@ -70,7 +79,7 @@ export class RegionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('search fields:', this.selectedSearchFields);
+    this.setupHeader();
     this.primeng.ripple.set(true);
     this.galaxyForm = new FormGroup({
       galaxy: this.galaxyControl,
@@ -92,6 +101,17 @@ export class RegionsComponent implements OnInit {
     this.galaxyForm.controls.searchFields.valueChanges.
       pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((selectedFields: string[]) => this.selectedSearchFields = selectedFields);
+  }
+
+  setupHeader(): void {
+    this.home = { icon: 'pi pi-home', routerLink: ['/'] };
+    this.breadcrumbItems = [
+      { label: 'Regions' },
+    ];
+
+    // Construct the string for the typewriter effect
+
+    this.consoleText = ` ARCHIVE DATA FEED // STATUS: ONLINE`;
   }
 
   protected search(): void {

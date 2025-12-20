@@ -25,8 +25,10 @@ export const AgtPreset = definePreset(Aura, {
       colorScheme: {
         light: {
           root: {
-            background: '{surface.700}', // Use your $color-bg-primary (#0B0B0B)
-            color: '{primary.500}',      // Your brand orange (#E8941A)
+            background: '{surface.700}',
+            color: '{primary.500}',
+            disabledBackground: '{surface.700}',
+            disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
             hoverBorderColor: '{secondary}',
@@ -38,8 +40,10 @@ export const AgtPreset = definePreset(Aura, {
         },
         dark: {
           root: {
-            background: '{surface.700}', // Use your $color-bg-primary (#0B0B0B)
-            color: '{primary.500}',      // Your brand orange (#E8941A)
+            background: '{surface.700}',
+            color: '{primary.500}',
+            disabledBackground: '{surface.700}',
+            disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
             hoverBorderColor: '{secondary}',
@@ -51,12 +55,124 @@ export const AgtPreset = definePreset(Aura, {
         },
       }
     },
+    datepicker: {
+      colorScheme: {
+        light: {
+          inputIcon: {
+            color: '{primary.500}',
+          },
+          panel: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          header: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          selectMonth: {
+            color: '{primary.500}',
+            hoverBackground: '{primary.500}',
+          },
+          selectYear: {
+            color: '{primary.500}',
+            hoverBackground: '{primary.500}',
+          },
+          group: {
+            borderColor: '{primary.500}',
+          },
+          weekDay: {
+            color: '{primary.500}',
+          },
+          date: {
+            color: '{primary.500}',
+            selectedColor: '{surface.0}',
+            hoverColor: '{surface.700}',
+            hoverBackground: '{accent}',
+            selectedBackground: '{primary.500}',
+            rangeSelectedColor: '{surface.0}',
+          },
+          buttonbar: {
+            borderColor: '{primary.500}',
+          },
+          today: {
+            background: '{primary.500}',
+            color: '{surface.0}',
+          },
+          dropdown: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+            hoverBorderColor: '{secondary}',
+          }
+        },
+        dark: {
+          inputIcon: {
+            color: '{primary.500}',
+          },
+          panel: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          header: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          selectMonth: {
+            color: '{primary.500}',
+            hoverBackground: '{primary.500}',
+          },
+          selectYear: {
+            color: '{primary.500}',
+            hoverBackground: '{primary.500}',
+          },
+          group: {
+            borderColor: '{primary.500}',
+          },
+          weekDay: {
+            color: '{primary.500}',
+          },
+          date: {
+            color: '{primary.500}',
+            selectedColor: '{surface.0}',
+            hoverColor: '{surface.700}',
+            hoverBackground: '{accent}',
+            selectedBackground: '{primary.500}',
+            rangeSelectedColor: '{surface.0}',
+          },
+          buttonbar: {
+            borderColor: '{primary.500}',
+          },
+          today: {
+            background: '{primary.500}',
+            color: '{surface.0}',
+          },
+          dropdown: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+            hoverBorderColor: '{secondary}',
+          }
+        }
+      }
+    },
     button: {
       colorScheme: {
         light: {
           root: {
             primary: {
-              background: 'transparent',
+              background: '{surface.700}',
+              borderColor: '{primary.500}',
+              color: '{primary.500}',
+              hoverBorderColor: '{accentMuted}',
+              hoverBackground: '{accentMuted}',
+              hoverColor: '{surface.500}',
+            },
+            secondary: {
+              background: '{surface.700}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
               hoverBorderColor: '{accentMuted}',
@@ -70,12 +186,25 @@ export const AgtPreset = definePreset(Aura, {
               hoverBackground: '{accent}',
               activeBackground: '{primary.500}',
             },
+            secondary: {
+              color: '{surface.0}',
+              hoverBackground: '{accent}',
+              activeBackground: '{primary.500}',
+            },
           },
         },
         dark: {
           root: {
             primary: {
-              background: 'transparent',
+              background: '{surface.700}',
+              borderColor: '{primary.500}',
+              color: '{primary.500}',
+              hoverBorderColor: '{accentMuted}',
+              hoverBackground: '{accentMuted}',
+              hoverColor: '{surface.500}',
+            },
+            secondary: {
+              background: '{surface.700}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
               hoverBorderColor: '{accentMuted}',
@@ -86,7 +215,13 @@ export const AgtPreset = definePreset(Aura, {
           text: {
             primary: {
               color: '{surface.0}',
-              hoverBackground: '{primary.500}',
+              hoverBackground: '{accent}',
+              activeBackground: '{primary.500}',
+            },
+            secondary: {
+              color: '{surface.0}',
+              hoverBackground: '{accent}',
+              activeBackground: '{primary.500}',
             },
           },
         },
@@ -160,6 +295,8 @@ export const AgtPreset = definePreset(Aura, {
         light: {
           root: {
             background: '{surface.700}',
+            disabledBackground: '{surface.700}',
+            disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             color: '{primary.500}',
             hoverBorderColor: '{accentMuted}',
@@ -212,6 +349,72 @@ export const AgtPreset = definePreset(Aura, {
             focusBackground: '{primary.500}',
             focusColor: '{surface.0}',
           }
+        },
+      },
+    },
+    floatlabel: {
+      colorScheme: {
+        light: {
+          root: {
+            color: '{surface.200}',
+            activeColor: '{primary.500}',
+          },
+        },
+      },
+    },
+    fileupload: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          header: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            borderColor: '{primary.500}',
+          },
+          content: {
+            highlightBorderColor: '{primary.500}',
+          },
+          file: {
+            borderColor: '{primary.500}',
+          },
+        },
+      },
+    },
+    textarea: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            disabledBackground: '{surface.700}',
+            disabledColor: '{primary.700}',
+            borderColor: '{primary.500}',
+            placeholderColor: '{surface.200}',
+            hoverBorderColor: '{secondary}',
+            focusBorderColor: '{primary.500}',
+            filledBackground: '{surface.700}',
+            filledHoverBackground: '{surface.400}',
+            filledFocusBackground: '{surface.700}',
+          },
+        },
+        dark: {
+          root: {
+            background: '{surface.700}',
+            color: '{primary.500}',
+            disabledBackground: '{surface.700}',
+            disabledColor: '{primary.700}',
+            borderColor: '{primary.500}',
+            placeholderColor: '{surface.200}',
+            hoverBorderColor: '{secondary}',
+            focusBorderColor: '{primary.500}',
+            filledBackground: '{surface.700}',
+            filledHoverBackground: '{surface.400}',
+            filledFocusBackground: '{surface.700}',
+          },
         },
       },
     },
@@ -274,6 +477,22 @@ export const AgtPreset = definePreset(Aura, {
             focusColor: '{surface.0}',
           }
         },
+      },
+    },
+    breadcrumb: {
+      root: {
+        background: '{surface.700}',
+      },
+      item: {
+        color: '{primary.500}',
+        hoverColor: '{accent}',
+        icon: {
+          color: '{primary.500}',
+          hoverColor: '{accent}',
+        },
+      },
+      separator: {
+        color: '{primary.500}',
       },
     },
   },

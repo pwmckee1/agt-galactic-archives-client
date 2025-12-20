@@ -1,3 +1,4 @@
+import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
 import { GalaxyTypes } from './galaxy-types';
 import * as moment from 'moment';
 
@@ -29,7 +30,7 @@ export interface IGameEntity {
   surveyDate?: moment.Moment;
   discoveredBy?: string;
   discoveryDate?: moment.Moment;
-  gameModeType?: string;
+  gameModeType?: GameModeTypes;
   gamePlatformType?: string;
   civilization?: string;
   gameRelease?: string;

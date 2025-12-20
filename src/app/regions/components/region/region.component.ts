@@ -1,30 +1,73 @@
-
-import {} from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUpsertRegion } from '@regions/models/upsert-region';
+import {
+  TerminalCommunicationComponent
+} from '@shared/components/terminal-communication/terminal-communication.component';
 import { FormHelpers } from '@shared/helpers/form-helpers';
 import { IRegion } from '@regions/models/region';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { RegionService } from '@regions/services/region.service';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
+import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
 import { ToastrService } from 'ngx-toastr';
-import { mergeMap, skipWhile, Subscription } from 'rxjs';
+import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ButtonModule } from 'primeng/button';
+import { DatePickerModule } from 'primeng/datepicker';
+import { FileUpload, FileUploadModule } from 'primeng/fileupload';
+import { FloatLabel, FloatLabelModule } from 'primeng/floatlabel';
+import { Image, ImageModule } from 'primeng/image';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { Select } from 'primeng/select';
 import moment from 'moment';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'agt-region',
-    imports: [ReactiveFormsModule, FormsModule],
-    providers: [RegionService, ToastrService],
-    templateUrl: './region.component.html',
-    styleUrl: './region.component.scss'
+  selector: 'agt-region',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    BreadcrumbModule,
+    RouterModule,
+    Image,
+    ButtonModule,
+    InputTextModule,
+    TerminalCommunicationComponent,
+    Select,
+    FloatLabel,
+    FloatLabelModule,
+    InputNumberModule,
+    DatePickerModule,
+    TextareaModule,
+    FileUploadModule,
+    ImageModule,
+    FileUpload,
+  ],
+  providers: [RegionService, ToastrService],
+  templateUrl: './region.component.html',
+  styleUrl: './region.component.scss'
 })
-export class RegionComponent implements OnInit, OnDestroy {
+export class RegionComponent implements OnInit {
   regionForm: FormGroup;
   regionId: string;
   currentRegion: IRegion;
-  private subscriptions: Subscription[] = [];
+  isReadOnly: boolean = false;
+  consoleText: string = '';
+  breadcrumbItems: MenuItem[] | undefined
+  home: MenuItem | undefined;
+  galaxyTypes: string[] = Object.keys(GalaxyTypes);
+  gamePlatformTypes: string[] = Object.keys(GamePlatformTypes);
+  gameModeTypes: string[] = Object.keys(GameModeTypes);
+  maxDate = moment().toDate();
+  minDate = moment('9/9/2016').toDate();
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,39 +78,61 @@ export class RegionComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
   ngOnInit(): void {
+    this.home = { icon: 'pi pi-home', routerLink: ['/'] };
     this.createFormGroup();
-    this.subscriptions.push(this.route.params
-      .pipe(
-        skipWhile((params: Params) => !params.regionId),
-        mergeMap((params: Params) => {
+
+    this.route.params
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params: Params) => {
+        if (params.regionId) {
           this.regionId = params.regionId;
-          return this.regionService.getRegionById(this.regionId);
-        })
-      )
-      .subscribe((res: ApiResponse<IRegion[]>) => {
-        if (res.success) {
-          this.setRegion(res.response[0]);
+          this.isReadOnly = true;
+          this.fetchRegion();
         } else {
-          this.toastr.error(res.messages[0]);
+          this.regionId = null;
+          this.isReadOnly = false;
+          this.regionForm.enable();
         }
-      }));
+        this.updateBreadcrumbs();
+      });
   }
 
-  createFormGroup(): void{
+  updateBreadcrumbs(): void {
+    this.breadcrumbItems = [
+      { label: 'Regions', routerLink: '/regions' },
+      { label: this.regionId ? (this.isReadOnly ? 'Region Details' : 'Edit Archive') : 'New Survey' },
+    ];
+
+    // Construct the string for the typewriter effect
+    const idText = this.regionId || 'NEW_RECORD';
+    const accessText = this.isReadOnly ? 'READ_ONLY' : 'READ_WRITE';
+    this.consoleText = ` DATABASE_QUERY // ID: ${idText} // ACCESS_LEVEL: ${accessText}`;
+  }
+
+  fetchRegion(): void {
+    this.regionService.getRegionById(this.regionId).subscribe((res: ApiResponse<IRegion>) => {
+      if (res.success) {
+        console.log('res', res)
+        this.setRegion(res.response);
+      } else {
+        this.toastr.error(res.messages[0]);
+      }
+    });
+  }
+
+  createFormGroup(): void {
     this.regionForm = this.formBuilder.group({
       surveyedBy: new FormControl(null, Validators.required),
       galaxy: new FormControl(null, Validators.required),
       regionName: new FormControl(null, Validators.required),
       legacyName: new FormControl(null),
+      civilization: new FormControl(null),
       regionAge: new FormControl(null),
       galacticCoordinates: new FormControl(null, FormHelpers.getGalacticCoordinateValidator),
       gameRelease: new FormControl(null, Validators.required),
       gamePlatform: new FormControl(null),
+      gameMode: new FormControl(null),
       surveyDate: new FormControl(null, Validators.required),
       earliestKnownSurveyor: new FormControl(null),
       latestKnownSurveyor: new FormControl(null),
@@ -82,13 +147,34 @@ export class RegionComponent implements OnInit, OnDestroy {
     });
   }
 
-  setRegion(region: IRegion): void{
+  setRegion(region: IRegion): void {
     this.currentRegion = region;
+    console.log(region);
     this.regionForm.patchValue(region);
+    if (this.isReadOnly) {
+      this.regionForm.disable();
+    }
   }
 
-  save(): void{
-    if(this.regionForm.valid){
+  toggleEdit(): void {
+    this.isReadOnly = !this.isReadOnly;
+    if (this.isReadOnly) {
+      this.regionForm.disable();
+      if (this.currentRegion) {
+        this.regionForm.patchValue(this.currentRegion);
+      }
+    } else {
+      this.regionForm.enable();
+    }
+    this.updateBreadcrumbs();
+  }
+
+  clearForm(): void {
+    this.regionForm.reset();
+  }
+
+  save(): void {
+    if (this.regionForm.valid) {
       const regionEntry: IUpsertRegion = {
         surveyedBy: this.regionForm.get('surveyedBy').value,
         surveyDate: moment(this.regionForm.get('surveyedBy').value),
@@ -111,13 +197,14 @@ export class RegionComponent implements OnInit, OnDestroy {
         videoLink: this.regionForm.get('videoLink').value,
       };
 
-      this.subscriptions.push(this.regionService.upsertRegion(regionEntry)
+      this.regionService.upsertRegion(regionEntry)
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((res: ApiResponse<IRegion>) => {
           if (res.success) {
             this.toastr.success('Region saved successfully!');
-            this.router.navigate([`/regions/${res.response.regionId}`]);
+            this.router.navigate([`/regions/${ res.response.regionId }`]);
           }
-        }));
+        });
     }
   }
 }

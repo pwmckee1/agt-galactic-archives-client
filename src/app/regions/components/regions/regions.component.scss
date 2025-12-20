@@ -1,13 +1,4 @@
 @use "../../../themes/_theme-variables.scss" as *;
-.regions-flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: flex-start;
-}
-
-.header-menu {
-}
 
 .sub-header {
   color: $color-accent-muted;
