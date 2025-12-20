@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -24,7 +24,9 @@ import { Select, SelectModule } from 'primeng/select';
     Select,
     Button,
     Image,
-    CardModule],
+    CardModule,
+    NgOptimizedImage
+  ],
   providers: [RegionService],
   templateUrl: './regions.component.html',
   styleUrl: './regions.component.scss'

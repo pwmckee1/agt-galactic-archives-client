@@ -12,9 +12,19 @@
 }
 
 .region-card {
+  position: relative;
+  z-index: 1;
   max-width: 25rem;
   flex: 0 16.25rem;
   overflow: hidden;
+  box-shadow: $shadow-lg;
+  background: linear-gradient(0deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+  margin: 2rem 0;
+  border: 2px solid $color-accent-muted;
+  border-radius: 8px;
 }
 
 .wiki-infobox {
@@ -34,21 +44,21 @@
   background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
 }
 
-.infobox-header h6 {
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.8rem;
+.infobox-image {
+  height: 16rem;
+  background-color: #000;
+  border-top: 1px solid $color-accent-muted;
+  border-bottom: 2px solid $color-accent-muted;
 }
 
-.infobox-image {
-  height: 11rem;
-  background-color: #000;
+.infobox-grid {
+  color: $color-text-primary;
 }
 
 .infobox-img-fixed {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .data-row {

@@ -1,15 +1,15 @@
 <header class="section container">
-  <div  class="flex justify-content-start align-items-bottom">
-    <p-image src="assets/img/game-entities/regions-orange.png" alt="AGT Logo" class="mt-2" width="40"/>
+  <div class="flex justify-content-start align-items-center">
+    <p-image src="assets/img/game-entities/regions-orange.png" alt="AGT Logo" class="mt-1" width="40"/>
     <h1 class="my-0 ml-1 mr-2">GALACTIC REGIONS</h1>
     <p class="sub-header">>_ARCHIVE DATA FEED // STATUS: ONLINE...</p>
   </div>
 
   <div class="flex justify-content-between align-items-center mb-1">
     <div class="flex justify-content-start align-items-center">
-      <label class="x-small font-monospace d-block mr-2">SELECT GALAXY</label>
+      <label class="mr-2">SELECT GALAXY</label>
       <form [formGroup]="galaxyForm">
-        <p-select formControlName="galaxy" size="small" [options]="galaxyTypes" class="select w-full"/>
+        <p-select formControlName="galaxy" [options]="galaxyTypes" [fluid]="true" class="select"/>
       </form>
     </div>
     <p-button
@@ -21,115 +21,64 @@
 </header>
 <div class="section container">
   <div class="card-grid">
-    <p-card class="region-card">
-      <ng-template #header>
-        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-      </ng-template>
-      <ng-template #title> Advanced Card </ng-template>
-      <ng-template #subtitle> Card subtitle </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-      </p>
-      <ng-template #footer>
-        <div class="flex gap-4 mt-1">
-          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-          <p-button label="Save" class="w-full" styleClass="w-full" />
-        </div>
-      </ng-template>
-    </p-card>
-    <p-card class="region-card">
-      <ng-template #header>
-        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-      </ng-template>
-      <ng-template #title> Advanced Card </ng-template>
-      <ng-template #subtitle> Card subtitle </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-      </p>
-      <ng-template #footer>
-        <div class="flex gap-4 mt-1">
-          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-          <p-button label="Save" class="w-full" styleClass="w-full" />
-        </div>
-      </ng-template>
-    </p-card>
-    <p-card class="region-card">
-      <ng-template #header>
-        <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
-      </ng-template>
-      <ng-template #title> Advanced Card </ng-template>
-      <ng-template #subtitle> Card subtitle </ng-template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
-      </p>
-      <ng-template #footer>
-        <div class="flex gap-4 mt-1">
-          <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-          <p-button label="Save" class="w-full" styleClass="w-full" />
-        </div>
-      </ng-template>
-    </p-card>
   </div>
   @if (!isLoading) {
     <div class="card-grid">
       @for (region of regions; track region) {
-        <div class="wiki-infobox bg-black d-flex flex-column">
-          <div class="infobox-header p-2 border-bottom border-orange">
-            <h6 class="mb-0 text-uppercase letter-spacing-1 text-truncate">{{ region.regionName }}</h6>
-          </div>
-          <div class="infobox-image overflow-hidden">
-            <img src="assets/img/mock/mock-region.png" class="infobox-img-fixed opacity-75" [alt]="region.regionName">
-            <div class="image-caption x-small py-1 bg-black bg-opacity-75 border-top border-orange">
-              {{ region.galaxy }}
+        <p-card class="region-card">
+          <ng-template #header>
+            <div class="flex flex-column">
+              <div class="infobox-header">
+                <h3 class="text-uppercase text-center mb-2 kern-text">{{ region.regionName }}</h3>
+              </div>
+              <div class="infobox-image overflow-hidden">
+                <img alt="RegionName" class="infobox-img-fixed" ngSrc="assets/img/mock/mock-region.png" width="100"
+                     height="100"/>
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="infobox-grid border-1 border-white-alpha-20 wiki-infobox">
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Galaxy</div>
+              <div class="col-7 p-2">{{ region.regionName }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Quadrant</div>
+              <div class="col-7 p-2 text-green-400">{{ region.galacticQuadrant }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Galactic coords
+              </div>
+              <div class="col-7 p-2 font-monospace text-xs text-blue-300">{{ region.galacticCoordinates }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Civilization</div>
+              <div class="col-7 p-2 text-xs">{{ region.civilization }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Center distance
+              </div>
+              <div class="col-7 p-2">{{ region.lightYearsFromCenter | number }}</div>
+            </div>
+            <div class="grid grid-nogutter">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Updated</div>
+              <div class="col-7 p-2 text-green-200">{{ region.gameRelease }}</div>
             </div>
           </div>
-          <div class="infobox-data flex-grow-1">
-            <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Galaxy
-              </div>
-              <div class="data-value px-2 py-1
-">{{ region.galaxy || 'Unknown' }}</div>
+          <ng-template #footer>
+            <div class="flex justify-content-center mt-2">
+              <p-button
+                [routerLink]="[region.regionId]"
+                variant="outlined"
+                label="View Entry"
+                raised="true"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                class="button"/>
             </div>
-            <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">
-                Quadrant
-              </div>
-              <div class="data-value px-2 py-1 text-success">{{ region.galacticQuadrant || 'Gamma' }}</div>
-            </div>
-            <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Galactic
-                coords
-              </div>
-              <div
-                class="data-value px-2 py-1 font-monospace x-small text-info">{{ region.galacticCoordinates || '0000:0000:0000:xxxx' }}
-              </div>
-            </div>
-            <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Civilized
-                space
-              </div>
-              <div class="data-value px-2 py-1 x-small line-clamp-2">{{ region.civilizedSpaceNotes || 'None documented' }}
-              </div>
-            </div>
-            <div class="data-row d-flex border-bottom border-secondary border-opacity-25">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Centre
-                dist
-              </div>
-              <div class="data-value px-2 py-1">{{ region.lightYearsFromCenter | number }} LY</div>
-            </div>
-            <div class="data-row d-flex">
-              <div class="data-label px-2 py-1 bg-white bg-opacity-10 border-end border-secondary border-opacity-25">Updated
-              </div>
-              <div class="data-value px-2 py-1 text-muted">{{ region.gameRelease || 'ExoMech' }}</div>
-            </div>
-          </div>
-          <div class="p-2 border-top border-orange bg-black d-grid">
-            <a [routerLink]="[region.regionId]" class="btn btn-xs btn-outline-orange text-uppercase">View Entry</a>
-          </div>
-        </div>
+          </ng-template>
+        </p-card>
       }
     </div>
   } @else {

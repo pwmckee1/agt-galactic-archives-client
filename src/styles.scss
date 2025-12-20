@@ -3,11 +3,34 @@
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
+@font-face {
+  font-family: 'GeoNMS';
+  src: url('./assets/fonts/NMSFuturaProBook_Kerned.ttf') format('truetype');
+  font-weght: bold;
+}
+
 html, body {
   background-color: black;
-  font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans Georgian', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "GeoNMS", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
   color: $color-text-primary;
   margin: auto; /* Ensure no default margins */
+}
+
+a {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.kern-text {
+  letter-spacing: 0.2rem;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
 }
 
 /* Section Styles */

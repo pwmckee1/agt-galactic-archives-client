@@ -23,4 +23,5 @@ export interface IRegion extends IGameEntity {
   legacyGame?: string;
   legacyWikiLink?: string;
   version?: string;
+  imageLink?: string;
 }

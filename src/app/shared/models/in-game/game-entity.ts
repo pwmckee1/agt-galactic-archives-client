@@ -39,4 +39,5 @@ export interface IGameEntity {
   additionalNotes?: string;
   wikiLink?: string;
   discoveredLinkOnWiki?: string;
+  imageLink?: string;
 }

@@ -6,7 +6,7 @@
   z-index: 1;
   box-shadow: $shadow-lg;
   border-radius: 15px;
-  background: linear-gradient(0deg,
+  background: linear-gradient(180deg,
     $color-bg-primary 0%,
     $color-bg-secondary 95%,
   );
@@ -28,12 +28,12 @@
 .logo-image {
   max-width: 300px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 20px rgba(232, 148, 26, 0.25));
+  filter: drop-shadow($shadow-glow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .banner-logo:hover .logo-image {
-  filter: drop-shadow(0 12px 30px rgba(232, 148, 26, 0.4));
+  filter: drop-shadow($shadow-glow);
   transform: scale(1.05);
 }
 
