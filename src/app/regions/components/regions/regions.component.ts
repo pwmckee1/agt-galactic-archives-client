@@ -11,7 +11,11 @@ import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { PrimeNG } from 'primeng/config';
+import { FloatLabel } from 'primeng/floatlabel';
 import { Image } from 'primeng/image';
+import { InputGroup } from 'primeng/inputgroup';
+import { InputGroupAddon } from 'primeng/inputgroupaddon';
+import { InputText } from 'primeng/inputtext';
 import { Select, SelectModule } from 'primeng/select';
 
 @Component({
@@ -25,7 +29,10 @@ import { Select, SelectModule } from 'primeng/select';
     Button,
     Image,
     CardModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    InputGroup,
+    InputGroupAddon,
+    InputText,
   ],
   providers: [RegionService],
   templateUrl: './regions.component.html',
@@ -49,20 +56,50 @@ export class RegionsComponent implements OnInit {
   ngOnInit(): void {
     this.primeng.ripple.set(true);
     this.galaxyForm = new FormGroup({
-      galaxy: this.galaxyControl
+      galaxy: this.galaxyControl,
+      name: new FormControl(null),
+      surveyedBy: new FormControl(null),
+      civilization: new FormControl(null),
     })
     this.galaxyControl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((galaxy) => this.loadRegions(galaxy));
+      .subscribe((galaxy) => this.searchRegions(galaxy));
 
-    this.loadRegions(GalaxyTypes.Euclid);
+    this.searchRegions(GalaxyTypes.Euclid);
   }
 
-  private loadRegions(galaxy: string) {
+  protected clearRegionName() {
+    this.galaxyForm.get('name').setValue(null);
+  }
+
+  protected clearSurveyedBy() {
+    this.galaxyForm.get('surveyedBy').setValue(null);
+  }
+
+  protected clearCivilization() {
+    this.galaxyForm.get('civilization').setValue(null);
+  }
+
+  protected search(): void {
+    const galaxy = this.galaxyForm.get('galaxy').value;
+    const regionName = this.galaxyForm.get('name').value;
+    const surveyedBy = this.galaxyForm.get('surveyedBy').value;
+    const civilization = this.galaxyForm.get('civilization').value;
+    this.searchRegions(galaxy, regionName, surveyedBy, civilization);
+  }
+
+  private searchRegions(
+    galaxy: string,
+    regionName: string = null,
+    surveyedBy: string = null,
+    civilization: string = null) {
     this.isLoading = true;
 
     const searchRequest = new RegionSearch();
     searchRequest.galaxy = galaxy as GalaxyTypes;
+    searchRequest.regionName = regionName;
+    searchRequest.surveyedBy = surveyedBy;
+    searchRequest.civilization = civilization;
     this.regionService.getRegions(searchRequest)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res: ApiResponse<IRegion[]>) => {

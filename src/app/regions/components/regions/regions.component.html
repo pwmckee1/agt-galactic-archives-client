@@ -1,27 +1,43 @@
-<header class="section container">
+<header class="section container regions-header">
   <div class="flex justify-content-start align-items-center">
     <p-image src="assets/img/game-entities/regions-orange.png" alt="AGT Logo" class="mt-1" width="40"/>
     <h1 class="my-0 ml-1 mr-2">GALACTIC REGIONS</h1>
     <p class="sub-header">>_ARCHIVE DATA FEED // STATUS: ONLINE...</p>
   </div>
 
-  <div class="flex justify-content-between align-items-center mb-1">
+  <div class="flex justify-content-between align-items-center mb-1 header-menu">
     <div class="flex justify-content-start align-items-center">
-      <label class="mr-2">SELECT GALAXY</label>
       <form [formGroup]="galaxyForm">
-        <p-select formControlName="galaxy" [options]="galaxyTypes" [fluid]="true" class="select"/>
+        <div class="flex justify-content-center">
+          <p-select formControlName="galaxy" input_id="galaxy" [options]="galaxyTypes" class="select mr-4"/>
+
+          <p-inputgroup>
+            <input pInputText id="name" formControlName="name" type="text" placeholder="Region Name" variant="filled"/>
+            <p-inputgroup-addon>
+              <p-button icon="pi pi-times" variant="text" (click)="clearRegionName()"></p-button>
+            </p-inputgroup-addon>
+
+            <input pInputText id="surveyedBy" formControlName="surveyedBy" type="text" placeholder="Surveyed By" variant="filled"/>
+            <p-inputgroup-addon>
+              <p-button icon="pi pi-times" variant="text" (click)="clearSurveyedBy()"></p-button>
+            </p-inputgroup-addon>
+
+            <input pInputText id="civilization" formControlName="civilization" type="text" placeholder="Civilization" variant="filled"/>
+            <p-inputgroup-addon>
+              <p-button icon="pi pi-times" variant="text" (click)="clearCivilization()"></p-button>
+              <p-button icon="pi pi-search" variant="text" (click)="search()"></p-button>
+            </p-inputgroup-addon>
+          </p-inputgroup>
+        </div>
       </form>
     </div>
     <p-button
-      variant="outlined"
       label="Register New Region"
       raised="true"
       class="button"/>
   </div>
 </header>
 <div class="section container">
-  <div class="card-grid">
-  </div>
   @if (!isLoading) {
     <div class="card-grid">
       @for (region of regions; track region) {
@@ -70,7 +86,6 @@
             <div class="flex justify-content-center mt-2">
               <p-button
                 [routerLink]="[region.regionId]"
-                variant="outlined"
                 label="View Entry"
                 raised="true"
                 icon="pi pi-arrow-right"
