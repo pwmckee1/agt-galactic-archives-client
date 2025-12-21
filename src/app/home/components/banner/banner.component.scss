@@ -1,0 +1,169 @@
+@use "../../../themes/_theme-variables.scss" as *;
+
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+  box-shadow: $shadow-lg;
+  border-radius: 15px;
+  background: linear-gradient(180deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+}
+
+.banner-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.banner-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-image {
+  max-width: 300px;
+  object-fit: contain;
+  filter: drop-shadow($shadow-glow);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.banner-logo:hover .logo-image {
+  filter: drop-shadow($shadow-glow);
+  transform: scale(1.05);
+}
+
+.banner-text h1 {
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.tagline {
+  font-size: 1.4rem;
+  color: $color-accent-muted;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+}
+
+.discovery-intro {
+  background-color: rgba(232, 148, 26, 0.05);
+  padding: 1.5rem;
+  margin-right: 1.5rem;
+  border-left: 4px solid $color-primary;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.discovery-intro:hover {
+  background-color: rgba(232, 148, 26, 0.1);
+  box-shadow: 0 4px 15px rgba(232, 148, 26, 0.15);
+}
+
+.discovery-intro p {
+  color: $color-text-secondary;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.discovery-intro p:last-child {
+  margin-bottom: 0;
+}
+
+.banner-accent {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 200%;
+  height: 1px;
+  background: $color-primary;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 1024px) {
+  .banner-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .banner-text h1 {
+    font-size: 2rem;
+  }
+
+  .logo-image {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    padding: 2rem 0;
+  }
+
+  .banner-inner {
+    gap: 1.5rem;
+  }
+
+  .banner-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .discovery-intro {
+    padding: 1rem;
+    border-left-width: 3px;
+  }
+
+  .discovery-intro p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .logo-image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .banner-gradient {
+    right: -300px;
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-text h1 {
+    font-size: 1.3rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+  }
+
+  .discovery-intro {
+    padding: 0.75rem;
+  }
+
+  .discovery-intro p {
+    font-size: 0.9rem;
+  }
+
+  .logo-image {
+    width: 120px;
+    height: 120px;
+  }
+}

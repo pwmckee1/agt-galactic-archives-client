@@ -1,0 +1,31 @@
+<div class="mb-4 section container submissions">
+  <div class="submission-content">
+    <div class="flex justify-content-center">
+      <h2 class="mx-auto mt-0 pb-2">View and Submit Discoveries</h2>
+    </div>
+
+    <div class="card-grid">
+      @for (submission of submissionTypes; track submission) {
+        <div class="submission-card" [title]="submission.description">
+          @if (submission.icon) {
+            <img
+              [src]="submission.icon"
+              [alt]="submission.description"
+              class="submission-image">
+          }
+          <h3>{{ submission.name }}</h3>
+          <p>{{ submission.description }}</p>
+          @if (submission.route) {
+            <p-button
+              [routerLink]="submission.route"
+              label="Discover"
+              raised="true"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              class="button"/>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

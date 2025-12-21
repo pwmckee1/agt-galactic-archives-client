@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Image, ImageModule } from 'primeng/image';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [CommonModule, RouterModule, NgOptimizedImage],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+    selector: 'agt-navbar',
+  imports: [RouterModule, Image],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   mobileMenuOpen = false;
@@ -22,11 +22,14 @@ export class NavbarComponent {
 
   navItems = [
     { label: 'Home', route: '/' },
-    { label: 'Events Calendar', route: '/events' },
-    { label: 'About', route: '/about' },
-    { label: 'Team', route: '/team' },
-    { label: 'Contribute', route: '/contribute' },
-    { label: 'Galactic Archives', route: '/archives' },
-    { label: 'Engage', route: '/engage' }
+    { label: 'Regions', route: '/regions' },
+    { label: 'Star Systems', route: '/star-systems' },
+    { label: 'Planets', route: '/planets' },
+    { label: 'Starships', route: '/starships' },
+    { label: 'Multi Tools', route: '/multi-tools' },
+    { label: 'Fauna', route: '/fauna' },
+    { label: 'Bases', route: '/player-bases' },
+    { label: 'POIs', route: '/points-of-interest' },
+    { label: 'Settlements', route: '/settlements' },
   ];
 }

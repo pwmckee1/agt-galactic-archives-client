@@ -1,14 +1,25 @@
 <footer class="footer">
   <div class="footer-container">
-    <div class="footer-links">
-      <a *ngFor="let link of footerLinks"
-         [routerLink]="link.route"
-         class="footer-link">
-        {{ link.label }}
-      </a>
+    <div class="footer-links flex flex-wrap gap-3 justify-content-center mb-2">
+      @for (link of footerLinks; track link) {
+        @if (link.externalUrl) {
+          <a
+            [href]="link.externalUrl"
+            target="_blank"
+            class="footer-link">
+            {{ link.label }}
+          </a>
+        } @else {
+          <a
+            [routerLink]="link.route"
+            class="footer-link">
+            {{ link.label }}
+          </a>
+        }
+      }
     </div>
     <div class="footer-copyright">
-      <p>&copy; {{ currentYear }} Alliance of Galactic Travellers. All rights reserved.</p>
+      &copy; {{ currentYear }} Alliance of Galactic Travellers. All rights reserved.
     </div>
   </div>
 </footer>
