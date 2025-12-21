@@ -1,0 +1,107 @@
+@use "../../../themes/_theme-variables.scss" as *;
+
+.submissions::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $color-primary, transparent);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.submission-card {
+  background-color: $color-bg-surface;
+  border: 2px solid $color-border-accent;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submission-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(232, 148, 26, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.submission-card:hover {
+  border-color: $color-primary;
+  box-shadow: $shadow-lg, $shadow-glow;
+  transform: translateY(-8px);
+}
+
+.submission-card:hover::before {
+  left: 100%;
+}
+
+.submission-image {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease;
+}
+
+.submission-card:hover .submission-image {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.submission-card h3 {
+  color: $color-primary;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.submission-card p {
+  color: $color-text-secondary;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.submission-link {
+  display: inline-block;
+  color: $color-primary;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid $color-primary;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.submission-link:hover {
+  background-color: $color-primary;
+  color: #000;
+}
+
+@media (max-width: 512px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .submission-icon {
+    font-size: 2.5rem;
+  }
+
+  .submission-image {
+    width: 60px;
+    height: 60px;
+  }
+}

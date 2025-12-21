@@ -1,0 +1,35 @@
+@use "../../../themes/_theme-variables.scss" as *;
+
+.terminal-container {
+  color: $color-accent-muted;
+  letter-spacing: .07rem;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    width: 0;
+    vertical-align: bottom;
+    animation: typing forwards;
+  }
+
+  .blink {
+    display: inline-block;
+    margin-left: 2px;
+    animation: terminal-blink 1s step-end infinite;
+  }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  /* The end width is handled via [style.width.ch] in the HTML */
+}
+
+@keyframes terminal-blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}

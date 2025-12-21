@@ -1,0 +1,143 @@
+<p-breadcrumb [model]="breadcrumbItems" [home]="home" class="mb-3"></p-breadcrumb>
+<header class="section container regions-header">
+  <div class="flex justify-content-start align-items-center gap-2">
+    <p-image src="assets/img/game-entities/regions-orange.png" alt="AGT Logo" class="pt-2" width="40"/>
+    <h1 class="my-0">GALACTIC REGIONS</h1>
+  </div>
+  <agt-terminal-communication [message]="consoleText" [typingSpeed]="2"></agt-terminal-communication>
+
+  <form [formGroup]="galaxyForm">
+    <div class="flex flex-column">
+      <div class="flex justify-content-between align-items-center mt-3 mb-4 header-menu gap-4">
+        <p-select formControlName="galaxy" input_id="galaxy" [options]="galaxyTypes" class="select" fluid="true"/>
+
+        <p-multiselect
+          formControlName="searchFields"
+          input_id="searchFields"
+          [options]="availableSearchFields"
+          placeholder="Select Search Fields"
+          class="select"
+          fluid="true"></p-multiselect>
+
+        <p-button-group>
+          <p-button label="Search Regions" icon="pi pi-search" iconPos="right" class="button" (click)="search()"/>
+
+          @if (selectedSearchFields.length > 0) {
+            <p-button label='Clear Search Terms' icon="pi pi-times" iconPos="right" class="button"
+                      (click)="clearSearchValues()"></p-button>
+          }
+
+          <p-button label="Register New Region" [routerLink]="['./region']" icon="pi pi-arrow-right" iconPos="right"
+                    class="button"/>
+        </p-button-group>
+
+      </div>
+      <div class="flex flex-wrap justify-content-start gap-2">
+        <p-inputgroup>
+          @if (selectedSearchFields.includes('Region Name')) {
+            <input pInputText id="name" formControlName="name" type="text" placeholder="Region Name"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Surveyed By')) {
+            <input pInputText id="surveyedBy" formControlName="surveyedBy" type="text" placeholder="Surveyed By"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Discovered By')) {
+            <input pInputText id="discoveredBy" formControlName="discoveredBy" type="text" placeholder="Discovered By"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Civilization')) {
+            <input pInputText id="civilization" formControlName="civilization" type="text" placeholder="Civilization"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Game Release')) {
+            <input pInputText id="gameRelease" formControlName="gameRelease" type="text" placeholder="Game Release"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Game Mode')) {
+            <input pInputText id="gameMode" formControlName="gameMode" type="text" placeholder="Game Mode"
+                   variant="filled"/>
+          }
+
+          @if (selectedSearchFields.includes('Game Platform')) {
+            <input pInputText id="gamePlatform" formControlName="gamePlatform" type="text" placeholder="Game Platform"
+                   variant="filled"/>
+          }
+
+        </p-inputgroup>
+      </div>
+    </div>
+  </form>
+</header>
+<div class="section container">
+  @if (!isLoading) {
+    <div class="card-grid">
+      @for (region of regions; track region) {
+        <p-card class="region-card">
+          <ng-template #header>
+            <div class="flex flex-column">
+              <div class="infobox-header">
+                <h3 class="text-uppercase text-center mb-2 kern-text">{{ region.regionName }}</h3>
+              </div>
+              <div class="infobox-image overflow-hidden">
+                <img alt="RegionName" class="infobox-img-fixed" ngSrc="assets/img/mock/mock-region.png" width="486"
+                     height="363" priority/>
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="infobox-grid border-1 border-white-alpha-20 wiki-infobox">
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Galaxy</div>
+              <div class="col-7 p-2">{{ region.regionName }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Quadrant</div>
+              <div class="col-7 p-2 text-green-400">{{ region.galacticQuadrant }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Galactic coords
+              </div>
+              <div class="col-7 p-2 font-monospace text-xs text-blue-300">{{ region.galacticCoordinates }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Civilization</div>
+              <div class="col-7 p-2 text-xs">{{ region.civilization }}</div>
+            </div>
+            <div class="grid grid-nogutter border-bottom-1 border-white-alpha-20">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Center distance
+              </div>
+              <div class="col-7 p-2">{{ region.lightYearsFromCenter | number }}</div>
+            </div>
+            <div class="grid grid-nogutter">
+              <div class="col-5 p-2 font-bold bg-white-alpha-10 border-right-1 border-white-alpha-20">Updated</div>
+              <div class="col-7 p-2 text-green-200">{{ region.gameRelease }}</div>
+            </div>
+          </div>
+          <ng-template #footer>
+            <div class="flex justify-content-center mt-2">
+              <p-button
+                [routerLink]="[`./region/${region.regionId}`]"
+                label="View Entry"
+                raised="true"
+                icon="pi pi-arrow-right"
+                iconPos="right"
+                class="button"/>
+            </div>
+          </ng-template>
+        </p-card>
+      }
+    </div>
+  } @else {
+    <div class="py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+</div>

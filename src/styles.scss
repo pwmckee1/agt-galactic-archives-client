@@ -1,0 +1,132 @@
+/* AGT Galactic Archives - Global Styles */
+@use "./app/themes/_theme-variables.scss" as *;
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+@font-face {
+  font-family: 'GeoNMS';
+  src: url('./assets/fonts/NMSFuturaProBook_Kerned.ttf') format('truetype');
+  font-weight: bold;
+}
+
+html, body {
+  background-color: black;
+  font-family: "GeoNMS", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  color: $color-text-primary;
+  margin: auto; /* Ensure no default margins */
+}
+
+a {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.kern-text {
+  letter-spacing: 0.2rem;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+/* Section Styles */
+.section {
+  position: relative;
+  background: linear-gradient(0deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+}
+
+/* Re-implementing a Container for PrimeFlex */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1140px; } }
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $color-bg-surface;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-primary;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $color-primary-dark;
+}
+
+h1 {
+  color: $color-primary;
+}
+
+h2 {
+  color: $color-primary;
+}
+
+h3 {
+  color: $color-text-secondary;
+}
+
+/* Cards */
+.card {
+  background-color: $color-bg-surface;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid $color-border;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+  border-bottom: 1px solid $color-border;
+}
+
+.card:hover {
+  border-color: $color-primary;
+  box-shadow: $shadow-lg, $shadow-glow;
+  transform: translateY(-4px);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.button {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.select {
+  min-width: 10rem;
+}
+.surface-border {
+  border-color: $color-primary !important;
+}
+
+.label-primary {
+  color: $color-primary;
+}

@@ -2,26 +2,64 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "ES2022",
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
+    "baseUrl": ".",
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "@environments/*": [
+        "./src/environments/*"
+      ],
+      "@fauna/*": [
+        "./src/app/fauna/*"
+      ],
+      "@home/*": [
+        "./src/app/home/*"
+      ],
+      "@multi-tools/*": [
+        "./src/app/multi-tools/*"
+      ],
+      "@planets/*": [
+        "./src/app/planets/*"
+      ],
+      "@player-bases/*": [
+        "./src/app/player-bases/*"
+      ],
+      "@pois/*": [
+        "./src/app/pois/*"
+      ],
+      "@regions/*": [
+        "./src/app/regions/*"
+      ],
+      "@settlements/*": [
+        "./src/app/settlements/*"
+      ],
+      "@star-systems/*": [
+        "./src/app/star-systems/*"
+      ],
+      "@starships/*": [
+        "./src/app/starships/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@themes/*": [
+        "./src/app/themes/*"
+      ],
+      "@users/*": [
+        "./src/app/users/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

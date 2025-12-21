@@ -1,0 +1,115 @@
+@use "../../../themes/_theme-variables.scss" as *;
+
+.sub-header {
+  color: $color-accent-muted;
+  letter-spacing: .15rem;
+}
+
+.region-card {
+  position: relative;
+  max-width: 25rem;
+  flex: 0 16.25rem;
+  overflow: hidden;
+  box-shadow: $shadow-lg;
+  background: linear-gradient(0deg,
+    $color-bg-primary 0%,
+    $color-bg-secondary 95%,
+  );
+  border: 2px solid $color-accent-muted;
+  border-radius: 8px;
+}
+
+.wiki-infobox {
+  flex: 0 1 260px; /* Base width of 260px, can grow slightly */
+  border: 1px solid #e8941a; /* Primary orange border */
+  box-shadow: 0 0 15px rgba(232, 148, 26, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wiki-infobox:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(232, 148, 26, 0.3);
+  z-index: 10;
+}
+
+.infobox-header {
+  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+}
+
+.infobox-image {
+  height: 16rem;
+  background-color: #000;
+  border-top: 1px solid $color-accent-muted;
+  border-bottom: 2px solid $color-accent-muted;
+}
+
+.infobox-grid {
+  color: $color-text-primary;
+}
+
+.infobox-img-fixed {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.data-row {
+  font-size: 0.75rem;
+  min-height: 32px;
+}
+
+.data-label {
+  width: 45%;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  letter-spacing: 0.5px;
+}
+
+.data-value {
+  width: 55%;
+  color: #e0e0e0;
+}
+
+.border-orange {
+  border-color: #e8941a !important;
+}
+
+.border-orange-subtle {
+  border-color: rgba(232, 148, 26, 0.3) !important;
+}
+
+.btn-outline-orange {
+  color: #e8941a;
+  border-color: #e8941a;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.btn-outline-orange:hover {
+  background-color: #e8941a;
+  color: #000;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 576px) {
+  .regions-flex-container {
+    justify-content: center;
+  }
+  .wiki-infobox {
+    flex: 1 1 100%;
+    max-width: 350px;
+  }
+}

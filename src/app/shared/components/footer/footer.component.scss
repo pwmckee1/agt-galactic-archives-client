@@ -1,0 +1,47 @@
+@use "../../../themes/_theme-variables.scss" as *;
+.footer {
+  background-color: $color-bg-secondary;
+  border-top: 2px solid $color-secondary;
+  position: sticky;
+  bottom: 0;
+  box-shadow: $shadow-lg;
+  z-index: 1000;
+}
+
+.footer-container {
+  padding: 1rem .5rem;
+}
+
+.footer-link {
+  color: $color-text-secondary;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  padding-right: 1rem;
+  border-right: 1px solid $color-text-muted;
+}
+
+.footer-link:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.footer-link:hover {
+  color: $color-primary;
+}
+
+.footer-copyright {
+  text-align: center;
+  color: $color-text-muted;
+  font-size: 0.85rem;
+  padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .footer-links {
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    padding-right: 0.5rem;
+  }
+}

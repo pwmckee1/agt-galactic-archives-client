@@ -1,0 +1,216 @@
+<p-breadcrumb [model]="breadcrumbItems" [home]="home" class="mb-3"></p-breadcrumb>
+
+<header class="section container mb-4">
+  <div class="flex justify-content-between align-items-center">
+    <div class="flex align-items-center gap-2">
+      <p-image src="assets/img/game-entities/regions-orange.png" alt="Region Icon" width="40"/>
+      <h1
+        class="my-0 text-uppercase">{{ regionId ? (isReadOnly ? 'Region Archive' : 'Edit Region') : 'Register New Region' }}</h1>
+    </div>
+
+    <div class="flex gap-2">
+      @if (regionId && isReadOnly) {
+        <p-button label="Edit Entry" icon="pi pi-pencil" (click)="toggleEdit()" severity="warn"/>
+      } @else if (regionId && !isReadOnly) {
+        <p-button label="Cancel" icon="pi pi-times" (click)="toggleEdit()" severity="secondary"/>
+      }
+    </div>
+  </div>
+  <agt-terminal-communication [message]="consoleText" [typingSpeed]="3"></agt-terminal-communication>
+</header>
+
+<main class="section container">
+  <form [formGroup]="regionForm">
+    <div class="grid">
+      <!-- Left Half: Main Inputs -->
+      <div class="col-12 md:col-6">
+        <div class="grid">
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <p-select class="select" formControlName="galaxy" inputId="galaxy" [options]="galaxyTypes" fluid="true"/>
+              <label for="galaxy">Galaxy</label>
+            </p-floatlabel>
+          </div>
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="regionName" formControlName="regionName" fluid="true"/>
+              <label for="regionName">Region Name</label>
+            </p-floatlabel>
+          </div>
+
+          <!-- Galactic Coordinates: Full row on the left half -->
+          <div class="field col-12">
+            <div class="flex flex-column">
+              <p-image class="mb-4" src="assets/img/menus/galactic-coordinate-display.png" alt="Coordinates Display" width="100%" fluid="true"></p-image>
+              <p-floatlabel class="flex-grow-1">
+                <input pInputText id="galacticCoordinates" formControlName="galacticCoordinates" fluid="true"/>
+                <label for="galacticCoordinates">Galactic Coordinates</label>
+              </p-floatlabel>
+            </div>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <p-inputnumber inputId="regionAge" mode="decimal" formControlName="regionAge" class="w-full"></p-inputnumber>
+              <label for="regionAge">Region Age (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="surveyedBy" formControlName="surveyedBy" fluid="true"/>
+              <label for="surveyedBy">Surveyed By</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <p-datepicker
+                formControlName="surveyDate"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+                [readonlyInput]="true"
+                [iconDisplay]="'input'"
+                [showIcon]="true" fluid="true"></p-datepicker>
+              <label for="surveyDate">Survey Date</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="civilization" formControlName="civilization" fluid="true"/>
+              <label for="civilization">Civilization Claim</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="lowestKnownPhantomSystem" formControlName="lowestKnownPhantomSystem" fluid="true"/>
+              <label for="lowestKnownPhantomSystem">Lowest Known Phantom System</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="earliestKnownSurveyor" formControlName="earliestKnownSurveyor" fluid="true"/>
+              <label for="earliestKnownSurveyor">Earliest Known Surveyor (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="latestKnownSurveyor" formControlName="latestKnownSurveyor" fluid="true"/>
+              <label for="latestKnownSurveyor">Latest Known Surveyor (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="gameRelease" formControlName="gameRelease" fluid="true"/>
+              <label for="gameRelease">Game Release</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <p-select class="select" formControlName="gamePlatform" inputId="gamePlatform" [options]="gamePlatformTypes" fluid="true"/>
+              <label for="gamePlatform">Game Platform (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <p-select class="select" formControlName="gameMode" inputId="gameMode" [options]="gameModeTypes" fluid="true"/>
+              <label for="gameMode">Game Mode (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="externalLink" formControlName="externalLink" fluid="true"/>
+              <label for="externalLink">External Site Url (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12 md:col-6">
+            <p-floatlabel>
+              <input pInputText id="videoLink" formControlName="videoLink" fluid="true"/>
+              <label for="videoLink">Video Url (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12">
+            <p-floatlabel>
+              <textarea pTextarea id="summaryNotes" formControlName="summaryNotes" rows="3" style="resize: none" class="w-full"></textarea>
+              <label for="summaryNotes">Summary Notes (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12">
+            <p-floatlabel>
+              <textarea pTextarea id="locationNotes" formControlName="locationNotes" rows="3" style="resize: none" class="w-full"></textarea>
+              <label for="locationNotes">Location Notes (Optional)</label>
+            </p-floatlabel>
+          </div>
+
+          <div class="field col-12">
+            <p-floatlabel>
+              <textarea pTextarea id="civilizedSpaceNotes" formControlName="civilizedSpaceNotes" rows="3" style="resize: none" class="w-full"></textarea>
+              <label for="civilizedSpaceNotes">Civilized Space Notes (Optional)</label>
+            </p-floatlabel>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Half: Image Uploads -->
+      <div class="col-12 md:col-6 flex flex-column gap-4">
+        <div class="flex flex-column file-upload border-1 border-round surface-border p-3 mb-1">
+          <label class="font-bold mb-2 label-primary">Galaxy Map Screenshot</label>
+          <p-image src="assets/img/menus/galaxy-map-region.png" alt="Galaxy Map Of Region" width="100%" [preview]="true" class="mb-2"></p-image>
+          <p-fileupload
+            id="galaxyMapImage"
+            [fileLimit]="1"
+            [multiple]="false"
+            accept="image/png"
+            mode="basic"
+            maxFileSize="5000000">
+            <ng-template #empty>
+              <div>Drag and drop files to here to upload.</div>
+            </ng-template>
+          </p-fileupload>
+        </div>
+
+        <div class="flex flex-column file-upload border-1 border-round surface-border p-3">
+          <label class="font-bold mb-2 label-primary">Galactic Coordinate Screenshot</label>
+          <p-image src="assets/img/menus/signal-booster.png" alt="Galactic Coordinates" width="100%" [preview]="true" class="mb-2"></p-image>
+          <p-fileupload
+            id="galacticCoordinateImage"
+            [fileLimit]="1"
+            [multiple]="false"
+            accept="image/png"
+            mode="basic"
+            maxFileSize="5000000">
+            <ng-template #empty>
+              <div>Drag and drop files to here to upload.</div>
+            </ng-template>
+          </p-fileupload>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex justify-content-end gap-2">
+          <p-button
+            label="Clear Form"
+            icon="pi pi-refresh"
+            severity="secondary"
+            (click)="clearForm()"
+            [disabled]="isReadOnly"/>
+          <p-button
+            label="Submit Survey"
+            icon="pi pi-send"
+            (click)="save()"
+            [disabled]="regionForm.invalid || isReadOnly"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</main>

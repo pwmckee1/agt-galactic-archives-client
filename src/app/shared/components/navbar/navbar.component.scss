@@ -1,24 +1,29 @@
+@use "../../../themes/_theme-variables.scss" as *;
 .navbar {
-  background-color: var(--color-bg-secondary);
-  border-bottom: 2px solid var(--color-secondary);
-  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-bg-secondary;
+  border-bottom: 2px solid $color-secondary;
+  position: sticky;
   top: 0;
-  width: 100%;
   z-index: 1000;
-  box-shadow: var(--shadow-lg);
+  box-shadow: $shadow-lg;
+}
+
+.logo-icon {
+  display: flex;
 }
 
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 80px;
+  height: 3rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .navbar-logo {
+  margin-right: 2rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -33,7 +38,6 @@
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-primary);
   letter-spacing: 2px;
 }
 
@@ -44,7 +48,7 @@
 }
 
 .nav-link {
-  color: var(--color-text-secondary);
+  color: $color-text-secondary;
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
@@ -53,7 +57,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-primary);
+  color: $color-primary;
 }
 
 .nav-link::after {
@@ -63,27 +67,13 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--color-primary);
+  background-color: $color-primary;
   transition: width 0.3s ease;
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
-}
-
-.search-btn {
-  background: none;
-  border: none;
-  color: var(--color-primary);
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.search-btn:hover {
-  color: var(--color-primary-dark);
-  transform: scale(1.1);
 }
 
 .mobile-toggle {
@@ -98,7 +88,7 @@
 .mobile-toggle span {
   width: 25px;
   height: 3px;
-  background-color: var(--color-primary);
+  background-color: $color-primary;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -119,10 +109,34 @@
   .navbar-container {
     height: 70px;
     padding: 0 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .navbar {
+    display: block;
+    padding-right: 1rem;
+  }
+
+  .navbar-logo {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .navbar-logo:hover {
+    transform: translateX(-50%) scale(1.05);
   }
 
   .mobile-toggle {
     display: flex;
+    position: relative;
   }
 
   .navbar-menu {
@@ -131,8 +145,8 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background-color: var(--color-bg-secondary);
-    border-bottom: 2px solid var(--color-secondary);
+    background-color: $color-bg-secondary;
+    border-bottom: 2px solid $color-secondary;
     gap: 0;
     display: none;
     padding: 1rem 0;
