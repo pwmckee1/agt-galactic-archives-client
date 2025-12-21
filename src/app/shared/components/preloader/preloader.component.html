@@ -1,0 +1,17 @@
+@if (isError) {
+  <ng-container>
+    <div class="flex flex-column spinner">
+      <p-image src="assets/img/loading-spinner.gif"
+               class="spinner mb-0"
+               [ngClass]="responsive ? 'responsive' : ''"
+               width="{{responsive ? '' : spinnerWidth}}"
+               height="{{responsive ? '' : spinnerHeight}}"/>
+      <div class="flex justify-content-left">
+        <agt-terminal-communication [message]="'Loading'" [typingSpeed]="1"></agt-terminal-communication>
+      </div>
+    </div>
+
+  </ng-container>
+} @else {
+  <agt-terminal-communication [message]="'There has been a issue trying to reach the archives // 16 // 16 // 16 // 16 //'" [typingSpeed]="5"></agt-terminal-communication>
+}

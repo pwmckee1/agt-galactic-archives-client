@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
+import { PreloaderComponent } from '@shared/components/preloader/preloader.component';
 
 interface Discovery {
   id: string;
@@ -16,7 +17,7 @@ interface Discovery {
 
 @Component({
     selector: 'agt-recent-discoveries',
-    imports: [RouterModule],
+  imports: [RouterModule, PreloaderComponent],
     templateUrl: './recent-discoveries.component.html',
     styleUrl: './recent-discoveries.component.scss'
 })
