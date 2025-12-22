@@ -1,12 +1,12 @@
-<div class="mb-4 section container submissions">
+<section class="relative container mb-4 surface-900 border-solid box-shadow-primary border-round-2xl border-primary  submissions">
   <div class="submission-content">
     <div class="flex justify-content-center">
-      <h2 class="mx-auto mt-0 pb-2">View and Submit Discoveries</h2>
+      <h2 class="text-4xl text-primary mx-auto mt-0 pb-2">View and Submit Discoveries</h2>
     </div>
 
     <div class="card-grid">
       @for (submission of submissionTypes; track submission) {
-        <div class="submission-card" [title]="submission.description">
+        <div class="submission-card surface-800" [title]="submission.description">
           @if (submission.icon) {
             <img
               [src]="submission.icon"
@@ -14,7 +14,7 @@
               class="submission-image">
           }
           <h3>{{ submission.name }}</h3>
-          <p>{{ submission.description }}</p>
+          <p class="text-50 mb-4">{{ submission.description }}</p>
           @if (submission.route) {
             <p-button
               [routerLink]="submission.route"
@@ -28,4 +28,4 @@
       }
     </div>
   </div>
-</div>
+</section>

@@ -25,12 +25,15 @@ html, body {
     width: 100%;
     height: 100%;
     background-image: url('/assets/img/galaxy-background.jpg');
-    background-size: cover;
     background-position: center;
     pointer-events: none;
   }
 
   color: $color-text-primary;
+}
+
+p {
+  letter-spacing: 0.5px;
 }
 
 a {
@@ -89,21 +92,9 @@ a {
   background: $color-primary-muted;
 }
 
-h1 {
-  color: $color-primary;
-}
-
-h2 {
-  color: $color-primary;
-}
-
-h3 {
-  color: $color-text-muted;
-}
-
 /* Cards */
 .card {
-  background-color: $color-surface-800;
+  background-color: $color-surface-900;
   border-radius: 8px;
   padding: 1.5rem;
   border: 1px solid $color-border;
@@ -145,4 +136,27 @@ h3 {
 
 .label-primary {
   color: $color-primary;
+}
+
+.border-curved-transparent {
+  border-radius: 15px;
+  border: 2px solid transparent;
+}
+
+.gradient-dark-to-light {
+  background: linear-gradient(to top, $color-surface-900, $color-surface-950);
+  background-clip: padding-box;
+}
+
+.gradient-light-to-dark {
+  background: linear-gradient(to top, $color-surface-950, $color-surface-900);
+  background-clip: padding-box;
+}
+
+.box-shadow {
+  box-shadow: $shadow-lg;
+}
+
+.box-shadow-primary {
+  box-shadow: $shadow-primary;
 }

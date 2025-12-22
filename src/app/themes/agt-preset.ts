@@ -164,12 +164,12 @@ export const AgtPreset = definePreset(Aura, {
         light: {
           root: {
             primary: {
-              background: '{surface.700}',
+              background: '{surface.900}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
-              hoverBorderColor: '{accentMuted}',
+              hoverBorderColor: '{900}',
               hoverBackground: '{accentMuted}',
-              hoverColor: '{surface.500}',
+              hoverColor: '{surface.900}',
             },
             secondary: {
               background: '{surface.700}',
@@ -517,34 +517,34 @@ export const AgtPreset = definePreset(Aura, {
     colorScheme: {
       light: {
         surface: {
-          0: '#ffffff',   // $color-text-primary
-          50: '#f4f4f4',
-          100: '#e8e8e8', // $color-text-muted
-          200: '#7d7e7c', // $color-text-muted
-          300: '#3A3A3A', // $color-surface-700
-          400: '#2D2D2D', // $color-surface-800
-          500: '#1A1A1A', // $color-surface-900
-          600: '#191919', // $color-surface-800-dark
-          700: '#0B0B0B', // $color-surface-950
-          800: '#050505',
-          900: '#000000',
-          950: '#000000'
+          0: '#e6e6e6',
+          50: '#d2d2d2',
+          100: '#bebebe',
+          200: '#aaaaaa',
+          300: '#969696',
+          400: '#828282',
+          500: '#6e6e6e',
+          600: '#5a5a5a',
+          700: '#464646',
+          800: '#323232',
+          900: '#1e1e1e',
+          950: '#0a0a0a'
         }
       },
       dark: {
         surface: {
-          0: '#ffffff',
-          50: '#f4f4f4',
-          100: '#e8e8e8',
-          200: '#d1d1d1',
-          300: '#3A3A3A', // --color-bg-surface-light
-          400: '#2D2D2D', // --color-bg-surface
-          500: '#1A1A1A', // --color-bg-secondary
-          600: '#141414', // $color-border
-          700: '#0B0B0B', // --color-bg-primary
-          800: '#050505',
-          900: '#000000',
-          950: '#000000'
+          0: '#e6e6e6',
+          50: '#d2d2d2',
+          100: '#bebebe',
+          200: '#aaaaaa',
+          300: '#969696',
+          400: '#828282',
+          500: '#6e6e6e',
+          600: '#5a5a5a',
+          700: '#464646',
+          800: '#323232',
+          900: '#1e1e1e',
+          950: '#0a0a0a'
         }
       }
     },

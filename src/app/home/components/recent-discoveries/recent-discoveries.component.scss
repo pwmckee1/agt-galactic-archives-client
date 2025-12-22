@@ -9,15 +9,6 @@
     $color-surface-900 95%,
   );
 }
-.recent-discoveries::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, $color-primary, transparent);
-}
 
 h2 {
   color: $color-primary;
