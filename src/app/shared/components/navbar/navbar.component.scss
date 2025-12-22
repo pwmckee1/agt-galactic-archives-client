@@ -1,10 +1,10 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: $color-bg-secondary;
-  border-bottom: 2px solid $color-secondary;
+  background-color: $color-surface-900;
+  border-bottom: 2px solid $color-primary-alt;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -48,7 +48,7 @@
 }
 
 .nav-link {
-  color: $color-text-secondary;
+  color: $color-text-muted;
   font-weight: 500;
   transition: all 0.3s ease;
   position: relative;
@@ -145,8 +145,8 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background-color: $color-bg-secondary;
-    border-bottom: 2px solid $color-secondary;
+    background-color: $color-surface-900;
+    border-bottom: 2px solid $color-primary-alt;
     gap: 0;
     display: none;
     padding: 1rem 0;

@@ -1,4 +1,4 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 
 
 .banner-content {
@@ -7,8 +7,8 @@
   box-shadow: $shadow-lg;
   border-radius: 15px;
   background: linear-gradient(180deg,
-    $color-bg-primary 0%,
-    $color-bg-secondary 95%,
+    $color-surface-950 0%,
+    $color-surface-900 95%,
   );
 }
 
@@ -48,7 +48,7 @@
 
 .tagline {
   font-size: 1.4rem;
-  color: $color-accent-muted;
+  color: $color-secondary-alt-muted;
   font-style: italic;
   font-weight: 300;
   letter-spacing: 0.5px;
@@ -70,7 +70,7 @@
 }
 
 .discovery-intro p {
-  color: $color-text-secondary;
+  color: $color-text-muted;
   font-size: 1rem;
   line-height: 1.7;
   margin-bottom: 1rem;

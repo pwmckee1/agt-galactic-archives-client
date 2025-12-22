@@ -1,7 +1,7 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 
 .terminal-container {
-  color: $color-accent-muted;
+  color: $color-secondary-alt-muted;
   letter-spacing: .07rem;
   display: flex;
   align-items: center;

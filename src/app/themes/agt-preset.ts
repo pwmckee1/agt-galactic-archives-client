@@ -508,7 +508,7 @@ export const AgtPreset = definePreset(Aura, {
       300: '#fdba74',
       400: '#fb923c',
       500: '#E8941A', // $color-primary
-      600: '#D17A0A', // $color-primary-dark
+      600: '#D17A0A', // $color-primary-muted
       700: '#b45309', // $color-border-accent
       800: '#92400e',
       900: '#78350f',
@@ -519,13 +519,13 @@ export const AgtPreset = definePreset(Aura, {
         surface: {
           0: '#ffffff',   // $color-text-primary
           50: '#f4f4f4',
-          100: '#e8e8e8', // $color-text-secondary
+          100: '#e8e8e8', // $color-text-muted
           200: '#7d7e7c', // $color-text-muted
-          300: '#3A3A3A', // $color-bg-surface-light
-          400: '#2D2D2D', // $color-bg-surface
-          500: '#1A1A1A', // $color-bg-secondary
-          600: '#191919', // $color-bg-surface-dark
-          700: '#0B0B0B', // $color-bg-primary
+          300: '#3A3A3A', // $color-surface-700
+          400: '#2D2D2D', // $color-surface-800
+          500: '#1A1A1A', // $color-surface-900
+          600: '#191919', // $color-surface-800-dark
+          700: '#0B0B0B', // $color-surface-950
           800: '#050505',
           900: '#000000',
           950: '#000000'

@@ -1,12 +1,12 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 
 
 /* Section Styles */
 .section {
   position: relative;
   background: linear-gradient(180deg,
-    $color-bg-primary 0%,
-    $color-bg-secondary 95%,
+    $color-surface-950 0%,
+    $color-surface-900 95%,
   );
 }
 .recent-discoveries::before {
@@ -47,7 +47,7 @@ h2 {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background-color: $color-bg-surface;
+  background-color: $color-surface-800;
   border-left: 4px solid $color-primary;
   border-radius: 8px;
   text-decoration: none;
@@ -76,7 +76,7 @@ h2 {
 .discovery-item:hover {
   transform: translateX(8px);
   box-shadow: 0 6px 20px rgba(232, 148, 26, 0.2);
-  border-left-color: $color-secondary;
+  border-left-color: $color-primary-alt;
 }
 
 .item-header {
@@ -119,7 +119,7 @@ h2 {
 }
 
 .discovery-description {
-  color: $color-text-secondary;
+  color: $color-text-muted;
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 1rem;
@@ -135,7 +135,7 @@ h2 {
 
 .submitter {
   font-weight: 500;
-  color: $color-accent;
+  color: $color-secondary-alt;
 }
 
 .date {
@@ -151,7 +151,7 @@ h2 {
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: linear-gradient(135deg, $color-primary, $color-secondary);
+  background: linear-gradient(135deg, $color-primary, $color-primary-alt);
   color: $color-text-primary;
   border: none;
   border-radius: 8px;
@@ -166,7 +166,7 @@ h2 {
 .btn-view-all:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(232, 148, 26, 0.3);
-  background: linear-gradient(135deg, $color-secondary, $color-primary);
+  background: linear-gradient(135deg, $color-primary-alt, $color-primary);
 }
 
 .btn-view-all:active {

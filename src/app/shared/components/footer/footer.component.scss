@@ -1,7 +1,7 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 .footer {
-  background-color: $color-bg-secondary;
-  border-top: 2px solid $color-secondary;
+  background-color: $color-surface-900;
+  border-top: 2px solid $color-primary-alt;
   position: sticky;
   bottom: 0;
   box-shadow: $shadow-lg;
@@ -13,7 +13,7 @@
 }
 
 .footer-link {
-  color: $color-text-secondary;
+  color: $color-text-muted;
   font-size: 0.9rem;
   transition: all 0.3s ease;
   padding-right: 1rem;

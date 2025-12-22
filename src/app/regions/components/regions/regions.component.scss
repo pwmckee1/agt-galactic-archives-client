@@ -1,7 +1,7 @@
-@use "../../../themes/_theme-variables.scss" as *;
+@use "../../../themes/variables" as *;
 
 .sub-header {
-  color: $color-accent-muted;
+  color: $color-secondary-alt-muted;
   letter-spacing: .15rem;
 }
 
@@ -12,10 +12,10 @@
   overflow: hidden;
   box-shadow: $shadow-lg;
   background: linear-gradient(0deg,
-    $color-bg-primary 0%,
-    $color-bg-secondary 95%,
+    $color-surface-950 0%,
+    $color-surface-900 95%,
   );
-  border: 2px solid $color-accent-muted;
+  border: 2px solid $color-secondary-alt-muted;
   border-radius: 8px;
 }
 
@@ -39,8 +39,8 @@
 .infobox-image {
   height: 16rem;
   background-color: #000;
-  border-top: 1px solid $color-accent-muted;
-  border-bottom: 2px solid $color-accent-muted;
+  border-top: 1px solid $color-secondary-alt-muted;
+  border-bottom: 2px solid $color-secondary-alt-muted;
 }
 
 .infobox-grid {

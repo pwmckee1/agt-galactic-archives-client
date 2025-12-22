@@ -1,5 +1,5 @@
 /* AGT Galactic Archives - Global Styles */
-@use "./app/themes/_theme-variables.scss" as *;
+@use "app/themes/variables" as *;
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
@@ -10,11 +10,27 @@
 }
 
 html, body {
-  background-color: black;
   font-family: "GeoNMS", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--surface-ground);
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/img/galaxy-background.jpg');
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
+  }
 
   color: $color-text-primary;
-  margin: auto; /* Ensure no default margins */
 }
 
 a {
@@ -37,8 +53,8 @@ a {
 .section {
   position: relative;
   background: linear-gradient(0deg,
-    $color-bg-primary 0%,
-    $color-bg-secondary 95%,
+    $color-surface-950 0%,
+    $color-surface-900 95%,
   );
 }
 
@@ -61,7 +77,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: $color-bg-surface;
+  background: $color-surface-800;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -70,7 +86,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $color-primary-dark;
+  background: $color-primary-muted;
 }
 
 h1 {
@@ -82,12 +98,12 @@ h2 {
 }
 
 h3 {
-  color: $color-text-secondary;
+  color: $color-text-muted;
 }
 
 /* Cards */
 .card {
-  background-color: $color-bg-surface;
+  background-color: $color-surface-800;
   border-radius: 8px;
   padding: 1.5rem;
   border: 1px solid $color-border;
