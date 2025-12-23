@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule, KeyValue, NgOptimizedImage } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -31,7 +31,6 @@ import { Select, SelectModule } from 'primeng/select';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    SelectModule,
     Select,
     Button,
     Image,
@@ -43,7 +42,7 @@ import { Select, SelectModule } from 'primeng/select';
     MultiSelectModule,
     CheckboxModule,
     Breadcrumb,
-    BreadcrumbModule,
+    TerminalCommunicationComponent,
     TerminalCommunicationComponent,
   ],
   providers: [RegionService],
@@ -55,11 +54,22 @@ export class RegionsComponent implements OnInit {
   regions: IRegion[] = [];
   selectedSearchFields: string[] = [];
   isLoading = false;
-  galaxyTypes: string[] = Object.keys(GalaxyTypes);
-  galaxyControl = new FormControl(GalaxyTypes.Euclid);
+  galaxyTypes: { name: string, label: GalaxyTypes }[] = Object.entries(GalaxyTypes).map(([key, value]) => ({
+    name: key,
+    label: value
+  }));
   breadcrumbItems: MenuItem[] | undefined
   home: MenuItem | undefined;
-  consoleText: string;
+  terminalText: string = 'ARCHIVE DATA FEED // STATUS: ONLINE //';
+  selectGalaxyTest: string = 'Select Galaxy';
+  galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
+  selectSearchFieldsText: string = 'Select Additional Search Fields';
+  searchFieldsPlaceholder: string = 'Region Name, Surveyed By, etc...';
+  hasInitialStatusText: boolean = false;
+  hasSelectGalaxyText: boolean = false;
+  isGalaxySelected: boolean = false;
+  hasSelectSearchFieldsText: boolean = false;
+  hasSelectedSearchFields: boolean = false;
   availableSearchFields: string[] = [
     'Region Name',
     'Surveyed By',
@@ -82,7 +92,7 @@ export class RegionsComponent implements OnInit {
     this.setupHeader();
     this.primeng.ripple.set(true);
     this.galaxyForm = new FormGroup({
-      galaxy: this.galaxyControl,
+      galaxy:  new FormControl(null),
       searchFields: new FormControl(null),
       name: new FormControl(null),
       surveyedBy: new FormControl(null),
@@ -92,15 +102,20 @@ export class RegionsComponent implements OnInit {
       gameMode: new FormControl(null),
       gamePlatform: new FormControl(null),
     })
-    this.galaxyControl.valueChanges
+    this.galaxyForm.controls.galaxy.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((galaxy) => this.searchRegions(galaxy));
-
-    this.searchRegions(GalaxyTypes.Euclid);
+      .subscribe((galaxy) => {
+        this.isGalaxySelected = !!galaxy;
+      });
 
     this.galaxyForm.controls.searchFields.valueChanges.
-      pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((selectedFields: string[]) => this.selectedSearchFields = selectedFields);
+    pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((selectedFields: string[]) => {
+        this.selectedSearchFields = selectedFields;
+        this.hasSelectedSearchFields = selectedFields && selectedFields.length > 0;
+      });
+
+    this.searchRegions(GalaxyTypes.Euclid, '', '', '');
   }
 
   setupHeader(): void {
@@ -108,10 +123,6 @@ export class RegionsComponent implements OnInit {
     this.breadcrumbItems = [
       { label: 'Regions' },
     ];
-
-    // Construct the string for the typewriter effect
-
-    this.consoleText = ` ARCHIVE DATA FEED // STATUS: ONLINE`;
   }
 
   protected search(): void {
@@ -119,10 +130,11 @@ export class RegionsComponent implements OnInit {
     const regionName = this.galaxyForm.get('name').value;
     const surveyedBy = this.galaxyForm.get('surveyedBy').value;
     const civilization = this.galaxyForm.get('civilization').value;
-    this.searchRegions(galaxy, regionName, surveyedBy, civilization);
+    this.searchRegions(galaxy.name, regionName, surveyedBy, civilization);
   }
 
   protected clearSearchValues() {
+    this.galaxyForm.get('galaxy').setValue(null);
     this.galaxyForm.get('name').setValue(null);
     this.galaxyForm.get('surveyedBy').setValue(null);
     this.galaxyForm.get('discoveredBy').setValue(null);
@@ -130,6 +142,7 @@ export class RegionsComponent implements OnInit {
     this.galaxyForm.get('gameRelease').setValue(null);
     this.galaxyForm.get('gameMode').setValue(null);
     this.galaxyForm.get('gamePlatform').setValue(null);
+    this.selectedSearchFields = [];
   }
 
   private searchRegions(
@@ -152,5 +165,17 @@ export class RegionsComponent implements OnInit {
         }
         this.isLoading = false;
       });
+  }
+
+  statusUpdateComplete(event: boolean) {
+    this.hasInitialStatusText = event;
+  }
+
+  searchingGalaxyTypingComplete(event: boolean) {
+    this.hasSelectGalaxyText = event;
+  }
+
+  selectSearchFieldsTypingComplete(event: boolean) {
+    this.hasSelectSearchFieldsText = event;
   }
 }

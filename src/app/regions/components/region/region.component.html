@@ -1,6 +1,6 @@
 <p-breadcrumb [model]="breadcrumbItems" [home]="home" class="mb-3"></p-breadcrumb>
 
-<header class="section container mb-4">
+<section class="section container mb-4">
   <div class="flex justify-content-between align-items-center">
     <div class="flex align-items-center gap-2">
       <p-image src="assets/img/game-entities/regions-orange.png" alt="Region Icon" width="40"/>
@@ -16,8 +16,8 @@
       }
     </div>
   </div>
-  <agt-terminal-communication [message]="consoleText" [typingSpeed]="3"></agt-terminal-communication>
-</header>
+  <agt-terminal-communication [message]="consoleText"></agt-terminal-communication>
+</section>
 
 <main class="section container">
   <form [formGroup]="regionForm">

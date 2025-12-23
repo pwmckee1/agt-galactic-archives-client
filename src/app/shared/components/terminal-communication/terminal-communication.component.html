@@ -1,11 +1,5 @@
-<p class="terminal-container">
+
+<p class="terminal-container" [ngClass]="[textColorClass, isFinished ? 'typing-complete' : '']">
   <span class="mr-2">></span>
-  <span
-    class="typewriter"
-    [style.animationDuration.s]="typingSpeed"
-    [style.width.ch]="charCount"
-    [style.animationTimingFunction]="'steps(' + charCount + ', end)'">
-    {{ displayMessage }}
-  </span>
-  <span class="blink">_</span>
+  <span #typedElement></span>
 </p>

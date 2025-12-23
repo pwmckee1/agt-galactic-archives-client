@@ -31,10 +31,10 @@ export const AgtPreset = definePreset(Aura, {
             disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
             focusBorderColor: '{primary.500}',
             filledBackground: '{surface.700}',
-            filledHoverBackground: '{surface.400}',
+            filledHoverBackground: '{surface.700}',
             filledFocusBackground: '{surface.700}',
           },
         },
@@ -46,7 +46,7 @@ export const AgtPreset = definePreset(Aura, {
             disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
             focusBorderColor: '{primary.500}',
             filledBackground: '{surface.700}',
             filledHoverBackground: '{surface.400}',
@@ -104,7 +104,7 @@ export const AgtPreset = definePreset(Aura, {
             background: '{surface.700}',
             color: '{primary.500}',
             borderColor: '{primary.500}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
           }
         },
         dark: {
@@ -154,7 +154,7 @@ export const AgtPreset = definePreset(Aura, {
             background: '{surface.700}',
             color: '{primary.500}',
             borderColor: '{primary.500}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
           }
         }
       }
@@ -294,30 +294,31 @@ export const AgtPreset = definePreset(Aura, {
       colorScheme: {
         light: {
           root: {
-            background: '{surface.700}',
+            background: 'black',
             disabledBackground: '{surface.700}',
+            focusBorderColor: '{primary.500}',
             disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             color: '{primary.500}',
-            hoverBorderColor: '{accentMuted}',
-            filledBackground: '{accentMuted}',
-            filledHoverBackground: '{accentMuted}',
-            filledFocusBackground: '{accentMuted}',
+            hoverBorderColor: '{primary_alt}',
+            filledBackground: 'black',
+            filledHoverBackground: '{surface.950}',
+            filledFocusBackground: '{surface.950}',
           },
           dropdown: {
             color: '{primary.500}',
           },
           overlay: {
-            background: '{surface.500}',
+            background: 'black',
             borderColor: '{primary.500}',
             color: '{primary.500}',
           },
           option: {
-            color: '{primary.500}',
-            selectedColor: '{surface.700}',
+            color: '{surface.400}',
+            selectedColor: 'black',
             selectedBackground: '{accentMuted}',
-            selectedFocusColor: '{surface.700}',
-            selectedFocusBackground: '{accentMuted}',
+            selectedFocusColor: 'black',
+            selectedFocusBackground: '{primary.500}',
             focusBackground: '{primary.500}',
             focusColor: '{surface.0}',
           }
@@ -394,7 +395,7 @@ export const AgtPreset = definePreset(Aura, {
             disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
             focusBorderColor: '{primary.500}',
             filledBackground: '{surface.700}',
             filledHoverBackground: '{surface.400}',
@@ -409,7 +410,7 @@ export const AgtPreset = definePreset(Aura, {
             disabledColor: '{primary.700}',
             borderColor: '{primary.500}',
             placeholderColor: '{surface.200}',
-            hoverBorderColor: '{secondary}',
+            hoverBorderColor: '{primary_alt}',
             focusBorderColor: '{primary.500}',
             filledBackground: '{surface.700}',
             filledHoverBackground: '{surface.400}',
@@ -481,7 +482,7 @@ export const AgtPreset = definePreset(Aura, {
     },
     breadcrumb: {
       root: {
-        background: '{surface.700}',
+        background: 'transparent',
       },
       item: {
         color: '{primary.500}',
@@ -498,7 +499,8 @@ export const AgtPreset = definePreset(Aura, {
   },
   semantic: {
     // Custom tokens
-    secondary: '#eb5a2c',
+    primary_alt: '#eb5a2c',
+    primary_muted: '#D17A0A',
     accent: '#E63946',
     accentMuted: '#c2373f',
     primary: {
@@ -507,9 +509,9 @@ export const AgtPreset = definePreset(Aura, {
       200: '#fed7aa',
       300: '#fdba74',
       400: '#fb923c',
-      500: '#E8941A', // $color-primary
-      600: '#D17A0A', // $color-primary-muted
-      700: '#b45309', // $color-border-accent
+      500: '#E8941A',
+      600: '#D17A0A',
+      700: '#b45309',
       800: '#92400e',
       900: '#78350f',
       950: '#451a03'

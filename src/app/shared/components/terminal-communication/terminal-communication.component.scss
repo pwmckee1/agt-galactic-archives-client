@@ -1,35 +1,23 @@
 @use "../../../themes/variables" as *;
 
 .terminal-container {
-  color: $color-secondary-alt-muted;
-  letter-spacing: .07rem;
   display: flex;
   align-items: center;
-  width: fit-content;
+  width: 100%;
   margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
 
-  .typewriter {
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-    width: 0;
-    vertical-align: bottom;
-    animation: typing forwards;
-  }
-
-  .blink {
-    display: inline-block;
-    margin-left: 2px;
-    animation: terminal-blink 1s step-end infinite;
+  ::ng-deep .typed-cursor {
+    margin-left: 4px;
+    color: inherit;
+    opacity: 1;
+    animation: typedjsBlink 0.7s infinite;
   }
 }
 
-@keyframes typing {
-  from { width: 0; }
-  /* The end width is handled via [style.width.ch] in the HTML */
-}
-
-@keyframes terminal-blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes typedjsBlink {
+  50% { opacity: 0.0; }
 }

@@ -1,0 +1,240 @@
+@use "variables" as *;
+
+.terminal-version {
+  color: $color-green-accent;
+}
+
+.terminal {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+
+  .terminal-link {
+    color: $color-green-accent; // $color-green-accent
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: text-shadow 0.3s ease;
+
+    &:hover {
+      text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: $color-green-accent;
+      transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+  }
+  ::ng-deep {
+    .p-inputicon {
+      color: $color-green-accent;
+    }
+    // Shared styles for Select, Multiselect, and InputText
+    .p-select, .p-multiselect, .p-inputtext {
+      border-color: $color-green-accent;
+      background-color: black;
+      color: $color-green-accent; // Force green text
+
+      &:not(.p-disabled):hover {
+        border-color: $color-green-accent-light;
+      }
+
+      &:enabled:focus {
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+        background-color: rgba(74, 222, 128, 0.05);
+      }
+
+      &:enabled:not(:focus) {
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+        background-color: black;
+      }
+
+      &::placeholder {
+        color: rgba(74, 222, 128, 0.5); // Dimmed green placeholder
+      }
+
+      // Active/Filled/Dirty Input state (Not hovered)
+      &.p-filled:not(:hover) {
+        background-color: rgba(74, 222, 128, 0.05);
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+      }
+
+      // Active/Filled/Dirty Input state (Not hovered)
+      &.p-filled:not(.p-disabled):not(:hover):not(.p-focus) {
+        background-color: rgba(74, 222, 128, 0.05);
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+      }
+
+      &:not(.p-disabled).p-focus:not(:hover) {
+        border-color: $color-green-accent;
+        box-shadow: 0 0 0 1px $color-green-accent;
+        background-color: rgba(74, 222, 128, 0.15); // Slightly lighter for focus indicator
+        color: $color-green-accent;
+      }
+
+      &:enabled:hover {
+        border-color: $color-green-accent-light;
+        background-color: rgba(74, 222, 128, 0.1);
+        color: $color-green-accent-light;
+      }
+    }
+
+    // Specific label handling for Select/Multiselect
+    .p-select-label, .p-multiselect-label, .p-select-placeholder, .p-multiselect-placeholder {
+      color: $color-green-accent;
+      font-weight: normal;
+      text-transform: uppercase;
+
+      &:hover {
+        color: $color-green-accent-light;
+      }
+    }
+
+    .p-select-dropdown, .p-multiselect-dropdown {
+      color: $color-green-accent;
+    }
+    // Overlays (Dropdown Menus)
+    .p-select-overlay, .p-multiselect-overlay {
+      background: black;
+      border: 1px solid $color-green-accent;
+
+      .p-select-option, .p-multiselect-option {
+        color: $color-green-accent;
+        transition: all 0.2s ease;
+
+        // 1. Selected but NOT hovered/focused
+        &.p-select-option-selected, &.p-multiselect-option-selected {
+          background: rgba(74, 222, 128, 0.15);
+          color: $color-green-accent;
+
+          .p-checkbox-box {
+            border-color: $color-green-accent;
+            background: $color-green-accent;
+            .p-checkbox-icon {
+              color: black;
+            }
+          }
+        }
+
+        // 2. Hovered or Focused (The High-Contrast State)
+        &:hover, &.p-focus {
+          background: $color-green-accent !important;
+          color: black !important;
+
+          .p-checkbox-box {
+            border-color: black !important;
+            background: transparent !important; // Outline look on hover highlight
+
+            &.p-highlight {
+              background: black !important; // Solid box if checked + hovered
+              .p-checkbox-icon {
+                color: $color-green-accent !important;
+              }
+            }
+          }
+        }
+      }
+
+      // Header (Search/Filter area)
+      .p-multiselect-header {
+        background: black;
+        border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+        padding: 0.5rem;
+        color: $color-green-accent;
+
+        .p-multiselect-filter-container {
+          .p-inputtext {
+            background: transparent;
+            border: 1px solid rgba(74, 222, 128, 0.5);
+            color: $color-green-accent;
+            padding-left: 2rem;
+
+            &:focus {
+              border-color: $color-green-accent;
+              box-shadow: 0 0 5px $color-green-accent;
+            }
+          }
+
+          .p-multiselect-filter-icon {
+            color: $color-green-accent;
+          }
+        }
+
+        .p-multiselect-close {
+          color: $color-green-accent;
+          &:hover {
+            background: rgba(74, 222, 128, 0.1);
+          }
+        }
+      }
+
+      // Checkboxes inside the list
+      .p-checkbox {
+        .p-checkbox-box {
+          border-color: $color-green-accent;
+          background: transparent;
+          transition: border-color 0.2s; // Smooth transition for the border
+
+          &.p-highlight {
+            background: $color-green-accent;
+            border-color: $color-green-accent;
+
+            .p-checkbox-icon {
+              color: black;
+            }
+          }
+        }
+      }
+
+      // List Scrollbar
+      .p-multiselect-list-container {
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+        &::-webkit-scrollbar-track {
+          background: black;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: rgba(74, 222, 128, 0.5);
+          &:hover {
+            background: $color-green-accent;
+          }
+        }
+      }
+    }
+
+    // Terminal-style Buttons
+    .p-button {
+      background: transparent;
+      border: 1px solid $color-green-accent;
+      color: $color-green-accent;
+      text-transform: uppercase;
+
+      &:hover {
+        background: rgba(74, 222, 128, 0.1);
+        border-color: $color-green-accent;
+      }
+
+      .p-button-icon {
+        color: $color-green-accent;
+      }
+    }
+  }
+}

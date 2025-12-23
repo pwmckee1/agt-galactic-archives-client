@@ -1,12 +1,34 @@
 /* Primary Colors */
 $color-primary: #E8941A;
 $color-primary-alt: #eb5a2c;
+$color-primary-test: #f8721f;
 $color-primary-muted: #D17A0A;
+$color-secondary: #E63946;
 $color-secondary-alt: #f8100b;
-$color-secondary-alt-muted: #c2373f;
+$color-secondary-muted: #c2373f;
 $color-green-accent: #4ade80;
+$color-green-accent-light: #a3fcc3;
 $color-blue-accent: #3b82f6;
 $color-blue-accent-dark: #2a3240;
+
+
+$color-primary-50: #fff7ed;
+$color-primary-100: #ffedd5;
+$color-primary-200: #fed7aa;
+$color-primary-300: #fdba74;
+$color-primary-400: #fb923c;
+$color-primary-500: #E8941A;
+$color-primary-600: #D17A0A;
+$color-primary-700: #b45309;
+$color-primary-800: #92400e;
+$color-primary-900: #78350f;
+$color-primary-950: #451a03;
+
+/* Terminal Colors */
+$color-terminal-primary: #4ade80;
+$color-terminal-light: #a3fcc3;
+$color-terminal-bg-focus: rgba(74, 222, 128, 0.15);
+$color-terminal-bg: #000000;
 
 /* Surface */
 $color-surface-0: #e6e6e6;
@@ -20,6 +42,7 @@ $color-surface-600: #5a5a5a;
 $color-surface-700: #464646;
 $color-surface-800: #323232;
 $color-surface-900: #1e1e1e;
+$color-surface-925: #141414;
 $color-surface-950: #0a0a0a;
 
 /* Text Colors */
@@ -32,8 +55,9 @@ $color-border: #141414;
 $color-border-accent: #b45309;
 
 /* Shadows */
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
-$shadow-glow: 0 0 20px rgba(232, 148, 26, 0.4);
-$shadow-primary: 0 0 20px #D17A0A;
+$shadow-sm: 0 .1rem .5rem rgba(0, 0, 0, 0.3);
+$shadow-md: 0 .25rem .75rem rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 .5rem 1.5rem rgba(0, 0, 0, 0.6);
+$shadow-glow: 0 0 1.25rem rgba(232, 148, 26, 0.4);
+$shadow-primary-lg: 0 0 1.25rem #D17A0A;
+$shadow-primary-sm: 0 0 .75rem #D17A0A;
