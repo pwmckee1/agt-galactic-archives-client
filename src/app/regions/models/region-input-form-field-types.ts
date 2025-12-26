@@ -10,4 +10,5 @@ export enum RegionInputFormFieldTypes {
   GameInfo = 'GameInfo',
   Notes = 'Notes',
   Links = 'Links',
+  InterRegionDistance = 'InterRegionDistance',
 }

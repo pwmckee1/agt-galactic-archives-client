@@ -140,6 +140,49 @@ export namespace FormHelpers {
     };
   }
 
+  export function interRegionGroupValidator(): ValidatorFn {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const g = group as FormGroup;
+      const values = g.getRawValue();
+
+      // Define fields to check for any data entry
+      const fieldsToCheck = [
+        'adjacentRegionName',
+        'localSystem',
+        'adjacentRegionSystem',
+        'localSystemGlyphs',
+        'adjacentRegionSystemGlyphs',
+        'distance'
+      ];
+
+      const hasAnyValue = fieldsToCheck.some(key => {
+        const val = values[key];
+        return val !== null && val !== undefined && val !== '';
+      });
+
+      if (hasAnyValue) {
+        const errors: any = {};
+        const requiredFields = [
+          'adjacentRegionName',
+          'localSystem',
+          'adjacentRegionSystem',
+          'distance'
+        ];
+
+        requiredFields.forEach(field => {
+          const control = g.get(field);
+          if (!control?.value && control?.value !== 0) {
+            errors[field] = { required: true };
+          }
+        });
+
+        return Object.keys(errors).length ? { rowIncomplete: true, ...errors } : null;
+      }
+
+      return null;
+    };
+  }
+
   export function getHasMinimumValueValidator(minLength: number, controlName: string, label: string): ValidatorFn {
     const qualifier = minLength === 1 ? label : `${ label }s`;
     return (control: FormArray): ValidationErrors => {

@@ -1,3 +1,4 @@
+import { IInterRegionDistance } from '@regions/models/inter-region-distance';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
 import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
@@ -24,4 +25,5 @@ export interface IUpsertRegion {
   legacyWikiLink?: string;
   externalLink?: string;
   videoLink?: string;
+  interRegionDistances?: IInterRegionDistance[];
 }

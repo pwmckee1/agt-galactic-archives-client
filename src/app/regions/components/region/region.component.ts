@@ -1,7 +1,16 @@
 import { NgClass } from '@angular/common';
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { IInterRegionDistance } from '@regions/models/inter-region-distance';
 import { RegionInputFormFieldTypes } from '@regions/models/region-input-form-field-types';
 import { IUpsertRegion } from '@regions/models/upsert-region';
 import {
@@ -125,10 +134,11 @@ export class RegionComponent implements OnInit {
   gameInfoText: string = 'Game_Information:';
   notesText: string = 'Notes:';
   linksText: string = 'Links:';
+  interRegionText: string = 'Inter-Region_Distance (4 Minimum):';
 
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
   regionNamePlaceholder: string = 'Kitisba-Instability, etc...';
-  phantomSystemPlaceholder: string = 'Skip if you are unsure';
+  phantomSystemPlaceholder: string = 'Skip if you are unsure what that is';
   surveyedByPlaceholder: string = 'Surveyor Name';
   surveyDatePlaceholder: string = 'Survey Date';
   galacticCoordinatesPlaceholder: string = 'XXXX:XXXX:XXXX:XXXX';
@@ -145,6 +155,12 @@ export class RegionComponent implements OnInit {
   legacyWikiLinkPlaceholder: string = 'Legacy Wiki Link';
   externalLinkPlaceholder: string = 'External Link';
   videoLinkPlaceholder: string = 'Video Link';
+  interRegionDistancePlaceholder: string = 'Distance (LY)';
+  localSystemNamePlaceholder: string = 'Local System';
+  adjacentRegionNamePlaceholder: string = 'Adjacent Region';
+  adjacentRegionSystemNamePlaceholder: string = 'Adjacent Region System';
+  localSystemGlyphsPlaceholder: string = 'Local System Glyphs';
+  adjacentRegionSystemGlyphsPlaceholder: string = 'Adjacent System Glyphs';
 
   private destroyRef = inject(DestroyRef);
 
@@ -200,7 +216,6 @@ export class RegionComponent implements OnInit {
   fetchRegion(): void {
     this.regionService.getRegionById(this.regionId).subscribe((res: ApiResponse<IRegion>) => {
       if (res.success) {
-        console.log('res', res)
         this.setRegion(res.response);
       } else {
         this.toastr.error(res.messages[0]);
@@ -229,11 +244,20 @@ export class RegionComponent implements OnInit {
       legacyWikiLink: new FormControl(null),
       externalLink: new FormControl(null),
       videoLink: new FormControl(null),
+      interRegionDistances: this.formBuilder.array([])
     });
+
+    this.initializeDistances();
   }
 
   setRegion(region: IRegion): void {
     this.currentRegion = region;
+
+    if (region.interRegionDistances?.length) {
+      this.interRegionDistancesFormArray.clear();
+      region.interRegionDistances.forEach(() => this.addDistance());
+    }
+
     this.regionForm.patchValue(region);
     if (this.isReadOnly) {
       this.regionForm.disable();
@@ -280,6 +304,7 @@ export class RegionComponent implements OnInit {
       [RegionInputFormFieldTypes.SurveyInfo]: ['surveyedBy', 'surveyDate'],
       [RegionInputFormFieldTypes.GalacticCoordinates]: ['galacticCoordinates'],
       [RegionInputFormFieldTypes.GameInfo]: ['gameRelease'],
+      [RegionInputFormFieldTypes.InterRegionDistance]: ['interRegionDistances'],
     };
 
     const controlsToCheck = requiredFieldMapping[this.activeFormField] || [];
@@ -313,7 +338,43 @@ export class RegionComponent implements OnInit {
     const currentIndex = this.activeFormFields.indexOf(this.activeFormField);
     const allFormFields = Object.keys(RegionInputFormFieldTypes);
     this.activeFormField = allFormFields[currentIndex + 1] as RegionInputFormFieldTypes;
+
+    //if (this.activeFormField === RegionInputFormFieldTypes.InterRegionDistance) {
+      //this.initializeDistances();
+   //}
+
     this.activeFormFields.push(this.activeFormField);
+  }
+
+  addDistance(): void {
+    const distanceGroup = this.formBuilder.group({
+      distanceFormRegionName: [{ value: this.regionForm.get('regionName')?.value, disabled: true }],
+      adjacentRegionName: [null],
+      localSystem: [null],
+      adjacentRegionSystem: [null],
+      localSystemGlyphs: [null],
+      adjacentRegionSystemGlyphs: [null],
+      distance: [null, [Validators.min(0)]]
+    }, { validators: [FormHelpers.interRegionGroupValidator()] });
+
+    this.interRegionDistancesFormArray.push(distanceGroup);
+  }
+
+  removeDistance(index: number): void {
+    console.log('form valid', this.regionForm.valid, this.regionForm.errors)
+    // if (index >= 4 && this.interRegionDistancesFormArray.length > 4) {
+    //   this.interRegionDistancesFormArray.removeAt(index);
+    // }
+  }
+
+  initializeDistances(): void {
+    // Requirements: if they enter any, it must be at least 4.
+    // We start with 4 empty slots if they trigger this section.
+    if (this.interRegionDistances.length === 0) {
+      for (let i = 0; i < 4; i++) {
+        this.addDistance();
+      }
+    }
   }
 
   get regionEntry(): IUpsertRegion {
@@ -336,6 +397,7 @@ export class RegionComponent implements OnInit {
       legacyWikiLink: this.legacyWikiLink,
       externalLink: this.externalLink,
       videoLink: this.videoLink,
+      interRegionDistances: this.interRegionDistances,
     };
   }
 
@@ -356,7 +418,11 @@ export class RegionComponent implements OnInit {
   }
 
   get galacticCoordinates(): string {
-    return this.regionForm.controls.galacticCoordinates.value;
+    return this.galacticCoordinatesControl.value;
+  }
+
+  get galacticCoordinatesControl(): FormControl {
+    return this.regionForm.get('galacticCoordinates') as FormControl;
   }
 
   get legacyName(): string {
@@ -409,5 +475,13 @@ export class RegionComponent implements OnInit {
 
   get videoLink(): string {
     return this.regionForm.controls.videoLink.value;
+  }
+
+  get interRegionDistancesFormArray(): FormArray {
+    return this.regionForm.get('interRegionDistances') as FormArray;
+  }
+
+  get interRegionDistances(): IInterRegionDistance[] {
+    return this.interRegionDistancesFormArray.value.length > 0 ? this.interRegionDistancesFormArray.value : [];
   }
 }

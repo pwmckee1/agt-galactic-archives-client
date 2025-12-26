@@ -59,6 +59,22 @@
       color: $color-green-accent;
     }
 
+    .p-floatlabel-on label{
+      background-color: $color-terminal-bg;
+    }
+
+    .p-floatlabel label {
+      color: $color-terminal-alpha-70;
+
+      &:has(input:focus) label,
+      &:has(input:-webkit-autofill) label,
+      &:has(textarea:focus) label
+      &:has(.p-inputwrapper-focus) label {
+        color: $color-green-accent;
+        background-color: $color-terminal-bg;
+      }
+    }
+
     .p-textarea {
       background-color: $color-terminal-bg;
       border-radius: 0;
@@ -164,6 +180,18 @@
         border-color: $color-green-accent-light;
         background-color: $color-terminal-alpha-10;
         color: $color-green-accent-light;
+      }
+    }
+
+    // Specific handling for InputNumber invalid state
+    .p-inputnumber.ng-invalid.ng-touched {
+      .p-inputtext {
+        border-bottom-color: $color-secondary !important;
+        color: $color-green-accent !important;
+
+        &::placeholder {
+          color: $color-terminal-alpha-70; // Dimmed green placeholder
+        }
       }
     }
 
