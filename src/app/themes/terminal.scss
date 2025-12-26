@@ -3,11 +3,17 @@
 .terminal-version {
   color: $color-green-accent;
 }
+.terminal-image {
+  ::ng-deep img {
+    vertical-align: middle;
+    display: block;
+  }
+}
 
 .terminal {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+  text-shadow: 0 0 5px $color-terminal-alpha-20;
 
   .terminal-link {
     color: $color-green-accent; // $color-green-accent
@@ -19,8 +25,17 @@
     letter-spacing: 1px;
     transition: text-shadow 0.3s ease;
 
+    &:focus-visible {
+      outline: 1px solid $color-green-accent;
+    }
+
+    &:focus {
+      outline:   1px solid $color-green-accent;
+    }
+
+
     &:hover {
-      text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+      text-shadow: 0 0 8px $color-terminal-alpha-60;
     }
 
     &::after {
@@ -38,46 +53,102 @@
       width: 100%;
     }
   }
+
   ::ng-deep {
     .p-inputicon {
       color: $color-green-accent;
     }
-    // Shared styles for Select, Multiselect, and InputText
-    .p-select, .p-multiselect, .p-inputtext {
-      border-color: $color-green-accent;
-      background-color: black;
-      color: $color-green-accent; // Force green text
+
+    .p-textarea {
+      background-color: $color-terminal-bg;
+      border-radius: 0;
+      border-bottom: 1px solid $color-green-accent;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $color-terminal-bg;
+        border-left: 1px solid $color-terminal-alpha-20;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $color-green-accent;
+        box-shadow: 0 0 5px $color-green-accent;
+
+        &:hover {
+          background: $color-green-accent-light;
+        }
+      }
 
       &:not(.p-disabled):hover {
         border-color: $color-green-accent-light;
       }
 
       &:enabled:focus {
-        color: $color-green-accent;
-        border-color: $color-green-accent;
-        background-color: rgba(74, 222, 128, 0.05);
+        color: $color-green-accent-light;
+        border-color: $color-green-accent-light;
+        background-color: $color-terminal-alpha-10;
       }
 
       &:enabled:not(:focus) {
         color: $color-green-accent;
         border-color: $color-green-accent;
-        background-color: black;
+        background-color: $color-terminal-bg;
       }
 
       &::placeholder {
-        color: rgba(74, 222, 128, 0.5); // Dimmed green placeholder
+        color: $color-terminal-alpha-70; // Dimmed green placeholder
+      }
+    }
+
+    // Shared styles for Select, Multiselect, and InputText
+    .p-select, .p-multiselect, .p-inputtext, .p-datepicker {
+      border: none;
+      border-bottom: 1px solid $color-green-accent;
+      border-radius: 0;
+      background-color: $color-terminal-bg;
+      color: $color-green-accent;
+
+      &.ng-invalid.ng-touched {
+        border-bottom-color: $color-secondary !important;
+      }
+
+      .p-datepicker-input-icon-container {
+        color: $color-green-accent;
+      }
+
+      &:not(.p-disabled):hover {
+        border-color: $color-green-accent-light;
+      }
+
+      &:enabled:focus {
+        color: $color-green-accent-light;
+        border-color: $color-green-accent-light;
+        background-color: $color-terminal-alpha-10;
+      }
+
+      &:enabled:not(:focus) {
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+        background-color: $color-terminal-bg;
+      }
+
+      &::placeholder {
+        color: $color-terminal-alpha-70; // Dimmed green placeholder
       }
 
       // Active/Filled/Dirty Input state (Not hovered)
       &.p-filled:not(:hover) {
-        background-color: rgba(74, 222, 128, 0.05);
+        background-color: $color-terminal-alpha-05;
         color: $color-green-accent;
         border-color: $color-green-accent;
       }
 
       // Active/Filled/Dirty Input state (Not hovered)
       &.p-filled:not(.p-disabled):not(:hover):not(.p-focus) {
-        background-color: rgba(74, 222, 128, 0.05);
+        background-color: $color-terminal-alpha-05;
         color: $color-green-accent;
         border-color: $color-green-accent;
       }
@@ -85,19 +156,19 @@
       &:not(.p-disabled).p-focus:not(:hover) {
         border-color: $color-green-accent;
         box-shadow: 0 0 0 1px $color-green-accent;
-        background-color: rgba(74, 222, 128, 0.15); // Slightly lighter for focus indicator
+        background-color: $color-terminal-alpha-15; // Slightly lighter for focus indicator
         color: $color-green-accent;
       }
 
       &:enabled:hover {
         border-color: $color-green-accent-light;
-        background-color: rgba(74, 222, 128, 0.1);
+        background-color: $color-terminal-alpha-10;
         color: $color-green-accent-light;
       }
     }
 
     // Specific label handling for Select/Multiselect
-    .p-select-label, .p-multiselect-label, .p-select-placeholder, .p-multiselect-placeholder {
+    .p-select-label, .p-multiselect-label {
       color: $color-green-accent;
       font-weight: normal;
       text-transform: uppercase;
@@ -107,13 +178,146 @@
       }
     }
 
+    // DatePicker Overlay/Panel
+    .p-datepicker-panel {
+      background: $color-terminal-bg;
+      border: 1px solid $color-green-accent;
+      color: $color-green-accent;
+      transform: translateY(-25%) !important;
+      margin-top: 0 !important;
+
+      .p-datepicker-month {
+        color: $color-green-accent;
+      }
+
+      // Hovering over months
+      .p-datepicker-month:not(.p-disabled):not(.p-datepicker-month-selected):hover {
+        background: $color-green-accent;
+        color: $color-terminal-bg;
+      }
+
+      .p-datepicker-year {
+        color: $color-green-accent;
+      }
+
+      .p-datepicker-year:not(.p-disabled):not(.p-datepicker-year-selected):hover {
+        background: $color-green-accent;
+        color: $color-terminal-bg;
+      }
+
+      .p-datepicker-day {
+        &:focus-visible {
+          outline: 1px solid $color-green-accent;
+        }
+      }
+
+      .p-datepicker-day-view {
+        .p-datepicker-today > .p-datepicker-day {
+          background: $color-terminal-bg;
+          border: 1px solid $color-green-accent;
+          color: $color-green-accent-light;
+        }
+      }
+
+      .p-datepicker-header {
+        background: $color-terminal-bg;
+        color: $color-green-accent;
+        border-bottom: 1px solid $color-terminal-alpha-30;
+
+        .p-datepicker-title {
+          .p-datepicker-month, .p-datepicker-year, .p-datepicker-select-year, .p-datepicker-select-month {
+            color: $color-green-accent;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            &:focus-visible {
+              outline: 1px solid $color-green-accent;
+            }
+
+            &:enabled:hover {
+              color: $color-green-accent-light;
+              background: $color-terminal-alpha-10;
+            }
+          }
+        }
+
+        .p-datepicker-prev, .p-datepicker-next {
+          color: $color-green-accent;
+          border: 1px solid $color-green-accent;
+          border-radius: 50%;
+          width: 2rem;
+          height: 2rem;
+
+          &:hover {
+            background: $color-terminal-alpha-10;
+            color: $color-green-accent-light;
+          }
+        }
+      }
+
+      .p-datepicker-calendar-container {
+        .p-datepicker-calendar {
+          th {
+            color: $color-green-accent;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+
+            .p-datepicker-weekday {
+              color: $color-green-accent;
+            }
+          }
+
+          td {
+            span {
+              color: $color-terminal-alpha-80;
+              transition: all 0.2s ease;
+
+              &:not(.p-disabled):not(.p-datepicker-day-selected):hover {
+                background: $color-terminal-primary;
+                color: $color-terminal-bg;
+              }
+
+              &.p-datepicker-day-selected {
+                background: $color-green-accent;
+                color: $color-terminal-bg;
+              }
+            }
+          }
+        }
+      }
+    }
+
+
     .p-select-dropdown, .p-multiselect-dropdown {
       color: $color-green-accent;
     }
+
     // Overlays (Dropdown Menus)
-    .p-select-overlay, .p-multiselect-overlay {
-      background: black;
+    .p-select-overlay, .p-multiselect-overlay, .p-datepicker-panel {
+      background: $color-terminal-bg;
       border: 1px solid $color-green-accent;
+
+      // Target the list container specifically for scrollbars
+      .p-select-list-container, .p-multiselect-list-container, .p-datepicker-calendar-container {
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: $color-terminal-bg;
+          border-left: 1px solid $color-terminal-alpha-20;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: $color-green-accent;
+          box-shadow: 0 0 5px $color-green-accent;
+
+          &:hover {
+            background: $color-green-accent-light;
+          }
+        }
+      }
 
       .p-select-option, .p-multiselect-option {
         color: $color-green-accent;
@@ -121,14 +325,15 @@
 
         // 1. Selected but NOT hovered/focused
         &.p-select-option-selected, &.p-multiselect-option-selected {
-          background: rgba(74, 222, 128, 0.15);
+          background: $color-terminal-alpha-15;
           color: $color-green-accent;
 
           .p-checkbox-box {
             border-color: $color-green-accent;
             background: $color-green-accent;
+
             .p-checkbox-icon {
-              color: black;
+              color: $color-terminal-bg;
             }
           }
         }
@@ -154,15 +359,15 @@
 
       // Header (Search/Filter area)
       .p-multiselect-header {
-        background: black;
-        border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+        background: $color-terminal-bg;
+        border-bottom: 1px solid $color-terminal-alpha-30;
         padding: 0.5rem;
         color: $color-green-accent;
 
         .p-multiselect-filter-container {
           .p-inputtext {
             background: transparent;
-            border: 1px solid rgba(74, 222, 128, 0.5);
+            border: 1px solid $color-terminal-alpha-50;
             color: $color-green-accent;
             padding-left: 2rem;
 
@@ -179,8 +384,9 @@
 
         .p-multiselect-close {
           color: $color-green-accent;
+
           &:hover {
-            background: rgba(74, 222, 128, 0.1);
+            background: $color-terminal-alpha-10;
           }
         }
       }
@@ -197,7 +403,7 @@
             border-color: $color-green-accent;
 
             .p-checkbox-icon {
-              color: black;
+              color: $color-terminal-bg;
             }
           }
         }
@@ -208,11 +414,14 @@
         &::-webkit-scrollbar {
           width: 6px;
         }
+
         &::-webkit-scrollbar-track {
-          background: black;
+          background: $color-terminal-bg;
         }
+
         &::-webkit-scrollbar-thumb {
-          background: rgba(74, 222, 128, 0.5);
+          background: $color-terminal-alpha-50;
+
           &:hover {
             background: $color-green-accent;
           }
@@ -220,20 +429,143 @@
       }
     }
 
+    .p-button-text.p-button-secondary {
+      border: none;
+      &:not(:disabled):hover {
+        background: $color-terminal-alpha-20;
+        border: none;
+      }
+    }
+
     // Terminal-style Buttons
     .p-button {
       background: transparent;
-      border: 1px solid $color-green-accent;
+      border: none;
+      border-bottom: 1px solid $color-green-accent;
+      border-radius: 0;
       color: $color-green-accent;
       text-transform: uppercase;
+      font-family: "Courier New", Courier, monospace;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+
+
+      .p-button-label {
+        font-weight: bold;
+        font-size: 1.1rem;
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+      }
 
       &:hover {
-        background: rgba(74, 222, 128, 0.1);
+        background: $color-terminal-alpha-20;
         border-color: $color-green-accent;
+        color: $color-green-accent-light;
+        border-bottom: 1px solid $color-green-accent;
+        border-radius: 0;
+      }
+
+      &:focus-visible {
+        outline: none;
+        color: $color-green-accent-light;
+        background: $color-terminal-alpha-20;
+      }
+
+      &:not(:disabled):hover, {
+        border: none;
+        border-bottom: 1px solid $color-green-accent;
       }
 
       .p-button-icon {
         color: $color-green-accent;
+      }
+    }
+
+    // Accordion Terminal Styles
+    .p-accordion {
+      background: transparent;
+      border: none;
+
+      &.invalid-terminal-field {
+        .p-accordionpanel {
+          border-color: $color-secondary !important;
+        }
+      }
+
+      .p-accordionpanel {
+        background: transparent;
+        border: 1px solid $color-terminal-alpha-30;
+        margin-bottom: 0.5rem;
+        border-radius: 0;
+
+        &:has(.ng-invalid.ng-dirty) {
+          border-color: $color-secondary !important;
+        }
+
+        &[data-p-active="true"] {
+          border-color: $color-green-accent;
+
+          .p-accordionheader {
+            border-radius: 0;
+            background: $color-terminal-alpha-80;
+            color: $color-terminal-bg;
+
+            .p-accordionheader-toggle-icon {
+              color: $color-terminal-bg;
+            }
+          }
+        }
+
+        .p-accordionheader {
+          border-radius: 0;
+          background: $color-terminal-bg;
+          color: $color-green-accent;
+          padding: 1rem;
+          text-transform: uppercase;
+          font-size: 1.125rem;
+          letter-spacing: 1px;
+          border: none;
+          transition: all 0.2s ease;
+
+          &:focus-visible {
+            outline: 1px solid $color-green-accent;
+          }
+
+          &:hover {
+            background: $color-terminal-alpha-20;
+            color: $color-green-accent-light;
+
+            .p-accordionheader-toggle-icon {
+              color: $color-green-accent-light;
+            }
+          }
+
+          .p-accordionheader-toggle-icon {
+            color: $color-green-accent;
+          }
+        }
+      }
+
+      .p-accordioncontent-content {
+        background: $color-terminal-bg;
+        color: $color-terminal-alpha-80;
+        border-top: 1px solid $color-terminal-alpha-20;
+        padding: 1rem;
+        font-size: 1.125rem;
+        line-height: 1.5;
+
+        a {
+          color: $color-green-accent;
+          text-decoration: underline;
+
+          &:hover {
+            color: $color-green-accent-light;
+          }
+
+          &:focus-visible {
+            outline: 1px solid $color-green-accent;
+          }
+        }
       }
     }
   }

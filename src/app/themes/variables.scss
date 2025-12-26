@@ -27,7 +27,15 @@ $color-primary-950: #451a03;
 /* Terminal Colors */
 $color-terminal-primary: #4ade80;
 $color-terminal-light: #a3fcc3;
-$color-terminal-bg-focus: rgba(74, 222, 128, 0.15);
+$color-terminal-alpha-80: rgba(74, 222, 128, 0.8);
+$color-terminal-alpha-70: rgba(74, 222, 128, 0.7);
+$color-terminal-alpha-60: rgba(74, 222, 128, 0.6);
+$color-terminal-alpha-50: rgba(74, 222, 128, 0.5);
+$color-terminal-alpha-30: rgba(74, 222, 128, 0.3);
+$color-terminal-alpha-20: rgba(74, 222, 128, 0.2);
+$color-terminal-alpha-15: rgba(74, 222, 128, 0.15);
+$color-terminal-alpha-10: rgba(74, 222, 128, 0.1);
+$color-terminal-alpha-05: rgba(74, 222, 128, 0.05);
 $color-terminal-bg: #000000;
 
 /* Surface */

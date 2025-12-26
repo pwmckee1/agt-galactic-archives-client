@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { CommonModule, KeyValue, NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -12,17 +12,15 @@ import {
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { MenuItem } from 'primeng/api';
-import { Breadcrumb, BreadcrumbModule } from 'primeng/breadcrumb';
+import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from 'primeng/button';
-import { ButtonGroup } from 'primeng/buttongroup';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PrimeNG } from 'primeng/config';
 import { Image } from 'primeng/image';
-import { InputGroup } from 'primeng/inputgroup';
 import { InputText } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { Select, SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'agt-regions',
@@ -36,9 +34,7 @@ import { Select, SelectModule } from 'primeng/select';
     Image,
     CardModule,
     NgOptimizedImage,
-    InputGroup,
     InputText,
-    ButtonGroup,
     MultiSelectModule,
     CheckboxModule,
     Breadcrumb,
@@ -61,7 +57,7 @@ export class RegionsComponent implements OnInit {
   breadcrumbItems: MenuItem[] | undefined
   home: MenuItem | undefined;
   terminalText: string = 'ARCHIVE DATA FEED // STATUS: ONLINE //';
-  selectGalaxyTest: string = 'Select Galaxy';
+  selectGalaxyTest: string = 'Select Galaxy:';
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
   selectSearchFieldsText: string = 'Select Additional Search Fields';
   searchFieldsPlaceholder: string = 'Region Name, Surveyed By, etc...';

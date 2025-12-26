@@ -167,7 +167,7 @@ export const AgtPreset = definePreset(Aura, {
               background: '{surface.900}',
               borderColor: '{primary.500}',
               color: '{primary.500}',
-              hoverBorderColor: '{900}',
+              hoverBorderColor: '{accentMuted}',
               hoverBackground: '{accentMuted}',
               hoverColor: '{surface.900}',
             },
@@ -177,7 +177,7 @@ export const AgtPreset = definePreset(Aura, {
               color: '{primary.500}',
               hoverBorderColor: '{accentMuted}',
               hoverBackground: '{accentMuted}',
-              hoverColor: '{surface.500}',
+              hoverColor: '{surface.900}',
             },
           },
           text: {

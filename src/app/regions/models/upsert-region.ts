@@ -1,4 +1,6 @@
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
+import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
 import * as moment from 'moment/moment';
 
 export interface IUpsertRegion {
@@ -10,7 +12,8 @@ export interface IUpsertRegion {
   regionAge?: number
   galacticCoordinates: string;
   gameRelease: string;
-  gamePlatform?: string;
+  gamePlatform?: GamePlatformTypes;
+  gameMode?: GameModeTypes;
   earliestKnownSurveyor?: string;
   latestKnownSurveyor?: string;
   summaryNotes?: string;

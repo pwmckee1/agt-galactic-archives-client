@@ -194,6 +194,10 @@ a {
   border-color: $color-green-accent;
 }
 
+.border-red {
+  border-color: $color-secondary;
+}
+
 .border-950 {
   border-color: $color-surface-950;
 }
@@ -210,6 +214,10 @@ a {
   color: $color-green-accent;
 }
 
+.text-green-light {
+  color: $color-terminal-light;
+}
+
 .text-secondary {
   color: $color-secondary;
 }
@@ -222,4 +230,13 @@ a {
       width: 100%; // Stack fully on small mobile screens
     }
   }
+}
+
+.text-no-wrap {
+  white-space: nowrap;
+}
+
+.text-wrap {
+  white-space: wrap;
+  overflow-wrap: break-word;
 }

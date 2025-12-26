@@ -22,7 +22,7 @@ import Typed from 'typed.js';
 })
 export class TerminalCommunicationComponent implements OnInit, OnChanges, OnDestroy {
   @Input({ required: true }) message: string = '';
-  @Input() typingSpeed: number = 20; // typed.js uses ms per character (lower is faster)
+  @Input() typingSpeed: number = 10; // typed.js uses ms per character (lower is faster)
   @Input() success: boolean = true;
   @Input() hideCursor: boolean = true;
 
@@ -40,6 +40,7 @@ export class TerminalCommunicationComponent implements OnInit, OnChanges, OnDest
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.textColorClass = this.success ? 'text-green' : 'text-secondary';
     if (changes['message'] && !changes['message'].firstChange) {
       this.initTyped();
     }

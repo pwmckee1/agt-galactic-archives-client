@@ -126,14 +126,18 @@ export namespace FormHelpers {
   }
 
   export function getGalacticCoordinateValidator(): ValidatorFn {
-    return (control?: AbstractControl): ValidationErrors => (
-      control && control.value && !GameHelpers.galacticCoordinatesRegex.test(control.value)
+    return (control?: AbstractControl): ValidationErrors => {
+      if (!control || !control.value) {
+        return null;
+      }
+
+      return !GameHelpers.galacticCoordinatesRegex.test(control.value)
         ? {
-            invalidCoordinates: `Galactic Coordinates must have 4 sets of 4 digit hexadecimals separated by a colon,
-            last four may be xxxx to cover region coordinates, example: 19af:19af:19af:xxxx.`
-          }
-        : null
-    );
+          invalidCoordinates: `Galactic Coordinates must have 4 sets of 4 digit hexadecimals separated by a colon,
+                last four may be xxxx to cover region coordinates, example: 19af:19af:19af:xxxx.`
+        }
+        : null;
+    };
   }
 
   export function getHasMinimumValueValidator(minLength: number, controlName: string, label: string): ValidatorFn {

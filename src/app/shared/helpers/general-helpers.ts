@@ -1,3 +1,4 @@
+import { KeyValuePair } from '@shared/models/application/key-value-pair';
 import { DotNetExceptionMessage } from '@shared/models/exceptions/dotnet-exception-message';
 import { ExceptionMessage } from '@shared/models/exceptions/exception-message';
 
