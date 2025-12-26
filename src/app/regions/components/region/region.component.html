@@ -9,10 +9,11 @@
       <div class="flex justify-content-between align-items-center">
         <div class="flex flex-column px-3">
           <div class="header-image flex justify-content-start align-items-start gap-2">
-            <p-image class="region-logo mt-2"
-                     src="assets/img/game-entities/regions-orange.png"
-                     alt="AGT Logo"
-                     width="40"/>
+            <p-image
+              class="region-logo mt-2"
+              src="assets/img/game-entities/regions-orange.png"
+              alt="AGT Logo"
+              width="40"/>
             <h1 class="text-uppercase">
               {{ regionId ? (isReadOnly ? 'Region Archive' : 'Edit Region') : 'Register New Region' }}
             </h1>
@@ -29,8 +30,9 @@
 
       </div>
     </header>
-    <div [ngClass]="isReadOnly ? 'border-red' : 'border-green'"
-         class="terminal bg-black-alpha-90
+    <div
+      [ngClass]="isReadOnly ? 'border-red' : 'border-green'"
+      class="terminal bg-black-alpha-90
           border-3 border-double border-round-bottom-2xl
           gap-4 p-4">
 
@@ -71,21 +73,25 @@
                   <div class="flex flex-column lg:flex-row gap-2">
                     <div class="flex-grow-1">
                       <span class="text-secondary">*</span>
-                      <p-select
-                        [fluid]="true"
-                        formControlName="galaxy"
-                        placeholder="{{galaxySelectPlaceholder}}"
-                        [options]="galaxyTypes"/>
+                      <p-floatlabel variant="on">
+                        <p-select
+                          id="galaxy"
+                          formControlName="galaxy"
+                          [fluid]="true"
+                          [options]="galaxyTypes"/>
+                        <label for="galaxy">{{ galaxySelectPlaceholder }}</label>
+                      </p-floatlabel>
                     </div>
                     @if (true //activeFormField === FormFields.Galaxy) {
                       <div class="flex-initial text-right white-space-nowrap align-content-end">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -112,22 +118,27 @@
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
                       <span class="text-secondary">*</span>
-                      <input pInputText id="regionName"
-                             formControlName="regionName"
-                             placeholder="{{regionNamePlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
+                      <p-floatlabel variant="on">
+                        <input
+                          pInputText
+                          id="regionName"
+                          formControlName="regionName"
+                          variant="filled"
+                          [fluid]="true"
+                          type="text"/>
+                        <label for="regionName">{{ regionNamePlaceholder }}</label>
+                      </p-floatlabel>
                     </div>
                     @if (true //activeFormField === FormFields.RegionName) {
                       <div class="flex-initial white-space-nowrap align-content-end">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -156,40 +167,47 @@
                       <div class="flex flex-column lg:flex-row gap-4">
                         <div class="flex-1 min-w-min">
                           <span class="text-secondary">*</span>
-                          <input pInputText id="surveyedBy"
-                                 class="min-w-max"
-                                 formControlName="surveyedBy"
-                                 placeholder="{{surveyedByPlaceholder}}"
-                                 variant="filled"
-                                 [fluid]="true"
-                                 type="text"/>
+                          <p-floatlabel variant="on">
+                            <input
+                              pInputText
+                              id="surveyedBy"
+                              class="min-w-max"
+                              formControlName="surveyedBy"
+                              variant="filled"
+                              [fluid]="true"
+                              type="text"/>
+                            <label for="surveyedBy">{{ surveyedByPlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                         <div class="flex-1 min-w-min">
                           <span class="text-secondary">*</span>
-                          <p-datepicker
-                            #datepicker
-                            formControlName="surveyDate"
-                            placeholder="{{surveyDatePlaceholder}}"
-                            class="min-w-max z-3"
-                            [minDate]="minDate"
-                            [maxDate]="maxDate"
-                            [iconDisplay]="'input'"
-                            [fluid]="true"
-                            [showIcon]="true"
-                            (keydown.enter)="datepicker.toggle()"
-                            (keydown.space)="datepicker.toggle()"></p-datepicker>
+                          <p-floatlabel variant="on">
+                            <p-datepicker
+                              #datepicker
+                              inputId="surveyDate"
+                              formControlName="surveyDate"
+                              [minDate]="minDate"
+                              [maxDate]="maxDate"
+                              [iconDisplay]="'input'"
+                              [fluid]="true"
+                              [showIcon]="true"
+                              (keydown.enter)="datepicker.toggle()"
+                              (keydown.space)="datepicker.toggle()"></p-datepicker>
+                            <label for="surveyDate">{{ surveyDatePlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                       </div>
                     </div>
                     @if (true //activeFormField === FormFields.SurveyInfo) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -251,22 +269,27 @@
                       <div class="flex flex-column lg:flex-row gap-2">
                         <div class="flex-grow-1">
                           <label for="surveyedBy" class="text-secondary">*</label>
-                          <input pInputText id="galacticCoordinates"
-                                 formControlName="galacticCoordinates"
-                                 placeholder="{{galacticCoordinatesPlaceholder}}"
-                                 variant="filled"
-                                 [fluid]="true"
-                                 type="text"/>
+                          <p-floatlabel variant="on">
+                            <label for="galacticCoordinates">{{ galacticCoordinatesPlaceholder }}</label>
+                            <input
+                              pInputText
+                              id="galacticCoordinates"
+                              formControlName="galacticCoordinates"
+                              variant="filled"
+                              [fluid]="true"
+                              type="text"/>
+                          </p-floatlabel>
                         </div>
                         @if (true //activeFormField === FormFields.GalacticCoordinates) {
                           <div class="flex-initial white-space-nowrap align-content-end text-right">
-                            <a (click)="!isNextDisabled && nextField()"
-                               (keydown.enter)="!isNextDisabled && nextField()"
-                               (keydown.space)="!isNextDisabled && nextField()"
-                               [class.opacity-50]="isNextDisabled"
-                               [class.cursor-not-allowed]="isNextDisabled"
-                               [attr.tabindex]="isNextDisabled ? -1 : 0"
-                               class="terminal-link">
+                            <a
+                              (click)="!isNextDisabled && nextField()"
+                              (keydown.enter)="!isNextDisabled && nextField()"
+                              (keydown.space)="!isNextDisabled && nextField()"
+                              [class.opacity-50]="isNextDisabled"
+                              [class.cursor-not-allowed]="isNextDisabled"
+                              [attr.tabindex]="isNextDisabled ? -1 : 0"
+                              class="terminal-link">
                               // NEXT //
                             </a>
                           </div>
@@ -294,22 +317,25 @@
                 <div class="flex-2 md:w-8 mt-2">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <input pInputText id="legacyName"
-                             formControlName="legacyName"
-                             placeholder="{{legacyNamePlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
+                      <input
+                        pInputText
+                        id="legacyName"
+                        formControlName="legacyName"
+                        variant="filled"
+                        placeholder="{{ legacyNamePlaceholder }}"
+                        [fluid]="true"
+                        type="text"/>
                     </div>
                     @if (true //activeFormField === FormFields.LegacyName) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -338,21 +364,22 @@
                       <p-inputnumber
                         inputId="regionAge"
                         formControlName="regionAge"
-                        placeholder="{{regionAgePlaceholder}}"
                         variant="filled"
+                        placeholder="{{ regionAgePlaceholder }}"
                         [fluid]="true"
                         mode="decimal">
                       </p-inputnumber>
                     </div>
                     @if (true //activeFormField === FormFields.RegionAge) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -378,22 +405,25 @@
                 <div class="flex-2 md:w-8">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <input pInputText id="civilization"
-                             formControlName="civilization"
-                             placeholder="{{civilizationPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
+                      <input
+                        pInputText
+                        id="civilization"
+                        formControlName="civilization"
+                        placeholder="{{ civilizationPlaceholder }}"
+                        variant="filled"
+                        [fluid]="true"
+                        type="text"/>
                     </div>
                     @if (true //activeFormField === FormFields.Civilization) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -419,22 +449,25 @@
                 <div class="flex-2 lg:w-7">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <input pInputText id="lowestKnownPhantomSystem"
-                             formControlName="lowestKnownPhantomSystem"
-                             placeholder="{{phantomSystemPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
+                      <input
+                        pInputText
+                        id="lowestKnownPhantomSystem"
+                        formControlName="lowestKnownPhantomSystem"
+                        placeholder="{{ phantomSystemPlaceholder }}"
+                        variant="filled"
+                        [fluid]="true"
+                        type="text"/>
                     </div>
                     @if (true //activeFormField === FormFields.PhantomSystem) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -463,40 +496,49 @@
                       <div class="flex flex-column md:flex-row gap-4">
                         <div class="flex-1 align-content-end">
                           <label for="gameRelease" class="text-secondary">*</label>
-                          <p-select
-                            [fluid]="true"
-                            id="gameRelease"
-                            optionLabel="name"
-                            optionValue="gameReleaseId"
-                            formControlName="gameRelease"
-                            placeholder="{{gameReleasePlaceholder}}"
-                            [options]="gameReleases"/>
+                          <p-floatlabel variant="on">
+                            <p-select
+                              [fluid]="true"
+                              inputId="gameRelease"
+                              optionLabel="name"
+                              optionValue="gameReleaseId"
+                              formControlName="gameRelease"
+                              [options]="gameReleases"/>
+                            <label for="gameRelease">{{ gameReleasePlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                         <div class="flex-1 align-content-end">
-                          <p-select
-                            [fluid]="true"
-                            formControlName="gamePlatform"
-                            placeholder="{{gamePlatformPlaceholder}}"
-                            [options]="gamePlatformTypes"/>
+                          <p-floatlabel variant="on">
+                            <p-select
+                              [fluid]="true"
+                              inputId="gamePlatform"
+                              formControlName="gamePlatform"
+                              [options]="gamePlatformTypes"/>
+                            <label for="gamePlatform">{{ gamePlatformPlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                         <div class="flex-1 align-content-end">
-                          <p-select
-                            [fluid]="true"
-                            formControlName="gameMode"
-                            placeholder="{{gameModePlaceholder}}"
-                            [options]="gameModeTypes"/>
+                          <p-floatlabel variant="on">
+                            <p-select
+                              inputId="gameMode"
+                              [fluid]="true"
+                              formControlName="gameMode"
+                              [options]="gameModeTypes"/>
+                            <label for="gameMode">{{ gameModePlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                       </div>
                     </div>
                     @if (true //activeFormField === FormFields.GameInfo) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -524,33 +566,39 @@
                     <div class="flex-1">
                       <div class="flex flex-column">
                         <div class="flex-1 align-content-end">
-                          <textarea
-                            pTextarea id="summaryNotes"
-                            placeholder="{{summaryNotesPlaceholder}}"
-                            formControlName="summaryNotes"
-                            [fluid]=true
-                            style="resize: none"
-                            rows="6"></textarea>
+                          <p-floatlabel variant="on">
+                            <textarea
+                              pTextarea
+                              id="summaryNotes"
+                              formControlName="summaryNotes"
+                              [fluid]=true
+                              rows="6"></textarea>
+                            <label for="summaryNotes">{{ summaryNotesPlaceholder }}</label>
+                          </p-floatlabel>
                         </div>
                         <div class="flex-1">
                           <div class="flex flex-column lg:flex-row gap-2 mt-2">
                             <div class="flex-1 align-content-end">
-                              <textarea
-                                pTextarea id="locationNotes"
-                                placeholder="{{locationNotesPlaceholder}}"
-                                formControlName="locationNotes"
-                                [fluid]=true
-                                style="resize: none"
-                                rows="6"></textarea>
+                              <p-floatlabel variant="on">
+                                <textarea
+                                  pTextarea
+                                  id="locationNotes"
+                                  formControlName="locationNotes"
+                                  [fluid]=true
+                                  rows="6"></textarea>
+                                <label for="locationNotes">{{ locationNotesPlaceholder }}</label>
+                              </p-floatlabel>
                             </div>
                             <div class="flex-1 align-content-end">
-                              <textarea
-                                pTextarea id="civilizedSpaceNotes"
-                                placeholder="{{civilizedSpaceNotesPlaceholder}}"
-                                formControlName="civilizedSpaceNotes"
-                                [fluid]=true
-                                style="resize: none"
-                                rows="6"></textarea>
+                              <p-floatlabel variant="on">
+                                <textarea
+                                  pTextarea
+                                  id="civilizedSpaceNotes"
+                                  formControlName="civilizedSpaceNotes"
+                                  [fluid]=true
+                                  rows="6"></textarea>
+                                <label for="civilizedSpaceNotes">{{ civilizedSpaceNotesPlaceholder }}</label>
+                              </p-floatlabel>
                             </div>
                           </div>
                         </div>
@@ -558,13 +606,14 @@
                     </div>
                     @if (true //activeFormField === FormFields.Notes) {
                       <div class="flex-1 white-space-nowrap text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -591,43 +640,60 @@
                   <div class="flex flex-column gap-2">
                     <div class="flex-1">
                       <div class="flex flex-column lg:flex-row gap-4">
-                        <input pInputText id="wikiLink"
-                               formControlName="wikiLink"
-                               placeholder="{{wikiLinkPlaceholder}}"
-                               variant="filled"
-                               [fluid]="true"
-                               type="text"/>
-                        <input pInputText id="legacyWikiLink"
-                               formControlName="legacyWikiLink"
-                               placeholder="{{legacyWikiLinkPlaceholder}}"
-                               variant="filled"
-                               [fluid]="true"
-                               type="text"/>
+                        <p-floatlabel variant="on">
+                          <input
+                            pInputText
+                            id="wikiLink"
+                            formControlName="wikiLink"
+                            variant="filled"
+                            [fluid]="true"
+                            type="text"/>
+                          <label for="wikiLink">{{ wikiLinkPlaceholder }}</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="on">
+                          <input
+                            pInputText
+                            id="legacyWikiLink"
+                            formControlName="legacyWikiLink"
+                            variant="filled"
+                            [fluid]="true"
+                            type="text"/>
+                          <label for="legacyWikiLink">{{ legacyWikiLinkPlaceholder }}</label>
+                        </p-floatlabel>
                       </div>
                       <div class="flex flex-column md:mt-4 lg:flex-row gap-4">
-                        <input pInputText id="externalLink"
-                               formControlName="externalLink"
-                               placeholder="{{externalLinkPlaceholder}}"
-                               variant="filled"
-                               [fluid]="true"
-                               type="text"/>
-                        <input pInputText id="videoLink"
-                               formControlName="videoLink"
-                               placeholder="{{videoLinkPlaceholder}}"
-                               variant="filled"
-                               [fluid]="true"
-                               type="text"/>
+                        <p-floatlabel variant="on">
+                          <input
+                            pInputText
+                            id="externalLink"
+                            formControlName="externalLink"
+                            variant="filled"
+                            [fluid]="true"
+                            type="text"/>
+                          <label for="externalLink">{{ externalLinkPlaceholder }}</label>
+                        </p-floatlabel>
+                        <p-floatlabel variant="on">
+                          <input
+                            pInputText
+                            id="videoLink"
+                            formControlName="videoLink"
+                            variant="filled"
+                            [fluid]="true"
+                            type="text"/>
+                          <label for="videoLink">{{ videoLinkPlaceholder }}</label>
+                        </p-floatlabel>
                       </div>
                     </div>
                     @if (true //activeFormField === FormFields.Links) {
                       <div class="flex-1 white-space-nowrap text-right">
-                        <a (click)="!isNextDisabled && nextField()"
-                           (keydown.enter)="!isNextDisabled && nextField()"
-                           (keydown.space)="!isNextDisabled && nextField()"
-                           [class.opacity-50]="isNextDisabled"
-                           [class.cursor-not-allowed]="isNextDisabled"
-                           [attr.tabindex]="isNextDisabled ? -1 : 0"
-                           class="terminal-link">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
                           // NEXT //
                         </a>
                       </div>
@@ -650,108 +716,135 @@
               </div>
 
               @if (true //completedTyping[FormFields.InterRegionDistance]) {
-                <div class="flex flex-column gap-3 mt-2" formArrayName="interRegionDistances">
-                  @for (dist of interRegionDistancesFormArray.controls; track $index) {
-                    <div [formGroupName]="$index" class="border-1 border-dashed border-green-900 pl-3 py-2 flex flex-column gap-2">
-                      <div class="flex flex-column pb-3 pr-3 gap-2">
-                        <div class="flex-1">
-                          <label class="text-green font-bold uppercase underline">
-                           Distance {{$index + 1}}
-                          </label>
-                        </div>
-                        <div class="flex-1">
-                          <div class="flex flex-column lg:flex-row gap-2">
-                            <div class="flex-1 align-content-end">
-                              <p-floatlabel variant="on">
-                                <label for="distanceFormRegionName">Region Name</label>
-                                <input
-                                  pInputText
-                                  id="distanceFormRegionName"
-                                  formControlName="distanceFormRegionName"
-                                  placeholder="{{regionName}}"
-                                  [readonly]="true"
-                                  [fluid]="true"/>
-                              </p-floatlabel>
-                            </div>
-                            <div class="flex-1">
-                              <p-floatlabel variant="on">
-                                <label for="distanceFormRegionName">{{localSystemNamePlaceholder}}</label>
-                                <input
-                                  pInputText
-                                  id="localSystem"
-                                  [ngClass]="{'ng-invalid ng-touched': dist.hasError('localSystem')}"
-                                  formControlName="localSystem"
-                                  variant="filled"
-                                  [fluid]="true"/>
-                              </p-floatlabel>
-                            </div>
-                            <div class="flex-1">
-                              <p-floatlabel variant="on">
-                                <label for="localSystemGlyphs">{{localSystemGlyphsPlaceholder}}</label>
-                                <input
-                                  pInputText
-                                  id="localSystemGlyphs"
-                                  formControlName="localSystemGlyphs"
-                                  variant="filled"
-                                  [fluid]="true"/>
-                              </p-floatlabel>
+                <div class="terminal">
+                  <div class="flex flex-column gap-3 mt-2" formArrayName="interRegionDistances">
+                    @for (dist of interRegionDistancesFormArray.controls; track $index) {
+                      <div
+                        [formGroupName]="$index"
+                        class="border-1 border-dashed border-green-900 pl-3 py-2 flex flex-column gap-2">
+                        <div class="flex flex-column pb-3 pr-3 gap-2">
+                          <div class="flex-1">
+                            <label class="text-green font-bold uppercase underline">
+                              Distance {{ $index + 1 }}
+                            </label>
+                          </div>
+                          <div class="flex-1">
+                            <div class="flex flex-column lg:flex-row gap-2">
+                              <div class="flex-1 align-content-end">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="distanceFormRegionName"
+                                    formControlName="distanceFormRegionName"
+                                    placeholder="{{regionName}}"
+                                    [readonly]="true"
+                                    [fluid]="true"/>
+                                  <label for="distanceFormRegionName">Region Name</label>
+                                </p-floatlabel>
+                              </div>
+                              <div class="flex-1">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="localSystemName"
+                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('localSystemName')}"
+                                    formControlName="localSystemName"
+                                    variant="filled"
+                                    [fluid]="true"/>
+                                  <label for="distanceFormRegionName">{{ localSystemNamePlaceholder }}</label>
+                                </p-floatlabel>
+                              </div>
+                              <div class="flex-1">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="localSystemGlyphs"
+                                    formControlName="localSystemGlyphs"
+                                    variant="filled"
+                                    [fluid]="true"/>
+                                  <label for="localSystemGlyphs">{{ localSystemGlyphsPlaceholder }}</label>
+                                </p-floatlabel>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="flex-1">
-                          <div class="flex flex-column lg:flex-row gap-2">
-                            <input
-                              pInputText
-                              [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionName')}"
-                              formControlName="adjacentRegionName"
-                              placeholder="{{adjacentRegionNamePlaceholder}}"
-                              variant="filled"
-                              [fluid]="true"/>
-                            <input
-                              pInputText
-                              [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionSystem')}"
-                              formControlName="adjacentRegionSystem"
-                              placeholder="{{adjacentRegionSystemNamePlaceholder}}"
-                              variant="filled"
-                              [fluid]="true"/>
-                            <input
-                              pInputText
-                              formControlName="adjacentRegionSystem"
-                              placeholder="{{adjacentRegionSystemGlyphsPlaceholder}}"
-                              variant="filled"
-                              [fluid]="true"/>
+                          <div class="flex-1">
+                            <div class="flex flex-column lg:flex-row gap-2">
+                              <div class="flex-1">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="adjacentRegionName"
+                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionName')}"
+                                    formControlName="adjacentRegionName"
+                                    variant="filled"
+                                    [fluid]="true"/>
+                                  <label for="adjacentRegionName">{{ adjacentRegionNamePlaceholder }}</label>
+                                </p-floatlabel>
+                              </div>
+                              <div class="flex-1">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="adjacentRegionName"
+                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionSystem')}"
+                                    formControlName="adjacentRegionSystem"
+                                    variant="filled"
+                                    [fluid]="true"/>
+                                  <label for="adjacentRegionName">{{ adjacentRegionSystemNamePlaceholder }}</label>
+                                </p-floatlabel>
+                              </div>
+                              <div class="flex-1">
+                                <p-floatlabel variant="on">
+                                  <input
+                                    pInputText
+                                    id="adjacentRegionSystemGlyphs"
+                                    formControlName="adjacentRegionSystemGlyphs"
+                                    variant="filled"
+                                    [fluid]="true"/>
+                                  <label for="adjacentRegionSystemGlyphs">{{ adjacentRegionSystemGlyphsPlaceholder }}</label>
+                                </p-floatlabel>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <div class="flex-initial w-full lg:w-3">
-                          <p-inputnumber
-                            formControlName="distance"
-                            [ngClass]="dist.hasError('distance') ? 'ng-invalid ng-touched' : ''"
-                            placeholder="{{interRegionDistancePlaceholder}}"
-                            variant="filled"
-                            [fluid]="true"
-                            mode="decimal"
-                            [min]="0"></p-inputnumber>
-                        </div>
-                        @if (!isReadOnly && $index >= 4) {
-                          <div class="flex-initial align-content-center">
-                            <p-button
-                              icon="pi pi-trash"
-                              severity="danger"
-                              [text]="true"
-                              (click)="removeDistance($index)"></p-button>
+                          <div class="flex-1 w-full lg:w-4">
+                            <p-floatlabel variant="on">
+                              <p-inputnumber
+                                formControlName="distance"
+                                inputId="distance"
+                                [ngClass]="dist.hasError('distance') ? 'ng-invalid ng-touched' : ''"
+                                variant="filled"
+                                [fluid]="true"
+                                mode="decimal"
+                                [min]="0"></p-inputnumber>
+                              <label for="distance">{{ interRegionDistancePlaceholder }}</label>
+                            </p-floatlabel>
                           </div>
-                        }
-                      </div>
-                    </div>
-                  }
+                          @if (!isReadOnly && $index >= 4) {
+                            <div class="flex-initial align-content-center mt-2">
 
-                  @if (true //!isReadOnly) {
-                    <div class="flex justify-content-start">
-                      <a (click)="addDistance()" class="terminal-link text-xs">
-                        [+] ADD_ADDITIONAL_DATA_POINT
-                      </a>
-                    </div>
-                  }
+                              <a
+                                (click)="removeDistance($index)"
+                                class="terminal-link text-xs"
+                                [attr.tabindex]="0">
+                                [-] REMOVE_DATA_POINT
+                              </a>
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+
+                    @if (true //!isReadOnly) {
+                      <div class="flex justify-content-start">
+                        <a
+                          (click)="addDistanceAndRefresh()"
+                          class="terminal-link text-xs"
+                          [attr.tabindex]="0">
+                          [+] ADD_ADDITIONAL_DATA_POINT
+                        </a>
+                      </div>
+                    }
+                  </div>
                 </div>
               }
             </div>

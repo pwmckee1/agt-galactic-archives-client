@@ -79,6 +79,7 @@
       background-color: $color-terminal-bg;
       border-radius: 0;
       border-bottom: 1px solid $color-green-accent;
+      resize: none;
 
       &::-webkit-scrollbar {
         width: 8px;
@@ -143,6 +144,12 @@
         color: $color-green-accent-light;
         border-color: $color-green-accent-light;
         background-color: $color-terminal-alpha-10;
+      }
+
+      &:enabled:not(.ng-touched) {
+        color: $color-green-accent;
+        border-color: $color-green-accent;
+        background-color: $color-terminal-bg;
       }
 
       &:enabled:not(:focus) {

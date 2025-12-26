@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormArray,
@@ -138,7 +138,7 @@ export class RegionComponent implements OnInit {
 
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
   regionNamePlaceholder: string = 'Kitisba-Instability, etc...';
-  phantomSystemPlaceholder: string = 'Skip if you are unsure what that is';
+  phantomSystemPlaceholder: string = 'Skip if you are unsure what this is';
   surveyedByPlaceholder: string = 'Surveyor Name';
   surveyDatePlaceholder: string = 'Survey Date';
   galacticCoordinatesPlaceholder: string = 'XXXX:XXXX:XXXX:XXXX';
@@ -171,6 +171,7 @@ export class RegionComponent implements OnInit {
     private regionService: RegionService,
     private toastr: ToastrService,
     private gameReleaseService: GameReleaseService,
+    private cdr: ChangeDetectorRef,
   ) {
   }
 
@@ -350,8 +351,8 @@ export class RegionComponent implements OnInit {
     const distanceGroup = this.formBuilder.group({
       distanceFormRegionName: [{ value: this.regionForm.get('regionName')?.value, disabled: true }],
       adjacentRegionName: [null],
-      localSystem: [null],
-      adjacentRegionSystem: [null],
+      localSystemName: [null],
+      adjacentRegionSystemName: [null],
       localSystemGlyphs: [null],
       adjacentRegionSystemGlyphs: [null],
       distance: [null, [Validators.min(0)]]
@@ -360,11 +361,15 @@ export class RegionComponent implements OnInit {
     this.interRegionDistancesFormArray.push(distanceGroup);
   }
 
+  addDistanceAndRefresh(): void {
+    this.addDistance();
+    this.cdr.detectChanges();
+  }
+
   removeDistance(index: number): void {
-    console.log('form valid', this.regionForm.valid, this.regionForm.errors)
-    // if (index >= 4 && this.interRegionDistancesFormArray.length > 4) {
-    //   this.interRegionDistancesFormArray.removeAt(index);
-    // }
+    if (index >= 4 && this.interRegionDistancesFormArray.length > 4) {
+      this.interRegionDistancesFormArray.removeAt(index);
+    }
   }
 
   initializeDistances(): void {
