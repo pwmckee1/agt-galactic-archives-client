@@ -37,9 +37,8 @@ import { Image, ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { TextareaModule } from 'primeng/textarea';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'agt-region',
@@ -92,12 +91,6 @@ export class RegionComponent implements OnInit {
   FormFields = RegionInputFormFieldTypes;
   activeFormField: RegionInputFormFieldTypes;
   activeFormFields: RegionInputFormFieldTypes[] = [];
-  requiredFormFields: RegionInputFormFieldTypes[] = [
-    RegionInputFormFieldTypes.Galaxy,
-    RegionInputFormFieldTypes.RegionName,
-    RegionInputFormFieldTypes.GalacticCoordinates,
-    RegionInputFormFieldTypes.GalacticCoordinates,
-  ];
 
   galaxyTypes: { name: string, label: GalaxyTypes }[] =
     Object.entries(GalaxyTypes).map(([key, value]) => ({
@@ -120,29 +113,6 @@ export class RegionComponent implements OnInit {
 
   hasInitialStatusText: boolean = false;
   hasRequiredWarningText: boolean = false;
-  hasSelectGalaxyText: boolean = false;
-  hasRegionNameText: boolean = false;
-  hasPhantomSystemText: boolean = false;
-  hasSurveyInfoText: boolean = false;
-  hasGalacticCoordinatesText: boolean = false;
-  hasLegacyNameText: boolean = false;
-  hasRegionAgeText: boolean = false;
-  hasCivilizationText: boolean = false;
-  hasGameInfoText: boolean = false;
-  hasNotesText: boolean = false;
-  hasLinksText: boolean = false;
-
-  isGalaxySelected: boolean = false;
-  isRegionNameEntered: boolean = false;
-  isPhantomSystemEntered: boolean = false;
-  isSurveyInfoEntered: boolean = false;
-  isGalacticCoordinatesEntered: boolean = false;
-  isLegacyNameEntered: boolean = false;
-  isRegionAgeEntered: boolean = false;
-  isCivilizationEntered: boolean = false;
-  isGameInfoEntered: boolean = false;
-  isNotesEntered: boolean = false;
-  isLinksEntered: boolean = false;
 
   selectGalaxyText: string = 'Select_Galaxy:';
   regionNameText: string = 'Region_Name:';
@@ -213,8 +183,6 @@ export class RegionComponent implements OnInit {
         }
         this.updateBreadcrumbs();
       });
-
-    this.setupFormChanges();
   }
 
   updateBreadcrumbs(): void {
@@ -266,7 +234,6 @@ export class RegionComponent implements OnInit {
 
   setRegion(region: IRegion): void {
     this.currentRegion = region;
-    console.log(region);
     this.regionForm.patchValue(region);
     if (this.isReadOnly) {
       this.regionForm.disable();
@@ -292,28 +259,8 @@ export class RegionComponent implements OnInit {
 
   save(): void {
     if (this.regionForm.valid) {
-      const regionEntry: IUpsertRegion = {
-        galaxy: this.galaxyControl.value?.name as GalaxyTypes,
-        regionName: this.regionNameControl.value,
-        surveyedBy: this.surveyedByControl.value,
-        galacticCoordinates: this.galacticCoordinatesControl.value,
-        surveyDate: moment(this.surveyDateControl.value),
-        legacyName: this.legacyNameControl.value,
-        regionAge: this.regionAgeControl.value,
-        gameRelease: this.gameReleaseControl.value,
-        gamePlatform: this.gamePlatformControl.value?.name as GamePlatformTypes,
-        gameMode: this.gameModeControl.value?.name as GameModeTypes,
-        summaryNotes: this.summaryNotesControl.value,
-        locationNotes: this.locationNotesControl.value,
-        civilizedSpaceNotes: this.civilizedSpaceNotesControl.value,
-        lowestKnownPhantomSystem: this.lowestKnownPhantomSystemControl.value,
-        wikiLink: this.wikiLinkControl.value,
-        legacyWikiLink: this.legacyWikiLinkControl.value,
-        externalLink: this.externalLinkControl.value,
-        videoLink: this.videoLinkControl.value,
-      };
 
-      this.regionService.upsertRegion(regionEntry)
+      this.regionService.upsertRegion(this.regionEntry)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe((res: ApiResponse<IRegion>) => {
           if (res.success) {
@@ -327,17 +274,15 @@ export class RegionComponent implements OnInit {
   get isNextDisabled(): boolean {
     if (!this.activeFormField) return false;
 
-    const fieldMapping: Record<string, string[]> = {
+    const requiredFieldMapping: Record<string, string[]> = {
       [RegionInputFormFieldTypes.Galaxy]: ['galaxy'],
       [RegionInputFormFieldTypes.RegionName]: ['regionName'],
       [RegionInputFormFieldTypes.SurveyInfo]: ['surveyedBy', 'surveyDate'],
       [RegionInputFormFieldTypes.GalacticCoordinates]: ['galacticCoordinates'],
       [RegionInputFormFieldTypes.GameInfo]: ['gameRelease'],
-      [RegionInputFormFieldTypes.Notes]: ['summaryNotes', 'locationNotes', 'civilizedSpaceNotes'],
-      // Add others if they have required fields, otherwise they default to valid
     };
 
-    const controlsToCheck = fieldMapping[this.activeFormField] || [];
+    const controlsToCheck = requiredFieldMapping[this.activeFormField] || [];
     return controlsToCheck.some(controlName => {
       const control = this.regionForm.get(controlName);
       return control ? control.invalid : false;
@@ -364,103 +309,6 @@ export class RegionComponent implements OnInit {
     this.completedTyping[field] = true;
   }
 
-  searchingGalaxyTypingComplete(event: boolean): void {
-    this.hasSelectGalaxyText = event;
-  }
-
-  regionNameInstructionComplete(event: boolean): void {
-    this.hasRegionNameText = event;
-  }
-
-  phantomSystemInstructionComplete(event: boolean): void {
-    this.hasPhantomSystemText = event;
-  }
-
-  surveyInfoTypingComplete(event: boolean): void {
-    this.hasSurveyInfoText = event;
-  }
-
-  galacticCoordinatesTypingComplete(event: boolean): void {
-    this.hasGalacticCoordinatesText = event;
-  }
-
-  legacyNameTypingComplete(event: boolean): void {
-    this.hasLegacyNameText = event;
-  }
-
-  regionAgeTypingComplete(event: boolean): void {
-    this.hasRegionAgeText = event;
-  }
-
-  civilizationTypingComplete(event: boolean): void {
-    this.hasCivilizationText = event;
-  }
-
-  gameInfoTypingComplete(event: boolean): void {
-    this.hasGameInfoText = event;
-  }
-
-  notesTypingComplete(event: boolean): void {
-    this.hasNotesText = event;
-  }
-
-  linksTypingComplete(event: boolean): void {
-    this.hasLinksText = event;
-  }
-
-  setupFormChanges(): void {
-    // this.galaxyControl.valueChanges
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe((galaxy) => {
-    //     if (this.galaxyControl.valid) {
-    //       this.isGalaxySelected = !!galaxy?.name
-    //       this.nextField();
-    //     }
-    //   });
-    //
-    // this.regionNameControl.valueChanges
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe((name) => {
-    //     if (this.regionNameControl.valid) {
-    //       this.isRegionNameEntered = !!name
-    //       this.nextField();
-    //     }
-    //   });
-    //
-    // combineLatest([
-    //   this.surveyedByControl.valueChanges,
-    //   this.surveyDateControl.valueChanges
-    // ])
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe(([surveyedBy, surveyDate]) => {
-    //     if (this.surveyedByControl.valid && this.surveyDateControl.valid) {
-    //       this.isSurveyInfoEntered = !!!!surveyedBy && !!surveyDate
-    //       this.nextField();
-    //     }
-    //     this.isSurveyInfoEntered = !!surveyedBy && !!surveyDate
-    //   });
-    //
-    // this.galacticCoordinatesControl.valueChanges
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe((coordinates) => {
-    //     if (this.galacticCoordinatesControl.valid) {
-    //       this.isGalacticCoordinatesEntered = !!coordinates
-    //       this.nextField();
-    //     }
-    //   });
-    //
-    // this.gameReleaseControl.valueChanges
-    //   .pipe(takeUntilDestroyed(this.destroyRef))
-    //   .subscribe((release) => {
-    //     if (this.gameReleaseControl.valid) {
-    //       this.isGameInfoEntered = !!release
-    //       this.gameReleaseControl.updateValueAndValidity({ emitEvent: false });
-    //       console.log('game Release value', this.gameReleaseControl.value)
-    //       this.nextField();
-    //     }
-    //   });
-  }
-
   nextField() {
     const currentIndex = this.activeFormFields.indexOf(this.activeFormField);
     const allFormFields = Object.keys(RegionInputFormFieldTypes);
@@ -468,81 +316,98 @@ export class RegionComponent implements OnInit {
     this.activeFormFields.push(this.activeFormField);
   }
 
-  get galaxyControl(): FormControl {
-    return this.regionForm.get('galaxy') as FormControl;
+  get regionEntry(): IUpsertRegion {
+    return {
+      galaxy: this.selectedGalaxy,
+      regionName: this.regionName,
+      surveyedBy: this.surveyedBy,
+      galacticCoordinates: this.galacticCoordinates,
+      surveyDate: this.surveyDate,
+      legacyName: this.legacyName,
+      regionAge: this.regionAge,
+      gameRelease: this.gameRelease,
+      gamePlatform: this.gamePlatform,
+      gameMode: this.gameMode,
+      summaryNotes: this.summaryNotes,
+      locationNotes: this.locationNotes,
+      civilizedSpaceNotes: this.civilizedSpaceNotes,
+      lowestKnownPhantomSystem: this.lowestKnownPhantomSystem,
+      wikiLink: this.wikiLink,
+      legacyWikiLink: this.legacyWikiLink,
+      externalLink: this.externalLink,
+      videoLink: this.videoLink,
+    };
   }
 
-  get regionNameControl(): FormControl {
-    return this.regionForm.get('regionName') as FormControl;
+  get selectedGalaxy(): GalaxyTypes {
+    return this.regionForm.controls.galaxy.value as GalaxyTypes;
   }
 
-  get surveyedByControl(): FormControl {
-    return this.regionForm.get('surveyedBy') as FormControl;
+  get regionName(): string {
+    return this.regionForm.controls.regionName.value;
   }
 
-  get galacticCoordinatesControl(): FormControl {
-    return this.regionForm.get('galacticCoordinates') as FormControl;
+  get surveyedBy(): string {
+    return this.regionForm.controls.surveyedBy.value;
   }
 
-  get surveyDateControl(): FormControl {
-    return this.regionForm.get('surveyDate') as FormControl;
+  get surveyDate(): Moment {
+    return moment(this.regionForm.controls.surveyDate.value);
   }
 
-  get legacyNameControl(): FormControl {
-    return this.regionForm.get('legacyName') as FormControl;
+  get galacticCoordinates(): string {
+    return this.regionForm.controls.galacticCoordinates.value;
   }
 
-  get regionAgeControl(): FormControl {
-    return this.regionForm.get('regionAge') as FormControl;
+  get legacyName(): string {
+    return this.regionForm.controls.legacyName.value;
   }
 
-  get gameReleaseControl(): FormControl {
-    return this.regionForm.get('gameRelease') as FormControl;
+  get regionAge(): number {
+    return this.regionForm.controls.regionAge.value;
   }
 
-  get gamePlatformControl(): FormControl {
-    return this.regionForm.get('gamePlatform') as FormControl;
+  get gameRelease(): string {
+    return this.regionForm.controls.gameRelease.value;
   }
 
-  get gameModeControl(): FormControl {
-    return this.regionForm.get('gameMode') as FormControl;
+  get gamePlatform(): GamePlatformTypes {
+    return this.regionForm.controls.gamePlatform.value;
   }
 
-  get summaryNotesControl(): FormControl {
-    return this.regionForm.get('summaryNotes') as FormControl;
+  get gameMode(): GameModeTypes {
+    return this.regionForm.controls.gameMode.value;
   }
 
-  get locationNotesControl(): FormControl {
-    return this.regionForm.get('locationNotes') as FormControl;
+  get summaryNotes(): string {
+    return this.regionForm.controls.summaryNotes.value;
   }
 
-  get civilizedSpaceNotesControl(): FormControl {
-    return this.regionForm.get('civilizedSpaceNotes') as FormControl;
+  get locationNotes(): string {
+    return this.regionForm.controls.locationNotes.value;
   }
 
-  get lowestKnownPhantomSystemControl(): FormControl {
-    return this.regionForm.get('lowestKnownPhantomSystem') as FormControl;
+  get civilizedSpaceNotes(): string {
+    return this.regionForm.controls.civilizedSpaceNotes.value;
   }
 
-  get wikiLinkControl(): FormControl {
-    return this.regionForm.get('wikiLink') as FormControl;
+  get lowestKnownPhantomSystem(): string {
+    return this.regionForm.controls.lowestKnownPhantomSystem.value;
   }
 
-  get legacyWikiLinkControl(): FormControl {
-    return this.regionForm.get('legacyWikiLink') as FormControl;
+  get wikiLink(): string {
+    return this.regionForm.controls.wikiLink.value;
   }
 
-  get externalLinkControl(): FormControl {
-    return this.regionForm.get('externalLink') as FormControl;
+  get legacyWikiLink(): string {
+    return this.regionForm.controls.legacyWikiLink.value;
   }
 
-  get videoLinkControl(): FormControl {
-    return this.regionForm.get('videoLink') as FormControl;
+  get externalLink(): string {
+    return this.regionForm.controls.externalLink.value;
   }
 
-  get nextButtonLabel(): string {
-    return this.isNextDisabled
-      ? 'NEXT (Complete Required Input to Enable)'
-      : 'NEXT';
+  get videoLink(): string {
+    return this.regionForm.controls.videoLink.value;
   }
 }

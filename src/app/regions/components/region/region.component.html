@@ -57,8 +57,8 @@
 
           <!--Galaxy Select-->
           @if (hasRequiredWarningText) {
-            <div class="flex flex-column md:flex-row gap-2">
-              <div class="flex-1 md:w-4">
+            <div class="flex flex-column lg:flex-row gap-2">
+              <div class="flex-1 lg:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Galaxy)"
                   [typingSpeed]="25"
@@ -67,8 +67,8 @@
               </div>
 
               @if (completedTyping[FormFields.Galaxy]) {
-                <div class="flex-2 md:w-8">
-                  <div class="flex flex-column md:flex-row gap-2">
+                <div class="flex-2 lg:w-8">
+                  <div class="flex flex-column lg:flex-row gap-2">
                     <div class="flex-grow-1">
                       <p-select
                         [fluid]="true"
@@ -77,7 +77,7 @@
                         [options]="galaxyTypes"/>
                     </div>
                     @if (activeFormField === FormFields.Galaxy) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial text-right white-space-nowrap align-content-end">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -181,7 +181,7 @@
                       </div>
                     </div>
                     @if (activeFormField === FormFields.SurveyInfo) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -258,7 +258,7 @@
                                  type="text"/>
                         </div>
                         @if (activeFormField === FormFields.GalacticCoordinates) {
-                          <div class="flex-initial white-space-nowrap align-content-end">
+                          <div class="flex-initial white-space-nowrap align-content-end text-right">
                             <a (click)="!isNextDisabled && nextField()"
                                (keydown.enter)="!isNextDisabled && nextField()"
                                (keydown.space)="!isNextDisabled && nextField()"
@@ -301,7 +301,7 @@
                              type="text"/>
                     </div>
                     @if (activeFormField === FormFields.LegacyName) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -344,7 +344,7 @@
                       </p-inputnumber>
                     </div>
                     @if (activeFormField === FormFields.RegionAge) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -385,7 +385,7 @@
                              type="text"/>
                     </div>
                     @if (activeFormField === FormFields.Civilization) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -410,7 +410,6 @@
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.PhantomSystem)"
                   [typingSpeed]="10"
-                  [hideCursor]="isPhantomSystemEntered"
                   [message]="phantomSystemText">
                 </agt-terminal-communication>
               </div>
@@ -427,7 +426,7 @@
                              type="text"/>
                     </div>
                     @if (activeFormField === FormFields.PhantomSystem) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -452,7 +451,6 @@
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.GameInfo)"
                   [typingSpeed]="25"
-                  [hideCursor]="isGameInfoEntered"
                   [message]="gameInfoText">
                 </agt-terminal-communication>
               </div>
@@ -490,7 +488,7 @@
                       </div>
                     </div>
                     @if (activeFormField === FormFields.GameInfo) {
-                      <div class="flex-initial white-space-nowrap align-content-end">
+                      <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a (click)="!isNextDisabled && nextField()"
                            (keydown.enter)="!isNextDisabled && nextField()"
                            (keydown.space)="!isNextDisabled && nextField()"
@@ -515,7 +513,6 @@
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Notes)"
                   [typingSpeed]="25"
-                  [hideCursor]="isNotesEntered"
                   [message]="notesText">
                 </agt-terminal-communication>
               </div>
@@ -524,35 +521,35 @@
                 <div class="flex-1">
                   <div class="flex flex-column gap-2 justify-content-end">
                     <div class="flex-1">
-                      <div class="flex flex-column gap-2">
+                      <div class="flex flex-column">
                         <div class="flex-1 align-content-end">
-                      <textarea
-                        pTextarea id="summaryNotes"
-                        placeholder="{{summaryNotesPlaceholder}}"
-                        formControlName="summaryNotes"
-                        [fluid]=true
-                        style="resize: none"
-                        rows="6"></textarea>
+                          <textarea
+                            pTextarea id="summaryNotes"
+                            placeholder="{{summaryNotesPlaceholder}}"
+                            formControlName="summaryNotes"
+                            [fluid]=true
+                            style="resize: none"
+                            rows="6"></textarea>
                         </div>
                         <div class="flex-1">
-                          <div class="flex flex-column lg:flex-row gap-3">
+                          <div class="flex flex-column lg:flex-row gap-2 mt-2">
                             <div class="flex-1 align-content-end">
-                      <textarea
-                        pTextarea id="locationNotes"
-                        placeholder="{{locationNotesPlaceholder}}"
-                        formControlName="locationNotes"
-                        [fluid]=true
-                        style="resize: none"
-                        rows="6"></textarea>
+                              <textarea
+                                pTextarea id="locationNotes"
+                                placeholder="{{locationNotesPlaceholder}}"
+                                formControlName="locationNotes"
+                                [fluid]=true
+                                style="resize: none"
+                                rows="6"></textarea>
                             </div>
                             <div class="flex-1 align-content-end">
-                      <textarea
-                        pTextarea id="civilizedSpaceNotes"
-                        placeholder="{{civilizedSpaceNotesPlaceholder}}"
-                        formControlName="civilizedSpaceNotes"
-                        [fluid]=true
-                        style="resize: none"
-                        rows="6"></textarea>
+                              <textarea
+                                pTextarea id="civilizedSpaceNotes"
+                                placeholder="{{civilizedSpaceNotesPlaceholder}}"
+                                formControlName="civilizedSpaceNotes"
+                                [fluid]=true
+                                style="resize: none"
+                                rows="6"></textarea>
                             </div>
                           </div>
                         </div>
@@ -584,7 +581,6 @@
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Links)"
                   [typingSpeed]="25"
-                  [hideCursor]="isLinksEntered"
                   [message]="linksText">
                 </agt-terminal-communication>
               </div>
@@ -594,34 +590,34 @@
                   <div class="flex flex-column gap-2">
                     <div class="flex-1">
                       <div class="flex flex-column lg:flex-row gap-4">
-                      <input pInputText id="wikiLink"
-                             formControlName="wikiLink"
-                             placeholder="{{wikiLinkPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
-                      <input pInputText id="legacyWikiLink"
-                             formControlName="legacyWikiLink"
-                             placeholder="{{legacyWikiLinkPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
-                    </div>
+                        <input pInputText id="wikiLink"
+                               formControlName="wikiLink"
+                               placeholder="{{wikiLinkPlaceholder}}"
+                               variant="filled"
+                               [fluid]="true"
+                               type="text"/>
+                        <input pInputText id="legacyWikiLink"
+                               formControlName="legacyWikiLink"
+                               placeholder="{{legacyWikiLinkPlaceholder}}"
+                               variant="filled"
+                               [fluid]="true"
+                               type="text"/>
+                      </div>
                       <div class="flex flex-column md:mt-4 lg:flex-row gap-4">
-                      <input pInputText id="externalLink"
-                             formControlName="externalLink"
-                             placeholder="{{externalLinkPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
-                      <input pInputText id="videoLink"
-                             formControlName="videoLink"
-                             placeholder="{{videoLinkPlaceholder}}"
-                             variant="filled"
-                             [fluid]="true"
-                             type="text"/>
+                        <input pInputText id="externalLink"
+                               formControlName="externalLink"
+                               placeholder="{{externalLinkPlaceholder}}"
+                               variant="filled"
+                               [fluid]="true"
+                               type="text"/>
+                        <input pInputText id="videoLink"
+                               formControlName="videoLink"
+                               placeholder="{{videoLinkPlaceholder}}"
+                               variant="filled"
+                               [fluid]="true"
+                               type="text"/>
+                      </div>
                     </div>
-                  </div>
                     @if (activeFormField === FormFields.Links) {
                       <div class="flex-1 white-space-nowrap text-right">
                         <a (click)="!isNextDisabled && nextField()"
@@ -635,7 +631,7 @@
                         </a>
                       </div>
                     }
-                </div>
+                  </div>
                 </div>
               }
             </div>
