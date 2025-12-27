@@ -1,5 +1,7 @@
 import { IInterRegionDistance } from '@regions/models/inter-region-distance';
+
 import { IGameEntity } from '@shared/models/in-game/game-entity';
+
 import { GalacticQuadrantTypes } from './galactic-quadrant-types';
 
 export interface IRegion extends IGameEntity {

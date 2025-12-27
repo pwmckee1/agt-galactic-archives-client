@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-starships',
+    selector: 'agt-starships',
     imports: [],
     templateUrl: './starships.component.html',
     styleUrl: './starships.component.scss'

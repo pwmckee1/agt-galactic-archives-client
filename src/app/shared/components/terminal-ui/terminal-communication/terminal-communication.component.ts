@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -10,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import Typed from 'typed.js';
 
 @Component({
@@ -66,7 +67,7 @@ export class TerminalCommunicationComponent implements OnInit, OnChanges, OnDest
       typeSpeed: this.typingSpeed,
       showCursor: true, // Always true so the element is created
       cursorChar: '_',
-      onComplete: (self: Typed) => {
+      onComplete: () => {
         this.isFinished = true;
         this.updateCursorVisibility(); // Apply visibility state on complete
         this.typingDone.emit(true);

@@ -1,23 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+
+import { IRegion } from '@regions/models/region'
 import { IRegionSearch } from '@regions/models/region-search';
 import { IUpsertRegion } from '@regions/models/upsert-region';
+import { map, Observable } from 'rxjs';
+
 import { ApiResponse } from '@shared/models/application/api-response';
 import { KeyValuePair } from '@shared/models/application/key-value-pair';
 import { AppConfigService } from '@shared/services/application/app-config.service';
-import { map, Observable } from 'rxjs';
-import { IRegion } from '@regions/models/region'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegionService {
-
-  constructor(
-    private http: HttpClient,
-    private appConfig: AppConfigService,
-  ) {
-  }
+  private http = inject(HttpClient);
+  private appConfig = inject(AppConfigService);
 
   private getRegionUrl(regionId: string = null, params: KeyValuePair[] = []): string {
     const query = params

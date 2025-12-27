@@ -1,6 +1,8 @@
-import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
-import { GalaxyTypes } from './galaxy-types';
 import * as moment from 'moment';
+
+import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
+
+import { GalaxyTypes } from './galaxy-types';
 
 export interface IGameEntity {
   galaxy?: GalaxyTypes;

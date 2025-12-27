@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
-import { Button, ButtonModule } from 'primeng/button';
+
+import { ButtonModule } from 'primeng/button';
 
 interface DiscoveryType {
   id: string;

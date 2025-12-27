@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { RegionComponent } from '@regions/components/region/region.component';
 import { RegionsComponent } from '@regions/components/regions/regions.component';
 

@@ -109,10 +109,14 @@
       <div
         class="terminal-footer mt-4 pt-2 border-double border-x-none border-bottom-none border-green-900 flex flex-wrap gap-4">
         @if (hasInitialStatusText && isGalaxySelected) {
-          <a (click)="search()" class="terminal-link">
+          <a
+            (click)="search()"
+            (keydown)="handleKeydown($event)"
+            [attr.tabindex]=0
+            class="terminal-link">
             SEARCH_REGIONS
           </a>
-          <a (click)="clearSearchValues()" class="terminal-link">
+          <a (click)="clearSearchValues()" (keydown)="handleKeydown($event)" [attr.tabindex]=0 class="terminal-link">
             CLEAR_FORM
           </a>
         }

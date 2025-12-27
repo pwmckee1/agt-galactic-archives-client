@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-faunas',
+    selector: 'agt-faunas',
     imports: [],
     templateUrl: './faunas.component.html',
     styleUrl: './faunas.component.scss'

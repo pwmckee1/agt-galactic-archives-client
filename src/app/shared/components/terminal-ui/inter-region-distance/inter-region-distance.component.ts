@@ -1,16 +1,18 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { IInterRegionDistance } from '@regions/models/inter-region-distance';
 import { IRegion } from '@regions/models/region';
 import { RegionInputFormFieldTypes } from '@regions/models/region-input-form-field-types';
-import {
-  TerminalCommunicationComponent
-} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
-import { FormHelpers } from '@shared/helpers/form-helpers';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+
+import {
+  TerminalCommunicationComponent
+} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
+import { interRegionGroupValidator } from '@shared/helpers/form-helpers';
 
 @Component({
   selector: 'agt-inter-region-distance',
@@ -26,6 +28,9 @@ import { InputTextModule } from 'primeng/inputtext';
   styleUrl: './inter-region-distance.component.scss',
 })
 export class InterRegionDistanceComponent {
+  private formBuilder = inject(FormBuilder);
+  private cdr = inject(ChangeDetectorRef);
+
   @Input() regionForm: FormGroup;
   @Input() interRegionFormArray: FormArray;
   @Input() activeFormField: RegionInputFormFieldTypes;
@@ -46,11 +51,6 @@ export class InterRegionDistanceComponent {
   adjacentRegionSystemGlyphsPlaceholder: string = 'Adjacent System Glyphs';
 
   isReadOnly: boolean = false;
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private cdr: ChangeDetectorRef,
-  ) { }
 
   setRegion(region: IRegion): void {
     if (region.interRegionDistances?.length) {
@@ -76,7 +76,7 @@ export class InterRegionDistanceComponent {
       localSystemGlyphs: [distance?.localSystemGlyphs],
       adjacentRegionSystemGlyphs: [distance?.adjacentRegionSystemGlyphs],
       distance: [distance?.distance, [Validators.min(0)]]
-    }, { validators: [FormHelpers.interRegionGroupValidator()] });
+    }, { validators: [interRegionGroupValidator()] });
 
     this.interRegionFormArray.push(distanceGroup);
     this.interRegionFormArray.updateValueAndValidity();

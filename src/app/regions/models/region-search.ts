@@ -1,8 +1,7 @@
-import { KeyValuePair } from '@shared/models/application/key-value-pair';
 import { SearchRequest } from '@shared/models/application/search-request';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
-import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
 import { IGameEntitySearchRequest } from '@shared/models/in-game/game-entity-search-request';
+import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
 
 export interface IRegionSearch extends IGameEntitySearchRequest {
   regionId?: string;

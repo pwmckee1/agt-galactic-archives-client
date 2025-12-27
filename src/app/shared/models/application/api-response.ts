@@ -1,5 +1,6 @@
-import { GeneralHelpers } from '@shared/helpers/general-helpers';
-import * as _ from 'lodash';
+import _ from 'lodash';
+
+import { setMessages } from '@shared/helpers/general-helpers';
 
 export class ApiResponse<T> {
   response: T;
@@ -22,14 +23,14 @@ export class ApiResponse<T> {
     } else if (data && _.has(data, 'response')) {
       if (data.response && _.has(data.response, 'Response')) {
         this.response = data.response.Response;
-        this.messages = GeneralHelpers.setMessages(data.response.Messages);
+        this.messages = setMessages(data.response.Messages);
       } else {
         this.response = data.response;
-        this.messages = GeneralHelpers.setMessages(data.messages);
+        this.messages =setMessages(data.messages);
       }
     } else if (data && _.has(data, 'Response')) {
       this.response = data.Response;
-      this.messages = GeneralHelpers.setMessages(data.Messages);
+      this.messages = setMessages(data.Messages);
     }
   }
 

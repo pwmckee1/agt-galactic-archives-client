@@ -1,8 +1,9 @@
 import { IInterRegionDistance } from '@regions/models/inter-region-distance';
+import * as moment from 'moment/moment';
+
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
 import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
-import * as moment from 'moment/moment';
 
 export interface IUpsertRegion {
   surveyedBy: string,

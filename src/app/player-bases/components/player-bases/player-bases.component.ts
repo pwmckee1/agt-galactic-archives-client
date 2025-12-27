@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-player-bases',
+    selector: 'agt-player-bases',
     imports: [],
     templateUrl: './player-bases.component.html',
     styleUrl: './player-bases.component.scss'

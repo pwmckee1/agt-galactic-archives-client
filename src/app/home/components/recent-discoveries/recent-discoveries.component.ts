@@ -1,7 +1,6 @@
-
 import { Component } from '@angular/core';
-
 import { RouterModule } from '@angular/router';
+
 import { PreloaderComponent } from '@shared/components/preloader/preloader.component';
 
 interface Discovery {

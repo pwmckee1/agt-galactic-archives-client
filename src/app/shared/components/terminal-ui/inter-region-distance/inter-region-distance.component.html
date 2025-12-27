@@ -17,9 +17,9 @@
             class="border-1 border-dashed border-green-900 pl-3 py-2 flex flex-column gap-2">
             <div class="flex flex-column pb-3 pr-3 gap-2">
               <div class="flex-1">
-                <label class="text-green font-bold uppercase underline">
+                <span class="text-green font-bold uppercase underline">
                   Distance {{ $index + 1 }}
-                </label>
+                </span>
               </div>
               <div class="flex-1">
                 <div class="flex flex-column lg:flex-row gap-2">
@@ -122,6 +122,8 @@
 
                   <a
                     (click)="removeDistance($index)"
+                    (keydown.enter)="removeDistance($index)"
+                    (keydown.space)="removeDistance($index)"
                     class="terminal-link text-xs"
                     [attr.tabindex]="0">
                     [-] REMOVE_DATA_POINT
@@ -136,6 +138,8 @@
           <div class="flex justify-content-start">
             <a
               (click)="addDistanceAndRefresh()"
+              (keydown.enter)="addDistanceAndRefresh()"
+              (keydown.space)="addDistanceAndRefresh()"
               class="terminal-link text-xs"
               [attr.tabindex]="0">
               [+] ADD_ADDITIONAL_DATA_POINT

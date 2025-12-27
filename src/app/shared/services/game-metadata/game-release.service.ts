@@ -1,22 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+
+import { map, Observable } from 'rxjs';
+
 import { ApiResponse } from '@shared/models/application/api-response';
 import { KeyValuePair } from '@shared/models/application/key-value-pair';
 import { IGameRelease } from '@shared/models/in-game/game-release';
 import { IGameReleaseSearchRequest } from '@shared/models/in-game/game-release-search-request';
 import { AppConfigService } from '@shared/services/application/app-config.service';
-import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameReleaseService {
-
-  constructor(
-    private http: HttpClient,
-    private appConfig: AppConfigService,
-  ) {
-  }
+  private http = inject(HttpClient);
+  private appConfig = inject(AppConfigService);
 
   private getGameReleaseUrl(gameReleaseId: string = null, params: KeyValuePair[] = []): string {
     const query = params

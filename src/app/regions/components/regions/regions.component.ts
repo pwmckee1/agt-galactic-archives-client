@@ -1,16 +1,12 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+
+import { IRegion } from '@regions/models/region';
 import { RegionSearch } from '@regions/models/region-search';
 import { RegionService } from '@regions/services/region.service';
-import { IRegion } from '@regions/models/region';
-import {
-  TerminalCommunicationComponent
-} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
-import { ApiResponse } from '@shared/models/application/api-response';
-import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { MenuItem } from 'primeng/api';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { Button } from 'primeng/button';
@@ -21,6 +17,12 @@ import { Image } from 'primeng/image';
 import { InputText } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Select } from 'primeng/select';
+
+import {
+  TerminalCommunicationComponent
+} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
+import { ApiResponse } from '@shared/models/application/api-response';
+import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 
 @Component({
   selector: 'agt-regions',
@@ -46,6 +48,9 @@ import { Select } from 'primeng/select';
   styleUrl: './regions.component.scss'
 })
 export class RegionsComponent implements OnInit {
+  private primeng = inject(PrimeNG);
+  private regionService = inject(RegionService);
+
   galaxyForm: FormGroup
   regions: IRegion[] = [];
   selectedSearchFields: string[] = [];
@@ -77,12 +82,6 @@ export class RegionsComponent implements OnInit {
   ];
 
   private destroyRef = inject(DestroyRef);
-
-  constructor(
-    private primeng: PrimeNG,
-    private regionService: RegionService,
-  ) {
-  }
 
   ngOnInit(): void {
     this.setupHeader();
@@ -121,7 +120,7 @@ export class RegionsComponent implements OnInit {
     ];
   }
 
-  protected search(): void {
+  search(): void {
     const galaxy = this.galaxyForm.get('galaxy').value;
     const regionName = this.galaxyForm.get('name').value;
     const surveyedBy = this.galaxyForm.get('surveyedBy').value;
@@ -129,7 +128,14 @@ export class RegionsComponent implements OnInit {
     this.searchRegions(galaxy.name, regionName, surveyedBy, civilization);
   }
 
-  protected clearSearchValues() {
+  handleKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // Prevent page scroll on Space
+      this.search();
+    }
+  }
+
+  clearSearchValues() {
     this.galaxyForm.get('galaxy').setValue(null);
     this.galaxyForm.get('name').setValue(null);
     this.galaxyForm.get('surveyedBy').setValue(null);

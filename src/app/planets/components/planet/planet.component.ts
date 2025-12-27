@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-planet',
+    selector: 'agt-planet',
     imports: [],
     templateUrl: './planet.component.html',
     styleUrl: './planet.component.scss'

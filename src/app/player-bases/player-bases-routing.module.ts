@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 import { PlayerBaseComponent } from '@player-bases/components/player-base/player-base.component';
 import { PlayerBasesComponent } from '@player-bases/components/player-bases/player-bases.component';
 
@@ -18,7 +19,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
-  ]
+    RouterModule.forChild(routes),
+    CommonModule,
+  ],
+  exports: [RouterModule],
 })
 export class PlayerBasesRoutingModule { }

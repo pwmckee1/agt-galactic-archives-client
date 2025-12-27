@@ -1,9 +1,11 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { Image } from 'primeng/image';
+
 import {
   TerminalCommunicationComponent
 } from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
-import { Image } from 'primeng/image';
 
 @Component({
   selector: 'agt-preloader',

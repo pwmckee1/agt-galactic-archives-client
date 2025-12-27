@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-poi',
+    selector: 'agt-poi',
     imports: [],
     templateUrl: './poi.component.html',
     styleUrl: './poi.component.scss'

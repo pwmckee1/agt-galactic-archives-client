@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-multi-tools',
+    selector: 'agt-multi-tools',
     imports: [],
     templateUrl: './multi-tools.component.html',
     styleUrl: './multi-tools.component.scss'

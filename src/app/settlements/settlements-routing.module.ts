@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 import { SettlementComponent } from '@settlements/components/settlement/settlement.component';
 import { SettlementsComponent } from '@settlements/components/settlements/settlements.component';
 
@@ -18,7 +19,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
-  ]
+    RouterModule.forChild(routes),
+    CommonModule,
+  ],
+  exports: [RouterModule],
 })
 export class SettlementsRoutingModule { }

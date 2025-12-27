@@ -10,26 +10,14 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
+
 import { IInterRegionDistance } from '@regions/models/inter-region-distance';
+import { IRegion } from '@regions/models/region';
 import { RegionInputFormFieldTypes } from '@regions/models/region-input-form-field-types';
 import { IUpsertRegion } from '@regions/models/upsert-region';
-import {
-  InterRegionDistanceComponent
-} from '@shared/components/terminal-ui/inter-region-distance/inter-region-distance.component';
-import {
-  TerminalCommunicationComponent
-} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
-import { FormHelpers } from '@shared/helpers/form-helpers';
-import { IRegion } from '@regions/models/region';
-import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { RegionService } from '@regions/services/region.service';
-import { ApiResponse } from '@shared/models/application/api-response';
-import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
-import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
-import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
-import { IGameRelease } from '@shared/models/in-game/game-release';
-import { GameReleaseSearchRequest } from '@shared/models/in-game/game-release-search-request';
-import { GameReleaseService } from '@shared/services/game-metadata/game-release.service';
+import moment, { Moment } from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import {
   Accordion,
@@ -53,9 +41,26 @@ import { InputTextModule } from 'primeng/inputtext';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { Select } from 'primeng/select';
-import moment, { Moment } from 'moment';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
+
+import {
+  InterRegionDistanceComponent
+} from '@shared/components/terminal-ui/inter-region-distance/inter-region-distance.component';
+import {
+  TerminalCommunicationComponent
+} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
+import {
+  TerminalImageUploadComponent
+} from '@shared/components/terminal-ui/terminal-image-upload/terminal-image-upload.component';
+import { getGalacticCoordinateValidator } from '@shared/helpers/form-helpers';
+import { ApiResponse } from '@shared/models/application/api-response';
+import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
+import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
+import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
+import { IGameRelease } from '@shared/models/in-game/game-release';
+import { GameReleaseSearchRequest } from '@shared/models/in-game/game-release-search-request';
+import { GameReleaseService } from '@shared/services/game-metadata/game-release.service';
 
 @Component({
   selector: 'agt-region',
@@ -86,6 +91,7 @@ import { ToastModule } from 'primeng/toast';
     BadgeModule,
     OverlayBadgeModule,
     InterRegionDistanceComponent,
+    TerminalImageUploadComponent,
   ],
   providers: [
     RegionService,
@@ -100,44 +106,20 @@ import { ToastModule } from 'primeng/toast';
   styleUrl: './region.component.scss'
 })
 export class RegionComponent implements OnInit, AfterViewInit {
+  private formBuilder = inject(FormBuilder);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private regionService = inject(RegionService);
+  private toastr = inject(ToastrService);
+  private gameReleaseService = inject(GameReleaseService);
+  private cdr = inject(ChangeDetectorRef);
+
   @ViewChild(InterRegionDistanceComponent) interRegionDistanceComponent!: InterRegionDistanceComponent;
-  regionForm: FormGroup;
+  @ViewChild(TerminalImageUploadComponent) terminalImageUploadComponent!: TerminalImageUploadComponent;
+
   regionId: string;
   consoleText: string = '';
   requiredWarning: string = '* Indicates required question';
-  isReadOnly: boolean = false;
-  completedTyping: Record<string, boolean> = {};
-  home: MenuItem | undefined;
-  breadcrumbItems: MenuItem[] | undefined
-  currentRegion: IRegion;
-  gameReleases: IGameRelease[] = [];
-
-  FormFields = RegionInputFormFieldTypes;
-  activeFormField: RegionInputFormFieldTypes;
-  activeFormFields: RegionInputFormFieldTypes[] = [];
-
-  galaxyTypes: { name: string, label: GalaxyTypes }[] =
-    Object.entries(GalaxyTypes).map(([key, value]) => ({
-    name: key,
-    label: value
-  }));
-  gamePlatformTypes: { name: string, label: GamePlatformTypes}[] =
-    Object.entries(GamePlatformTypes).map(([key, value]) => ({
-    name: key,
-    label: value
-  }));
-  gameModeTypes: { name: string, label: GameModeTypes }[] =
-    Object.entries(GameModeTypes).map(([key, value]) => ({
-    name: key,
-    label: value
-  }));
-
-  maxDate = moment().toDate();
-  minDate = moment('9/9/2016').toDate();
-
-  hasInitialStatusText: boolean = false;
-  hasRequiredWarningText: boolean = false;
-  isNewRegion: boolean = false;
 
   selectGalaxyText: string = 'Select_Galaxy:';
   regionNameText: string = 'Region_Name:';
@@ -151,6 +133,11 @@ export class RegionComponent implements OnInit, AfterViewInit {
   notesText: string = 'Notes:';
   linksText: string = 'Links:';
   imageUploadText: string = 'Upload_Images:';
+
+  regionScreenshotExampleText: string = 'Galaxy_Map_Screenshot_Example:'
+  regionScreenshotExampleImage: string = 'assets/img/menus/terminal-galaxy-map-region.png'
+  coordinateScreenshotExampleText: string = 'Galactic_Coordinate_Screenshot_Example:'
+  coordinateScreenshotExampleImage: string = 'assets/img/menus/terminal-noisy-galactic-coordinate-display.png'
 
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
   regionNamePlaceholder: string = 'Kitisba-Instability, etc...';
@@ -174,23 +161,44 @@ export class RegionComponent implements OnInit, AfterViewInit {
   gameReleaseVersionNumberPlaceholder: string = 'Game Release Version Number';
   gameReleaseDatePlaceholder: string = 'Game Release Date';
 
-  private destroyRef = inject(DestroyRef);
+  isReadOnly: boolean = false;
+  hasInitialStatusText: boolean = false;
+  hasRequiredWarningText: boolean = false;
+  isNewRegion: boolean = false;
 
-  files: any[] = [];
-  totalSize: number = 0;
-  totalSizePercent: number = 0;
+  maxDate = moment().toDate();
+  minDate = moment('9/9/2016').toDate();
+
   maxFileSize: number = 10485760;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private regionService: RegionService,
-    private toastr: ToastrService,
-    private gameReleaseService: GameReleaseService,
-    private cdr: ChangeDetectorRef,
-  ) {
-  }
+  regionForm: FormGroup;
+  FormFields = RegionInputFormFieldTypes;
+  activeFormField: RegionInputFormFieldTypes;
+  activeFormFields: RegionInputFormFieldTypes[] = [];
+
+  completedTyping: Record<string, boolean> = {};
+  home: MenuItem | undefined;
+  breadcrumbItems: MenuItem[] | undefined
+  currentRegion: IRegion;
+  gameReleases: IGameRelease[] = [];
+
+  galaxyTypes: { name: string, label: GalaxyTypes }[] =
+    Object.entries(GalaxyTypes).map(([key, value]) => ({
+    name: key,
+    label: value
+  }));
+  gamePlatformTypes: { name: string, label: GamePlatformTypes}[] =
+    Object.entries(GamePlatformTypes).map(([key, value]) => ({
+    name: key,
+    label: value
+  }));
+  gameModeTypes: { name: string, label: GameModeTypes }[] =
+    Object.entries(GameModeTypes).map(([key, value]) => ({
+    name: key,
+    label: value
+  }));
+
+  private destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.home = { icon: 'pi pi-home', routerLink: ['/'] };
@@ -264,7 +272,7 @@ export class RegionComponent implements OnInit, AfterViewInit {
       regionName: new FormControl(null, Validators.required),
       surveyedBy: new FormControl(null, Validators.required),
       surveyDate: new FormControl(null, Validators.required),
-      galacticCoordinates: new FormControl(null, [Validators.required, FormHelpers.getGalacticCoordinateValidator()]),
+      galacticCoordinates: new FormControl(null, [Validators.required, getGalacticCoordinateValidator()]),
       legacyName: new FormControl(null),
       regionAge: new FormControl(null),
       civilization: new FormControl(null),
@@ -359,25 +367,6 @@ export class RegionComponent implements OnInit, AfterViewInit {
     this.activeFormFields.push(this.activeFormField);
   }
 
-  onSelectedFiles(event: any) {
-    this.totalSize = 0;
-    this.files = event.currentFiles;
-    this.files.forEach((file) => {
-      this.totalSize += parseInt(file.size);
-    });
-    this.totalSizePercent = (this.totalSize / this.maxFileSize) * 100;
-  }
-
-  onRemoveTemplatingFile(event: any, file: any, removeFileCallback: any, index: number) {
-    removeFileCallback(event, index);
-    this.totalSize -= parseInt(file.size);
-    this.totalSizePercent = (this.totalSize / this.maxFileSize) * 100;
-  }
-
-  chooseImage(callback: any) {
-    callback();
-  }
-
   get isNextDisabled(): boolean {
     if (!this.activeFormField) return false;
 
@@ -421,14 +410,6 @@ export class RegionComponent implements OnInit, AfterViewInit {
       videoLink: this.videoLink,
       interRegionDistances: this.interRegionDistances,
     };
-  }
-
-  formatSize(bytes: number): string {
-    if (bytes === 0) return '0 B';
-    const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
   startNewRegion() {

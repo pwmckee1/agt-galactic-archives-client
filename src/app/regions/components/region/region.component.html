@@ -806,6 +806,11 @@
 
           <!--Image Uploads-->
           @if (activeFormFields.includes(FormFields.ImageUploads) || !isNewRegion) {
+            <agt-terminal-image-upload
+              [title]="regionScreenshotExampleText"
+              [maxFileSize]="maxFileSize"
+              [exampleImage]="regionScreenshotExampleImage"
+            ></agt-terminal-image-upload>
             <div class="flex flex-column gap-2 mt-4">
               <div class="flex-1">
                 <agt-terminal-communication
@@ -820,188 +825,18 @@
                 <div class="flex-auto">
                   <div class="flex flex-column md:flex-row gap-4">
                     <div class="flex-1 text-center pb-2 max-w-30rem">
-                      <label class="font-bold mb-2 text-green">Galaxy Map Screenshot Example</label>
-                      <div class="border-1 border-bottom-none border-green mx-auto">
-                        <p-image
-                          class="terminal-image"
-                          src="assets/img/menus/terminal-galaxy-map-region.png"
-                          alt="Coordinates Display"
-                          width="100%"></p-image>
-                      </div>
-                      <p-fileupload
-                        name="region-screenshot"
-                        [multiple]="false"
-                        accept="image/*"
-                        maxFileSize="{{maxFileSize}}"
-                        (onSelect)="onSelectedFiles($event)">
-                        <ng-template
-                          #header
-                          let-files
-                          let-chooseCallback="chooseCallback"
-                          let-clearCallback="clearCallback"
-                          let-uploadCallback="uploadCallback">
-                          <div class="flex flex-column gap-4 w-full">
-                            <div class="flex-1 flex-row gap-2">
-                              <p-button
-                                (onClick)="chooseImage(chooseCallback)"
-                                icon="pi pi-images"
-                                label="Choose Image"
-                                class="mr-4"
-                                [rounded]="true"
-                                [outlined]="true"/>
-                              <p-button
-                                (onClick)="clearCallback()"
-                                icon="pi pi-times"
-                                label="Remove File"
-                                [rounded]="true"
-                                [outlined]="true"
-                                severity="danger"
-                                [disabled]="!files || files.length === 0"/>
-                            </div>
-                            <div class="flex-1">
-                              <span class="whitespace-nowrap">{{ formatSize(totalSize) }}
-                                / {{ formatSize(maxFileSize) }}</span>
-                              <p-progressbar
-                                [value]="totalSizePercent"
-                                [showValue]="false"
-                                class="w-full">
-                              </p-progressbar>
-                            </div>
-                          </div>
-                        </ng-template>
-                        <ng-template
-                          #content
-                          let-files
-                          let-removeFileCallback="removeFileCallback">
-                          <div class="flex flex-column gap-4 pt-4">
-                            @if (files?.length > 0) {
-                              <div class="flex flex-wrap gap-4">
-                                @for (file of files; track $index) {
-                                  <div class="flex-1">
-                                    <img
-                                      role="presentation"
-                                      [alt]="file.name"
-                                      [src]="file.objectURL"
-                                      width="100"
-                                      height="50"/>
-                                  </div>
-                                  <div class="flex-1">
-                                    {{ file.name }}
-                                  </div>
-                                  <div class="flex-1">
-                                    {{ formatSize(file.size) }}
-                                  </div>
-                                  <div class="flex-1">
-                                    <p-button
-                                      icon="pi pi-times"
-                                      (click)="onRemoveTemplatingFile($event, file, removeFileCallback, $index)"
-                                      [outlined]="true" [rounded]="true" severity="danger"/>
-                                  </div>
-                                }
-                              </div>
-                            }
-                          </div>
-                        </ng-template>
-                        <ng-template #file></ng-template>
-                        <ng-template #empty>
-                          <div class="flex items-center justify-center flex-column">
-                            <i class="pi pi-cloud-upload upload-icon"></i>
-                            <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
-                          </div>
-                        </ng-template>
-                      </p-fileupload>
+                      <agt-terminal-image-upload
+                        [title]="regionScreenshotExampleText"
+                        [maxFileSize]="maxFileSize"
+                        [exampleImage]="regionScreenshotExampleImage"
+                      ></agt-terminal-image-upload>
                     </div>
                     <div class="flex-1 text-center pb-2 max-w-30rem">
-                      <label class="font-bold mb-2 text-green">Galactic Coordinate Screenshot Example</label>
-                      <div class="border-1 border-bottom-none border-green mx-auto">
-                        <p-image
-                          class="terminal-image"
-                          src="assets/img/menus/terminal-noisy-galactic-coordinate-display.png"
-                          alt="Coordinates Display"
-                          width="100%"></p-image>
-                      </div>
-                      <p-fileupload
-                        name="galactic-coordinates"
-                        [multiple]="false"
-                        accept="image/*"
-                        maxFileSize="{{maxFileSize}}"
-                        (onSelect)="onSelectedFiles($event)">
-                        <ng-template
-                          #header
-                          let-files
-                          let-chooseCallback="chooseCallback"
-                          let-clearCallback="clearCallback"
-                          let-uploadCallback="uploadCallback">
-                          <div class="flex flex-column gap-4 w-full">
-                            <div class="flex-1 flex-row gap-2">
-                              <p-button
-                                (onClick)="chooseImage(chooseCallback)"
-                                icon="pi pi-images"
-                                label="Choose Image"
-                                class="mr-4"
-                                [rounded]="true"
-                                [outlined]="true"/>
-                              <p-button
-                                (onClick)="clearCallback()"
-                                icon="pi pi-times"
-                                label="Remove File"
-                                [rounded]="true"
-                                [outlined]="true"
-                                severity="danger"
-                                [disabled]="!files || files.length === 0"/>
-                            </div>
-                            <div class="flex-1">
-                              <span class="whitespace-nowrap">{{ formatSize(totalSize) }}
-                                / {{ formatSize(maxFileSize) }}</span>
-                              <p-progressbar
-                                [value]="totalSizePercent"
-                                [showValue]="false"
-                                class="w-full">
-                              </p-progressbar>
-                            </div>
-                          </div>
-                        </ng-template>
-                        <ng-template
-                          #content
-                          let-files
-                          let-removeFileCallback="removeFileCallback">
-                          <div class="flex flex-column gap-4 pt-4">
-                            @if (files?.length > 0) {
-                              <div class="flex flex-wrap gap-4">
-                                @for (file of files; track $index) {
-                                  <div class="flex-1">
-                                    <img
-                                      role="presentation"
-                                      [alt]="file.name"
-                                      [src]="file.objectURL"
-                                      width="100"
-                                      height="50"/>
-                                  </div>
-                                  <div class="flex-1">
-                                    {{ file.name }}
-                                  </div>
-                                  <div class="flex-1">
-                                    {{ formatSize(file.size) }}
-                                  </div>
-                                  <div class="flex-1">
-                                    <p-button
-                                      icon="pi pi-times"
-                                      (click)="onRemoveTemplatingFile($event, file, removeFileCallback, $index)"
-                                      [outlined]="true" [rounded]="true" severity="danger"/>
-                                  </div>
-                                }
-                              </div>
-                            }
-                          </div>
-                        </ng-template>
-                        <ng-template #file></ng-template>
-                        <ng-template #empty>
-                          <div class="flex items-center justify-center flex-column">
-                            <i class="pi pi-cloud-upload upload-icon"></i>
-                            <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
-                          </div>
-                        </ng-template>
-                      </p-fileupload>
+                      <agt-terminal-image-upload
+                        [title]="coordinateScreenshotExampleText"
+                        [maxFileSize]="maxFileSize"
+                        [exampleImage]="coordinateScreenshotExampleImage"
+                      ></agt-terminal-image-upload>
                     </div>
                     @if (activeFormField === FormFields.ImageUploads && isNewRegion) {
                       <div class="flex-1 white-space-nowrap text-right">
