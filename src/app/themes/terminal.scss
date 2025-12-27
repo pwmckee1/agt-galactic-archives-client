@@ -7,6 +7,7 @@
   ::ng-deep img {
     vertical-align: middle;
     display: block;
+    object-fit: fill;
   }
 }
 
@@ -81,6 +82,10 @@
       border-bottom: 1px solid $color-green-accent;
       resize: none;
 
+      &:disabled {
+        color: $color-green-accent;
+      }
+
       &::-webkit-scrollbar {
         width: 8px;
       }
@@ -97,6 +102,11 @@
         &:hover {
           background: $color-green-accent-light;
         }
+      }
+
+      &:disabled {
+        background-color: $color-terminal-alpha-10;
+        border-color: $color-green-accent;
       }
 
       &:not(.p-disabled):hover {
@@ -120,6 +130,38 @@
       }
     }
 
+    .p-fileupload, .p-fileupload-advanced {
+      border: 1px double $color-green-accent;
+      border-radius: 0;
+      background-color: $color-terminal-bg;
+      color: $color-green-accent;
+
+      .p-fileupload-header {
+        border: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        background-color: $color-terminal-bg;
+        color: $color-green-accent;
+      }
+
+      .p-fileupload-content {
+        margin: 1rem;
+        border: 1px dashed $color-terminal-alpha-50;
+        color: $color-terminal-alpha-50;
+      }
+    }
+
+    .p-progressbar {
+      background-color: $color-terminal-bg;
+      border: 1px solid $color-green-accent;
+      color: $color-green-accent;
+      border-radius: 0;
+
+      .p-progressbar-value {
+        background-color: $color-green-accent;
+      }
+    }
+
     // Shared styles for Select, Multiselect, and InputText
     .p-select, .p-multiselect, .p-inputtext, .p-datepicker {
       border: none;
@@ -127,6 +169,10 @@
       border-radius: 0;
       background-color: $color-terminal-bg;
       color: $color-green-accent;
+
+      &.p-disabled .p-select-label {
+        color: $color-green-accent;
+      }
 
       &.ng-invalid.ng-touched {
         border-bottom-color: $color-secondary !important;
@@ -187,6 +233,16 @@
         border-color: $color-green-accent-light;
         background-color: $color-terminal-alpha-10;
         color: $color-green-accent-light;
+      }
+
+      &:disabled {
+        background-color: $color-terminal-alpha-10;
+        border-color: $color-green-accent;
+      }
+
+      &.p-disabled {
+        background-color: $color-terminal-alpha-10;
+        border-color: $color-green-accent;
       }
     }
 

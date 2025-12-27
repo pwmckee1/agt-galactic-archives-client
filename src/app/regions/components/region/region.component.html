@@ -21,7 +21,7 @@
         </div>
 
         <div class="mr-4">
-          @if (true //regionId && isReadOnly) {
+          @if (regionId && isReadOnly) {
             <p-button label="Edit Entry" icon="pi pi-pencil" (click)="toggleEdit()" severity="warn"/>
           } @else if (regionId && !isReadOnly) {
             <p-button label="Cancel" icon="pi pi-times" (click)="toggleEdit()" severity="secondary"/>
@@ -40,49 +40,58 @@
         <div class="flex flex-column gap-2">
 
           <!--Initial Status Text-->
+
           <agt-terminal-communication
             (typingDone)="initialStatusTypingComplete($event)"
             [typingSpeed]="5"
             [success]="!isReadOnly"
+            [showAnimation]="isNewRegion"
             [message]="consoleText">
           </agt-terminal-communication>
 
           <!--Galaxy Selection-->
-          @if (true //hasInitialStatusText) {
+          @if (hasInitialStatusText || !isNewRegion) {
             <agt-terminal-communication
               (typingDone)="requiredWarningTypingComplete($event)"
               [typingSpeed]="5"
               [success]="false"
+              [showAnimation]="isNewRegion"
               [message]="requiredWarning">
             </agt-terminal-communication>
           }
 
           <!--Galaxy Select-->
-          @if (true //hasRequiredWarningText) {
+          @if (hasRequiredWarningText || !isNewRegion) {
             <div class="flex flex-column lg:flex-row gap-2">
               <div class="flex-1 lg:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Galaxy)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="selectGalaxyText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.Galaxy]) {
+              @if (completedTyping[FormFields.Galaxy] || !isNewRegion) {
                 <div class="flex-2 lg:w-8">
                   <div class="flex flex-column lg:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <span class="text-secondary">*</span>
+                      @if (!isReadOnly) {
+                        <span class="text-secondary">*</span>
+                      }
                       <p-floatlabel variant="on">
                         <p-select
-                          id="galaxy"
+                          input_id="galaxy"
                           formControlName="galaxy"
+                          optionLabel="label"
+                          optionValue="label"
                           [fluid]="true"
+                          [disabled]="isReadOnly"
                           [options]="galaxyTypes"/>
                         <label for="galaxy">{{ galaxySelectPlaceholder }}</label>
                       </p-floatlabel>
                     </div>
-                    @if (true //activeFormField === FormFields.Galaxy) {
+                    @if (activeFormField === FormFields.Galaxy && isNewRegion) {
                       <div class="flex-initial text-right white-space-nowrap align-content-end">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -103,21 +112,24 @@
           }
 
           <!--Region Name-->
-          @if (true //activeFormFields.includes(FormFields.RegionName)) {
+          @if (activeFormFields.includes(FormFields.RegionName) || !isNewRegion) {
             <div class="flex flex-column md:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.RegionName)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="regionNameText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.RegionName]) {
+              @if (completedTyping[FormFields.RegionName] || !isNewRegion) {
                 <div class="flex-2 md:w-8">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <span class="text-secondary">*</span>
+                      @if (!isReadOnly) {
+                        <span class="text-secondary">*</span>
+                      }
                       <p-floatlabel variant="on">
                         <input
                           pInputText
@@ -125,11 +137,12 @@
                           formControlName="regionName"
                           variant="filled"
                           [fluid]="true"
+                          [disabled]="isReadOnly"
                           type="text"/>
                         <label for="regionName">{{ regionNamePlaceholder }}</label>
                       </p-floatlabel>
                     </div>
-                    @if (true //activeFormField === FormFields.RegionName) {
+                    @if (activeFormField === FormFields.RegionName && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -150,23 +163,26 @@
           }
 
           <!--Survey Info-->
-          @if (true //activeFormFields.includes(FormFields.SurveyInfo)) {
+          @if (activeFormFields.includes(FormFields.SurveyInfo) || !isNewRegion) {
             <div class="flex flex-column md:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.SurveyInfo)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="surveyInfoText" class="">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.SurveyInfo]) {
+              @if (completedTyping[FormFields.SurveyInfo] || !isNewRegion) {
                 <div class="flex-2 md:w-8">
                   <div class="flex flex-column lg:flex-row gap-2">
                     <div class="flex-grow-1">
                       <div class="flex flex-column lg:flex-row gap-4">
                         <div class="flex-1 min-w-min">
-                          <span class="text-secondary">*</span>
+                          @if (!isReadOnly) {
+                            <span class="text-secondary">*</span>
+                          }
                           <p-floatlabel variant="on">
                             <input
                               pInputText
@@ -175,12 +191,15 @@
                               formControlName="surveyedBy"
                               variant="filled"
                               [fluid]="true"
+                              [disabled]="isReadOnly"
                               type="text"/>
                             <label for="surveyedBy">{{ surveyedByPlaceholder }}</label>
                           </p-floatlabel>
                         </div>
                         <div class="flex-1 min-w-min">
-                          <span class="text-secondary">*</span>
+                          @if (!isReadOnly) {
+                            <span class="text-secondary">*</span>
+                          }
                           <p-floatlabel variant="on">
                             <p-datepicker
                               #datepicker
@@ -191,6 +210,7 @@
                               [iconDisplay]="'input'"
                               [fluid]="true"
                               [showIcon]="true"
+                              [disabled]="isReadOnly"
                               (keydown.enter)="datepicker.toggle()"
                               (keydown.space)="datepicker.toggle()"></p-datepicker>
                             <label for="surveyDate">{{ surveyDatePlaceholder }}</label>
@@ -198,7 +218,7 @@
                         </div>
                       </div>
                     </div>
-                    @if (true //activeFormField === FormFields.SurveyInfo) {
+                    @if (activeFormField === FormFields.SurveyInfo && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -219,17 +239,18 @@
           }
 
           <!--Galactic Coordinates-->
-          @if (true //activeFormFields.includes(FormFields.GalacticCoordinates)) {
+          @if (activeFormFields.includes(FormFields.GalacticCoordinates) || !isNewRegion) {
             <div class="flex flex-column lg:flex-row gap-2">
               <div class="flex-1 lg:w-4 align-content-end">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.GalacticCoordinates)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="galacticCoordinatesText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.GalacticCoordinates]) {
+              @if (completedTyping[FormFields.GalacticCoordinates] || !isNewRegion) {
                 <div class="flex-2 lg:w-8">
                   <div class="flex flex-column gap-2">
                     <div class="flex-1">
@@ -268,7 +289,9 @@
                     <div class="flex-1">
                       <div class="flex flex-column lg:flex-row gap-2">
                         <div class="flex-grow-1">
-                          <label for="surveyedBy" class="text-secondary">*</label>
+                          @if (!isReadOnly) {
+                            <span class="text-secondary">*</span>
+                          }
                           <p-floatlabel variant="on">
                             <label for="galacticCoordinates">{{ galacticCoordinatesPlaceholder }}</label>
                             <input
@@ -277,10 +300,11 @@
                               formControlName="galacticCoordinates"
                               variant="filled"
                               [fluid]="true"
+                              [disabled]="isReadOnly"
                               type="text"/>
                           </p-floatlabel>
                         </div>
-                        @if (true //activeFormField === FormFields.GalacticCoordinates) {
+                        @if (activeFormField === FormFields.GalacticCoordinates && isNewRegion) {
                           <div class="flex-initial white-space-nowrap align-content-end text-right">
                             <a
                               (click)="!isNextDisabled && nextField()"
@@ -303,17 +327,18 @@
           }
 
           <!--Legacy Name-->
-          @if (true //activeFormFields.includes(FormFields.LegacyName)) {
+          @if (activeFormFields.includes(FormFields.LegacyName) || !isNewRegion) {
             <div class="flex flex-column md:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.LegacyName)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="legacyNameText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.LegacyName]) {
+              @if (completedTyping[FormFields.LegacyName] || !isNewRegion) {
                 <div class="flex-2 md:w-8 mt-2">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
@@ -324,9 +349,10 @@
                         variant="filled"
                         placeholder="{{ legacyNamePlaceholder }}"
                         [fluid]="true"
+                        [disabled]="isReadOnly"
                         type="text"/>
                     </div>
-                    @if (true //activeFormField === FormFields.LegacyName) {
+                    @if (activeFormField === FormFields.LegacyName && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -347,17 +373,18 @@
           }
 
           <!--Region Age-->
-          @if (true //activeFormFields.includes(FormFields.RegionAge)) {
+          @if (activeFormFields.includes(FormFields.RegionAge) || !isNewRegion) {
             <div class="flex flex-column md:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.RegionAge)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="regionAgeText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.RegionAge]) {
+              @if (completedTyping[FormFields.RegionAge] || !isNewRegion) {
                 <div class="flex-2 md:w-8">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
@@ -367,10 +394,11 @@
                         variant="filled"
                         placeholder="{{ regionAgePlaceholder }}"
                         [fluid]="true"
+                        [disabled]="isReadOnly"
                         mode="decimal">
                       </p-inputnumber>
                     </div>
-                    @if (true //activeFormField === FormFields.RegionAge) {
+                    @if (activeFormField === FormFields.RegionAge && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -391,17 +419,18 @@
           }
 
           <!--Civilization Claim-->
-          @if (true //activeFormFields.includes(FormFields.Civilization)) {
+          @if (activeFormFields.includes(FormFields.Civilization) || !isNewRegion) {
             <div class="flex flex-column md:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Civilization)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="civilizationText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.Civilization]) {
+              @if (completedTyping[FormFields.Civilization] || !isNewRegion) {
                 <div class="flex-2 md:w-8">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
@@ -412,9 +441,10 @@
                         placeholder="{{ civilizationPlaceholder }}"
                         variant="filled"
                         [fluid]="true"
+                        [disabled]="isReadOnly"
                         type="text"/>
                     </div>
-                    @if (true //activeFormField === FormFields.Civilization) {
+                    @if (activeFormField === FormFields.Civilization && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -435,17 +465,18 @@
           }
 
           <!--Phantom System-->
-          @if (true //activeFormFields.includes(FormFields.PhantomSystem)) {
+          @if (activeFormFields.includes(FormFields.PhantomSystem) || !isNewRegion) {
             <div class="flex flex-column lg:flex-row gap-2">
               <div class="flex-1 lg:w-5">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.PhantomSystem)"
                   [typingSpeed]="10"
+                  [showAnimation]="isNewRegion"
                   [message]="phantomSystemText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.PhantomSystem]) {
+              @if (completedTyping[FormFields.PhantomSystem] || !isNewRegion) {
                 <div class="flex-2 lg:w-7">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
@@ -456,9 +487,10 @@
                         placeholder="{{ phantomSystemPlaceholder }}"
                         variant="filled"
                         [fluid]="true"
+                        [disabled]="isReadOnly"
                         type="text"/>
                     </div>
-                    @if (true //activeFormField === FormFields.PhantomSystem) {
+                    @if (activeFormField === FormFields.PhantomSystem && isNewRegion) {
                       <div class="flex-initial white-space-nowrap align-content-end text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -479,88 +511,138 @@
           }
 
           <!--Game Info-->
-          @if (true //activeFormFields.includes(FormFields.GameInfo)) {
+          @if (activeFormFields.includes(FormFields.GameInfo) || !isNewRegion) {
             <div class="flex flex-column gap-2">
               <div class="flex-1 align-content-end">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.GameInfo)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="gameInfoText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.GameInfo]) {
+              @if (completedTyping[FormFields.GameInfo] || !isNewRegion) {
                 <div class="flex-1">
                   <div class="flex flex-column md:flex-row gap-2">
                     <div class="flex-grow-1">
-                      <div class="flex flex-column md:flex-row gap-4">
-                        <div class="flex-1 align-content-end">
-                          <label for="gameRelease" class="text-secondary">*</label>
-                          <p-floatlabel variant="on">
-                            <p-select
-                              [fluid]="true"
-                              inputId="gameRelease"
-                              optionLabel="name"
-                              optionValue="gameReleaseId"
-                              formControlName="gameRelease"
-                              [options]="gameReleases"/>
-                            <label for="gameRelease">{{ gameReleasePlaceholder }}</label>
-                          </p-floatlabel>
+                      <div class="flex flex-column gap-4">
+                        <div class="flex-1">
+                          <div class="flex flex-column md:flex-row gap-4">
+                            <div class="flex-1 align-content-end">
+                              @if (!isReadOnly) {
+                                <span class="text-secondary">*</span>
+                              }
+                              <p-floatlabel variant="on">
+                                <p-select
+                                  [fluid]="true"
+                                  inputId="gameRelease"
+                                  optionLabel="name"
+                                  optionValue="name"
+                                  formControlName="gameRelease"
+                                  [disabled]="isReadOnly"
+                                  [options]="gameReleases"/>
+                                <label for="gameRelease">{{ gameReleasePlaceholder }}</label>
+                              </p-floatlabel>
+                            </div>
+                            <div class="flex-1 align-content-end">
+                              <p-floatlabel variant="on">
+                                <p-select
+                                  [fluid]="true"
+                                  inputId="gamePlatform"
+                                  optionLabel="name"
+                                  optionValue="name"
+                                  formControlName="gamePlatform"
+                                  [disabled]="isReadOnly"
+                                  [options]="gamePlatformTypes"/>
+                                <label for="gamePlatform">{{ gamePlatformPlaceholder }}</label>
+                              </p-floatlabel>
+                            </div>
+                            <div class="flex-1 align-content-end">
+                              <p-floatlabel variant="on">
+                                <p-select
+                                  inputId="gameMode"
+                                  [fluid]="true"
+                                  optionLabel="name"
+                                  optionValue="name"
+                                  [disabled]="isReadOnly"
+                                  formControlName="gameMode"
+                                  [options]="gameModeTypes"/>
+                                <label for="gameMode">{{ gameModePlaceholder }}</label>
+                              </p-floatlabel>
+                            </div>
+                          </div>
                         </div>
-                        <div class="flex-1 align-content-end">
-                          <p-floatlabel variant="on">
-                            <p-select
-                              [fluid]="true"
-                              inputId="gamePlatform"
-                              formControlName="gamePlatform"
-                              [options]="gamePlatformTypes"/>
-                            <label for="gamePlatform">{{ gamePlatformPlaceholder }}</label>
-                          </p-floatlabel>
-                        </div>
-                        <div class="flex-1 align-content-end">
-                          <p-floatlabel variant="on">
-                            <p-select
-                              inputId="gameMode"
-                              [fluid]="true"
-                              formControlName="gameMode"
-                              [options]="gameModeTypes"/>
-                            <label for="gameMode">{{ gameModePlaceholder }}</label>
-                          </p-floatlabel>
+                        <div class="flex-1">
+                          <div class="flex flex-column md:flex-row gap-4">
+                            <div class="flex-1 align-content-end">
+                              <p-floatlabel variant="on">
+                                <p-inputnumber
+                                  inputId="gameReleaseVersionNumber"
+                                  formControlName="gameReleaseVersionNumber"
+                                  variant="filled"
+                                  placeholder="{{ gameReleaseVersionNumberPlaceholder }}"
+                                  [fluid]="true"
+                                  [disabled]="isReadOnly"
+                                  mode="decimal">
+                                </p-inputnumber>
+                                <label for="gameReleaseVersionNumber">{{ gameReleaseVersionNumberPlaceholder }}</label>
+                              </p-floatlabel>
+                            </div>
+                            <div class="flex-1 align-content-end">
+                              <p-floatlabel variant="on">
+                                <p-datepicker
+                                  #datepicker
+                                  inputId="gameReleaseDate"
+                                  formControlName="gameReleaseDate"
+                                  [minDate]="minDate"
+                                  [maxDate]="maxDate"
+                                  [iconDisplay]="'input'"
+                                  [fluid]="true"
+                                  [showIcon]="true"
+                                  [disabled]="isReadOnly"
+                                  (keydown.enter)="datepicker.toggle()"
+                                  (keydown.space)="datepicker.toggle()"></p-datepicker>
+                                <label for="gameReleaseDate">{{ gameReleaseDatePlaceholder }}</label>
+                              </p-floatlabel>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    @if (true //activeFormField === FormFields.GameInfo) {
-                      <div class="flex-initial white-space-nowrap align-content-end text-right">
-                        <a
-                          (click)="!isNextDisabled && nextField()"
-                          (keydown.enter)="!isNextDisabled && nextField()"
-                          (keydown.space)="!isNextDisabled && nextField()"
-                          [class.opacity-50]="isNextDisabled"
-                          [class.cursor-not-allowed]="isNextDisabled"
-                          [attr.tabindex]="isNextDisabled ? -1 : 0"
-                          class="terminal-link">
-                          // NEXT //
-                        </a>
-                      </div>
-                    }
                   </div>
                 </div>
+                @if (activeFormField === FormFields.GameInfo && isNewRegion) {
+                  <div class="flex-initial white-space-nowrap align-content-end text-right">
+                    <a
+                      (click)="!isNextDisabled && nextField()"
+                      (keydown.enter)="!isNextDisabled && nextField()"
+                      (keydown.space)="!isNextDisabled && nextField()"
+                      [class.opacity-50]="isNextDisabled"
+                      [class.cursor-not-allowed]="isNextDisabled"
+                      [attr.tabindex]="isNextDisabled ? -1 : 0"
+                      class="terminal-link">
+                      // NEXT //
+                    </a>
+                  </div>
+                }
               }
             </div>
           }
 
           <!--Notes-->
-          @if (true //activeFormFields.includes(FormFields.Notes)) {
+          @if (activeFormFields.includes(FormFields.Notes) || !isNewRegion) {
             <div class="flex flex-column gap-2">
               <div class="flex-1 align-content-end">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Notes)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="notesText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.Notes]) {
+              @if (completedTyping[FormFields.Notes] || !isNewRegion) {
                 <div class="flex-1">
                   <div class="flex flex-column gap-2 justify-content-end">
                     <div class="flex-1">
@@ -572,6 +654,7 @@
                               id="summaryNotes"
                               formControlName="summaryNotes"
                               [fluid]=true
+                              [disabled]="isReadOnly"
                               rows="6"></textarea>
                             <label for="summaryNotes">{{ summaryNotesPlaceholder }}</label>
                           </p-floatlabel>
@@ -585,6 +668,7 @@
                                   id="locationNotes"
                                   formControlName="locationNotes"
                                   [fluid]=true
+                                  [disabled]="isReadOnly"
                                   rows="6"></textarea>
                                 <label for="locationNotes">{{ locationNotesPlaceholder }}</label>
                               </p-floatlabel>
@@ -596,6 +680,7 @@
                                   id="civilizedSpaceNotes"
                                   formControlName="civilizedSpaceNotes"
                                   [fluid]=true
+                                  [disabled]="isReadOnly"
                                   rows="6"></textarea>
                                 <label for="civilizedSpaceNotes">{{ civilizedSpaceNotesPlaceholder }}</label>
                               </p-floatlabel>
@@ -604,7 +689,7 @@
                         </div>
                       </div>
                     </div>
-                    @if (true //activeFormField === FormFields.Notes) {
+                    @if (activeFormField === FormFields.Notes && isNewRegion) {
                       <div class="flex-1 white-space-nowrap text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -625,66 +710,300 @@
           }
 
           <!--Links-->
-          @if (true //activeFormFields.includes(FormFields.Links)) {
+          @if (activeFormFields.includes(FormFields.Links) || !isNewRegion) {
             <div class="flex flex-column lg:flex-row gap-2">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Links)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="linksText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.Links]) {
+              @if (completedTyping[FormFields.Links] || !isNewRegion) {
                 <div class="flex-2 lg:w-8">
                   <div class="flex flex-column gap-2">
                     <div class="flex-1">
                       <div class="flex flex-column lg:flex-row gap-4">
-                        <p-floatlabel variant="on">
-                          <input
-                            pInputText
-                            id="wikiLink"
-                            formControlName="wikiLink"
-                            variant="filled"
-                            [fluid]="true"
-                            type="text"/>
-                          <label for="wikiLink">{{ wikiLinkPlaceholder }}</label>
-                        </p-floatlabel>
-                        <p-floatlabel variant="on">
-                          <input
-                            pInputText
-                            id="legacyWikiLink"
-                            formControlName="legacyWikiLink"
-                            variant="filled"
-                            [fluid]="true"
-                            type="text"/>
-                          <label for="legacyWikiLink">{{ legacyWikiLinkPlaceholder }}</label>
-                        </p-floatlabel>
-                      </div>
-                      <div class="flex flex-column md:mt-4 lg:flex-row gap-4">
-                        <p-floatlabel variant="on">
-                          <input
-                            pInputText
-                            id="externalLink"
-                            formControlName="externalLink"
-                            variant="filled"
-                            [fluid]="true"
-                            type="text"/>
-                          <label for="externalLink">{{ externalLinkPlaceholder }}</label>
-                        </p-floatlabel>
-                        <p-floatlabel variant="on">
-                          <input
-                            pInputText
-                            id="videoLink"
-                            formControlName="videoLink"
-                            variant="filled"
-                            [fluid]="true"
-                            type="text"/>
-                          <label for="videoLink">{{ videoLinkPlaceholder }}</label>
-                        </p-floatlabel>
+                        <div class="flex-1">
+                          <p-floatlabel variant="on">
+                            <input
+                              pInputText
+                              id="wikiLink"
+                              formControlName="wikiLink"
+                              variant="filled"
+                              [fluid]="true"
+                              [disabled]="isReadOnly"
+                              type="text"/>
+                            <label for="wikiLink">{{ wikiLinkPlaceholder }}</label>
+                          </p-floatlabel>
+                        </div>
+                        <div class="flex-1">
+                          <p-floatlabel variant="on">
+                            <input
+                              pInputText
+                              id="legacyWikiLink"
+                              formControlName="legacyWikiLink"
+                              variant="filled"
+                              [fluid]="true"
+                              [disabled]="isReadOnly"
+                              type="text"/>
+                            <label for="legacyWikiLink">{{ legacyWikiLinkPlaceholder }}</label>
+                          </p-floatlabel>
+                        </div>
                       </div>
                     </div>
-                    @if (true //activeFormField === FormFields.Links) {
+                    <div class="flex-1">
+                      <div class="flex flex-column md:mt-4 lg:flex-row gap-4">
+                        <div class="flex-1">
+                          <p-floatlabel variant="on">
+                            <input
+                              pInputText
+                              id="externalLink"
+                              formControlName="externalLink"
+                              variant="filled"
+                              [fluid]="true"
+                              [disabled]="isReadOnly"
+                              type="text"/>
+                            <label for="externalLink">{{ externalLinkPlaceholder }}</label>
+                          </p-floatlabel>
+                        </div>
+                        <div class="flex-1">
+                          <p-floatlabel variant="on">
+                            <input
+                              pInputText
+                              id="videoLink"
+                              formControlName="videoLink"
+                              variant="filled"
+                              [fluid]="true"
+                              [disabled]="isReadOnly"
+                              type="text"/>
+                            <label for="videoLink">{{ videoLinkPlaceholder }}</label>
+                          </p-floatlabel>
+                        </div>
+                      </div>
+                    </div>
+                    @if (activeFormField === FormFields.Links && isNewRegion) {
+                      <div class="flex-1 white-space-nowrap text-right">
+                        <a
+                          (click)="!isNextDisabled && nextField()"
+                          (keydown.enter)="!isNextDisabled && nextField()"
+                          (keydown.space)="!isNextDisabled && nextField()"
+                          [class.opacity-50]="isNextDisabled"
+                          [class.cursor-not-allowed]="isNextDisabled"
+                          [attr.tabindex]="isNextDisabled ? -1 : 0"
+                          class="terminal-link">
+                          // NEXT //
+                        </a>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!--Image Uploads-->
+          @if (activeFormFields.includes(FormFields.ImageUploads) || !isNewRegion) {
+            <div class="flex flex-column gap-2 mt-4">
+              <div class="flex-1">
+                <agt-terminal-communication
+                  (typingDone)="onTypingComplete(FormFields.ImageUploads)"
+                  [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
+                  [message]="imageUploadText">
+                </agt-terminal-communication>
+              </div>
+
+              @if (completedTyping[FormFields.ImageUploads] || !isNewRegion) {
+                <div class="flex-auto">
+                  <div class="flex flex-column md:flex-row gap-4">
+                    <div class="flex-1 text-center pb-2 max-w-30rem">
+                      <label class="font-bold mb-2 text-green">Galaxy Map Screenshot Example</label>
+                      <div class="border-1 border-bottom-none border-green mx-auto">
+                        <p-image
+                          class="terminal-image"
+                          src="assets/img/menus/terminal-galaxy-map-region.png"
+                          alt="Coordinates Display"
+                          width="100%"></p-image>
+                      </div>
+                      <p-fileupload
+                        name="region-screenshot"
+                        [multiple]="false"
+                        accept="image/*"
+                        maxFileSize="{{maxFileSize}}"
+                        (onSelect)="onSelectedFiles($event)">
+                        <ng-template
+                          #header
+                          let-files
+                          let-chooseCallback="chooseCallback"
+                          let-clearCallback="clearCallback"
+                          let-uploadCallback="uploadCallback">
+                          <div class="flex flex-column gap-4 w-full">
+                            <div class="flex-1 flex-row gap-2">
+                              <p-button
+                                (onClick)="choose($event, chooseCallback)"
+                                icon="pi pi-images"
+                                label="Choose Image"
+                                class="mr-4"
+                                [rounded]="true"
+                                [outlined]="true"/>
+                              <p-button
+                                (onClick)="clearCallback()"
+                                icon="pi pi-times"
+                                label="Remove File"
+                                [rounded]="true"
+                                [outlined]="true"
+                                severity="danger"
+                                [disabled]="!files || files.length === 0"/>
+                            </div>
+                            <div class="flex-1">
+                              <span class="whitespace-nowrap">{{ formatSize(totalSize) }}
+                                / {{ formatSize(maxFileSize) }}</span>
+                              <p-progressbar
+                                [value]="totalSizePercent"
+                                [showValue]="false"
+                                class="w-full">
+                              </p-progressbar>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template
+                          #content
+                          let-files
+                          let-removeFileCallback="removeFileCallback">
+                          <div class="flex flex-column gap-4 pt-4">
+                            @if (files?.length > 0) {
+                              <div class="flex flex-wrap gap-4">
+                                @for (file of files; track $index) {
+                                  <div class="flex-1">
+                                    <img
+                                      role="presentation"
+                                      [alt]="file.name"
+                                      [src]="file.objectURL"
+                                      width="100"
+                                      height="50"/>
+                                  </div>
+                                  <div class="flex-1">
+                                    {{ file.name }}
+                                  </div>
+                                  <div class="flex-1">
+                                    {{ formatSize(file.size) }}
+                                  </div>
+                                  <div class="flex-1">
+                                    <p-button
+                                      icon="pi pi-times"
+                                      (click)="onRemoveTemplatingFile($event, file, removeFileCallback, $index)"
+                                      [outlined]="true" [rounded]="true" severity="danger"/>
+                                  </div>
+                                }
+                              </div>
+                            }
+                          </div>
+                        </ng-template>
+                        <ng-template #file></ng-template>
+                        <ng-template #empty>
+                          <div class="flex items-center justify-center flex-column">
+                            <i class="pi pi-cloud-upload upload-icon"></i>
+                            <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
+                          </div>
+                        </ng-template>
+                      </p-fileupload>
+                    </div>
+                    <div class="flex-1 text-center pb-2 max-w-30rem">
+                      <label class="font-bold mb-2 text-green">Galactic Coordinate Screenshot Example</label>
+                      <div class="border-1 border-bottom-none border-green mx-auto">
+                        <p-image
+                          class="terminal-image"
+                          src="assets/img/menus/terminal-noisy-galactic-coordinate-display.png"
+                          alt="Coordinates Display"
+                          width="100%"></p-image>
+                      </div>
+                      <p-fileupload
+                        name="galactic-coordinates"
+                        [multiple]="false"
+                        accept="image/*"
+                        maxFileSize="{{maxFileSize}}"
+                        (onSelect)="onSelectedFiles($event)">
+                        <ng-template
+                          #header
+                          let-files
+                          let-chooseCallback="chooseCallback"
+                          let-clearCallback="clearCallback"
+                          let-uploadCallback="uploadCallback">
+                          <div class="flex flex-column gap-4 w-full">
+                            <div class="flex-1 flex-row gap-2">
+                              <p-button
+                                (onClick)="choose($event, chooseCallback)"
+                                icon="pi pi-images"
+                                label="Choose Image"
+                                class="mr-4"
+                                [rounded]="true"
+                                [outlined]="true"/>
+                              <p-button
+                                (onClick)="clearCallback()"
+                                icon="pi pi-times"
+                                label="Remove File"
+                                [rounded]="true"
+                                [outlined]="true"
+                                severity="danger"
+                                [disabled]="!files || files.length === 0"/>
+                            </div>
+                            <div class="flex-1">
+                              <span class="whitespace-nowrap">{{ formatSize(totalSize) }}
+                                / {{ formatSize(maxFileSize) }}</span>
+                              <p-progressbar
+                                [value]="totalSizePercent"
+                                [showValue]="false"
+                                class="w-full">
+                              </p-progressbar>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template
+                          #content
+                          let-files
+                          let-removeFileCallback="removeFileCallback">
+                          <div class="flex flex-column gap-4 pt-4">
+                            @if (files?.length > 0) {
+                              <div class="flex flex-wrap gap-4">
+                                @for (file of files; track $index) {
+                                  <div class="flex-1">
+                                    <img
+                                      role="presentation"
+                                      [alt]="file.name"
+                                      [src]="file.objectURL"
+                                      width="100"
+                                      height="50"/>
+                                  </div>
+                                  <div class="flex-1">
+                                    {{ file.name }}
+                                  </div>
+                                  <div class="flex-1">
+                                    {{ formatSize(file.size) }}
+                                  </div>
+                                  <div class="flex-1">
+                                    <p-button
+                                      icon="pi pi-times"
+                                      (click)="onRemoveTemplatingFile($event, file, removeFileCallback, $index)"
+                                      [outlined]="true" [rounded]="true" severity="danger"/>
+                                  </div>
+                                }
+                              </div>
+                            }
+                          </div>
+                        </ng-template>
+                        <ng-template #file></ng-template>
+                        <ng-template #empty>
+                          <div class="flex items-center justify-center flex-column">
+                            <i class="pi pi-cloud-upload upload-icon"></i>
+                            <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
+                          </div>
+                        </ng-template>
+                      </p-fileupload>
+                    </div>
+                    @if (activeFormField === FormFields.ImageUploads && isNewRegion) {
                       <div class="flex-1 white-space-nowrap text-right">
                         <a
                           (click)="!isNextDisabled && nextField()"
@@ -705,17 +1024,18 @@
           }
 
           <!--Inter-Region Distances-->
-          @if (true //activeFormFields.includes(FormFields.InterRegionDistance)) {
+          @if (activeFormFields.includes(FormFields.InterRegionDistance) || !isNewRegion) {
             <div class="flex flex-column gap-2">
               <div class="flex-1">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.InterRegionDistance)"
                   [typingSpeed]="25"
+                  [showAnimation]="isNewRegion"
                   [message]="interRegionText">
                 </agt-terminal-communication>
               </div>
 
-              @if (true //completedTyping[FormFields.InterRegionDistance]) {
+              @if (completedTyping[FormFields.InterRegionDistance] || !isNewRegion) {
                 <div class="terminal">
                   <div class="flex flex-column gap-3 mt-2" formArrayName="interRegionDistances">
                     @for (dist of interRegionDistancesFormArray.controls; track $index) {
@@ -777,6 +1097,7 @@
                                     [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionName')}"
                                     formControlName="adjacentRegionName"
                                     variant="filled"
+                                    [disabled]="isReadOnly"
                                     [fluid]="true"/>
                                   <label for="adjacentRegionName">{{ adjacentRegionNamePlaceholder }}</label>
                                 </p-floatlabel>
@@ -785,12 +1106,14 @@
                                 <p-floatlabel variant="on">
                                   <input
                                     pInputText
-                                    id="adjacentRegionName"
-                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionSystem')}"
-                                    formControlName="adjacentRegionSystem"
+                                    id="adjacentRegionSystemName"
+                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionSystemName')}"
+                                    formControlName="adjacentRegionSystemName"
                                     variant="filled"
+                                    [disabled]="isReadOnly"
                                     [fluid]="true"/>
-                                  <label for="adjacentRegionName">{{ adjacentRegionSystemNamePlaceholder }}</label>
+                                  <label
+                                    for="adjacentRegionSystemName">{{ adjacentRegionSystemNamePlaceholder }}</label>
                                 </p-floatlabel>
                               </div>
                               <div class="flex-1">
@@ -800,8 +1123,10 @@
                                     id="adjacentRegionSystemGlyphs"
                                     formControlName="adjacentRegionSystemGlyphs"
                                     variant="filled"
+                                    [disabled]="isReadOnly"
                                     [fluid]="true"/>
-                                  <label for="adjacentRegionSystemGlyphs">{{ adjacentRegionSystemGlyphsPlaceholder }}</label>
+                                  <label
+                                    for="adjacentRegionSystemGlyphs">{{ adjacentRegionSystemGlyphsPlaceholder }}</label>
                                 </p-floatlabel>
                               </div>
                             </div>
@@ -815,6 +1140,7 @@
                                 variant="filled"
                                 [fluid]="true"
                                 mode="decimal"
+                                [disabled]="isReadOnly"
                                 [min]="0"></p-inputnumber>
                               <label for="distance">{{ interRegionDistancePlaceholder }}</label>
                             </p-floatlabel>
@@ -834,7 +1160,7 @@
                       </div>
                     }
 
-                    @if (true //!isReadOnly) {
+                    @if (!isReadOnly) {
                       <div class="flex justify-content-start">
                         <a
                           (click)="addDistanceAndRefresh()"
@@ -853,9 +1179,24 @@
           <!-- Terminal Nano-style Footer -->
           <div
             class="terminal-footer mt-4 pt-2 border-double border-x-none border-bottom-none border-green-900 flex flex-wrap gap-4">
-            @if (true //regionForm.valid) {
-
-            }
+            <!-- Form Actions -->
+            <div class="flex justify-content-end gap-2">
+              <p-button
+                label="Clear_Form"
+                icon="pi pi-refresh"
+                severity="secondary"
+                (click)="clearForm()"
+                [disabled]="isReadOnly"/>
+              <p-button
+                label="Submit_Survey"
+                icon="pi pi-send"
+                (click)="save()"
+                [disabled]="regionForm.invalid || isReadOnly"/>
+              <p-button
+                label="REGISTER_NEW_REGION"
+                icon="pi pi-file-plus"
+                (click)="startNewRegion()"/>
+            </div>
             <div class="terminal-version ml-auto opacity-50 text-xs pt-1">
               v16.16.16-AGT
             </div>

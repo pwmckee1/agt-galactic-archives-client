@@ -15,6 +15,8 @@ export interface IUpsertRegion {
   gameRelease: string;
   gamePlatform?: GamePlatformTypes;
   gameMode?: GameModeTypes;
+  gameReleaseVersionNumber?: number;
+  gameReleaseDate?: moment.Moment;
   earliestKnownSurveyor?: string;
   latestKnownSurveyor?: string;
   summaryNotes?: string;

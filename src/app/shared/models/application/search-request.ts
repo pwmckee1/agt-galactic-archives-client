@@ -9,6 +9,9 @@ export interface ISearchRequest {
 }
 
 export class SearchRequest implements ISearchRequest {
+  pageNumber?: number;
+  pageSize?: number;
+  orderBy?: string;
 
   getQueryParams(): KeyValuePair[] {
     const params: KeyValuePair[] = [];

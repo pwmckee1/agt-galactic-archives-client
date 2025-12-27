@@ -2,4 +2,7 @@
 <p class="terminal-container" class="text-wrap" [ngClass]="[textColorClass, isFinished ? 'typing-complete' : '']">
   <span class="mr-2 ">></span>
   <span #typedElement></span>
+  @if (!showAnimation) {
+    <span>{{message}}</span>
+  }
 </p>

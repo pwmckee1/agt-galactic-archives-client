@@ -25,6 +25,7 @@ import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { GameModeTypes } from '@shared/models/in-game/game-mode-types';
 import { GamePlatformTypes } from '@shared/models/in-game/game-platform-types';
 import { IGameRelease } from '@shared/models/in-game/game-release';
+import { GameReleaseSearchRequest } from '@shared/models/in-game/game-release-search-request';
 import { GameReleaseService } from '@shared/services/game-metadata/game-release.service';
 import { ToastrService } from 'ngx-toastr';
 import {
@@ -35,7 +36,8 @@ import {
   AccordionPanel,
   AccordionStyle
 } from 'primeng/accordion';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
 import { Bind } from 'primeng/bind';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
@@ -45,9 +47,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { Image, ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { Select } from 'primeng/select';
 import moment, { Moment } from 'moment';
 import { TextareaModule } from 'primeng/textarea';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'agt-region',
@@ -73,6 +78,10 @@ import { TextareaModule } from 'primeng/textarea';
     AccordionHeader,
     AccordionPanel,
     AccordionContent,
+    ToastModule,
+    ProgressBarModule,
+    BadgeModule,
+    OverlayBadgeModule,
   ],
   providers: [
     RegionService,
@@ -81,6 +90,7 @@ import { TextareaModule } from 'primeng/textarea';
     Accordion,
     AccordionStyle,
     AccordionPanel,
+    MessageService,
     Bind],
   templateUrl: './region.component.html',
   styleUrl: './region.component.scss'
@@ -122,6 +132,7 @@ export class RegionComponent implements OnInit {
 
   hasInitialStatusText: boolean = false;
   hasRequiredWarningText: boolean = false;
+  isNewRegion: boolean = false;
 
   selectGalaxyText: string = 'Select_Galaxy:';
   regionNameText: string = 'Region_Name:';
@@ -134,6 +145,7 @@ export class RegionComponent implements OnInit {
   gameInfoText: string = 'Game_Information:';
   notesText: string = 'Notes:';
   linksText: string = 'Links:';
+  imageUploadText: string = 'Upload_Images:';
   interRegionText: string = 'Inter-Region_Distance (4 Minimum):';
 
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
@@ -161,8 +173,15 @@ export class RegionComponent implements OnInit {
   adjacentRegionSystemNamePlaceholder: string = 'Adjacent Region System';
   localSystemGlyphsPlaceholder: string = 'Local System Glyphs';
   adjacentRegionSystemGlyphsPlaceholder: string = 'Adjacent System Glyphs';
+  gameReleaseVersionNumberPlaceholder: string = 'Game Release Version Number';
+  gameReleaseDatePlaceholder: string = 'Game Release Date';
 
   private destroyRef = inject(DestroyRef);
+
+  files: any[] = [];
+  totalSize: number = 0;
+  totalSizePercent: number = 0;
+  maxFileSize: number = 10485760;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -177,7 +196,9 @@ export class RegionComponent implements OnInit {
 
   ngOnInit(): void {
     this.home = { icon: 'pi pi-home', routerLink: ['/'] };
-    this.gameReleaseService.getGameReleases()
+    const releaseRequest = new GameReleaseSearchRequest();
+    releaseRequest.pageSize = 100;
+    this.gameReleaseService.getGameReleases(releaseRequest)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((res) => {
         if (res.success) {
@@ -190,16 +211,25 @@ export class RegionComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params: Params) => {
         if (params.regionId) {
+          this.isNewRegion = false;
           this.regionId = params.regionId;
           this.isReadOnly = true;
+          this.showAllForm();
           this.fetchRegion();
         } else {
+          this.isNewRegion = true;
           this.regionId = null;
           this.isReadOnly = false;
           this.regionForm.enable();
         }
         this.updateBreadcrumbs();
+        this.initializeTerminal();
       });
+  }
+
+  showAllForm(): void {
+    const allFormFields = Object.keys(RegionInputFormFieldTypes);
+    this.activeFormFields = allFormFields.map(field => field as RegionInputFormFieldTypes);
   }
 
   updateBreadcrumbs(): void {
@@ -207,8 +237,9 @@ export class RegionComponent implements OnInit {
       { label: 'Regions', routerLink: '/regions' },
       { label: this.regionId ? (this.isReadOnly ? 'Region Details' : 'Edit Archive') : 'New Survey' },
     ];
+  }
 
-    // Construct the string for the typewriter effect
+  initializeTerminal(): void {
     const idText = this.regionId || 'NEW_RECORD';
     const accessText = this.isReadOnly ? 'READ_ONLY' : 'READ_WRITE';
     this.consoleText = ` DATABASE_QUERY // ID: ${ idText } // ACCESS_LEVEL: ${ accessText } //`;
@@ -237,6 +268,8 @@ export class RegionComponent implements OnInit {
       gameRelease: new FormControl(null, Validators.required),
       gamePlatform: new FormControl(null),
       gameMode: new FormControl(null),
+      gameReleaseVersionNumber: new FormControl(null),
+      gameReleaseDate: new FormControl(null),
       summaryNotes: new FormControl(null),
       locationNotes: new FormControl(null),
       civilizedSpaceNotes: new FormControl(null),
@@ -296,25 +329,6 @@ export class RegionComponent implements OnInit {
     }
   }
 
-  get isNextDisabled(): boolean {
-    if (!this.activeFormField) return false;
-
-    const requiredFieldMapping: Record<string, string[]> = {
-      [RegionInputFormFieldTypes.Galaxy]: ['galaxy'],
-      [RegionInputFormFieldTypes.RegionName]: ['regionName'],
-      [RegionInputFormFieldTypes.SurveyInfo]: ['surveyedBy', 'surveyDate'],
-      [RegionInputFormFieldTypes.GalacticCoordinates]: ['galacticCoordinates'],
-      [RegionInputFormFieldTypes.GameInfo]: ['gameRelease'],
-      [RegionInputFormFieldTypes.InterRegionDistance]: ['interRegionDistances'],
-    };
-
-    const controlsToCheck = requiredFieldMapping[this.activeFormField] || [];
-    return controlsToCheck.some(controlName => {
-      const control = this.regionForm.get(controlName);
-      return control ? control.invalid : false;
-    });
-  }
-
   updateActiveFormFields(event: boolean, field: RegionInputFormFieldTypes): void {
     if (event && !this.activeFormFields.includes(field)) {
       this.activeFormField = field;
@@ -340,9 +354,9 @@ export class RegionComponent implements OnInit {
     const allFormFields = Object.keys(RegionInputFormFieldTypes);
     this.activeFormField = allFormFields[currentIndex + 1] as RegionInputFormFieldTypes;
 
-    //if (this.activeFormField === RegionInputFormFieldTypes.InterRegionDistance) {
-      //this.initializeDistances();
-   //}
+    if (this.activeFormField === RegionInputFormFieldTypes.InterRegionDistance) {
+      this.initializeDistances();
+   }
 
     this.activeFormFields.push(this.activeFormField);
   }
@@ -372,14 +386,50 @@ export class RegionComponent implements OnInit {
     }
   }
 
+  onSelectedFiles(event: any) {
+    this.totalSize = 0;
+    this.files = event.currentFiles;
+    this.files.forEach((file) => {
+      this.totalSize += parseInt(file.size);
+    });
+    this.totalSizePercent = (this.totalSize / this.maxFileSize) * 100;
+  }
+
+  onRemoveTemplatingFile(event: any, file: any, removeFileCallback: any, index: number) {
+    removeFileCallback(event, index);
+    this.totalSize -= parseInt(file.size);
+    this.totalSizePercent = (this.totalSize / this.maxFileSize) * 100;
+  }
+
+  choose(event: any, callback: any) {
+    callback();
+  }
+
   initializeDistances(): void {
-    // Requirements: if they enter any, it must be at least 4.
-    // We start with 4 empty slots if they trigger this section.
     if (this.interRegionDistances.length === 0) {
       for (let i = 0; i < 4; i++) {
         this.addDistance();
       }
     }
+  }
+
+  get isNextDisabled(): boolean {
+    if (!this.activeFormField) return false;
+
+    const requiredFieldMapping: Record<string, string[]> = {
+      [RegionInputFormFieldTypes.Galaxy]: ['galaxy'],
+      [RegionInputFormFieldTypes.RegionName]: ['regionName'],
+      [RegionInputFormFieldTypes.SurveyInfo]: ['surveyedBy', 'surveyDate'],
+      [RegionInputFormFieldTypes.GalacticCoordinates]: ['galacticCoordinates'],
+      [RegionInputFormFieldTypes.GameInfo]: ['gameRelease'],
+      [RegionInputFormFieldTypes.InterRegionDistance]: ['interRegionDistances'],
+    };
+
+    const controlsToCheck = requiredFieldMapping[this.activeFormField] || [];
+    return controlsToCheck.some(controlName => {
+      const control = this.regionForm.get(controlName);
+      return control ? control.invalid : false;
+    });
   }
 
   get regionEntry(): IUpsertRegion {
@@ -394,6 +444,8 @@ export class RegionComponent implements OnInit {
       gameRelease: this.gameRelease,
       gamePlatform: this.gamePlatform,
       gameMode: this.gameMode,
+      gameReleaseVersionNumber: this.gameReleaseVersionNumber,
+      gameReleaseDate: this.gameReleaseDate,
       summaryNotes: this.summaryNotes,
       locationNotes: this.locationNotes,
       civilizedSpaceNotes: this.civilizedSpaceNotes,
@@ -404,6 +456,21 @@ export class RegionComponent implements OnInit {
       videoLink: this.videoLink,
       interRegionDistances: this.interRegionDistances,
     };
+  }
+
+  formatSize(bytes: number): string {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  startNewRegion() {
+    this.router.navigate(['/regions/region'], {
+      queryParams: {},
+      replaceUrl: true
+    });
   }
 
   get selectedGalaxy(): GalaxyTypes {
@@ -448,6 +515,14 @@ export class RegionComponent implements OnInit {
 
   get gameMode(): GameModeTypes {
     return this.regionForm.controls.gameMode.value;
+  }
+
+  get gameReleaseVersionNumber(): number {
+    return this.regionForm.controls.gameReleaseVersionNumber.value;
+  }
+
+  get gameReleaseDate(): Moment {
+    return moment(this.regionForm.controls.gameReleaseDate.value);
   }
 
   get summaryNotes(): string {

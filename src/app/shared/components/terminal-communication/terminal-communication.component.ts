@@ -25,6 +25,7 @@ export class TerminalCommunicationComponent implements OnInit, OnChanges, OnDest
   @Input() typingSpeed: number = 10; // typed.js uses ms per character (lower is faster)
   @Input() success: boolean = true;
   @Input() hideCursor: boolean = true;
+  @Input() showAnimation: boolean = true;
 
   @Output() typingDone = new EventEmitter<boolean>();
 
@@ -36,17 +37,21 @@ export class TerminalCommunicationComponent implements OnInit, OnChanges, OnDest
 
   ngOnInit(): void {
     this.textColorClass = this.success ? 'text-green' : 'text-secondary';
-    this.initTyped();
+    if (this.showAnimation) {
+      this.initTyped();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.textColorClass = this.success ? 'text-green' : 'text-secondary';
-    if (changes['message'] && !changes['message'].firstChange) {
-      this.initTyped();
-    }
+    if (this.showAnimation) {
+      this.textColorClass = this.success ? 'text-green' : 'text-secondary';
+      if (changes['message'] && !changes['message'].firstChange) {
+        this.initTyped();
+      }
 
-    if (changes['hideCursor']) {
-      this.updateCursorVisibility();
+      if (changes['hideCursor']) {
+        this.updateCursorVisibility();
+      }
     }
   }
 
