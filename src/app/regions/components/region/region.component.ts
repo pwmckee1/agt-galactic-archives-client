@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, inject, OnInit, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormArray,
@@ -14,8 +14,11 @@ import { IInterRegionDistance } from '@regions/models/inter-region-distance';
 import { RegionInputFormFieldTypes } from '@regions/models/region-input-form-field-types';
 import { IUpsertRegion } from '@regions/models/upsert-region';
 import {
+  InterRegionDistanceComponent
+} from '@shared/components/terminal-ui/inter-region-distance/inter-region-distance.component';
+import {
   TerminalCommunicationComponent
-} from '@shared/components/terminal-communication/terminal-communication.component';
+} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
 import { FormHelpers } from '@shared/helpers/form-helpers';
 import { IRegion } from '@regions/models/region';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
@@ -58,30 +61,31 @@ import { ToastModule } from 'primeng/toast';
   selector: 'agt-region',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    BreadcrumbModule,
-    RouterModule,
-    Image,
-    ButtonModule,
-    InputTextModule,
-    TerminalCommunicationComponent,
-    Select,
-    FloatLabelModule,
-    InputNumberModule,
-    DatePickerModule,
-    TextareaModule,
-    FileUploadModule,
-    ImageModule,
-    NgClass,
-    AccordionModule,
-    AccordionHeader,
-    AccordionPanel,
     AccordionContent,
-    ToastModule,
+    AccordionHeader,
+    AccordionModule,
+    AccordionPanel,
+    BreadcrumbModule,
+    ButtonModule,
+    DatePickerModule,
+    FileUploadModule,
+    FloatLabelModule,
+    FormsModule,
+    Image,
+    ImageModule,
+    InputNumberModule,
+    InputTextModule,
+    NgClass,
     ProgressBarModule,
+    ReactiveFormsModule,
+    RouterModule,
+    Select,
+    TerminalCommunicationComponent,
+    TextareaModule,
+    ToastModule,
     BadgeModule,
     OverlayBadgeModule,
+    InterRegionDistanceComponent,
   ],
   providers: [
     RegionService,
@@ -95,7 +99,8 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './region.component.html',
   styleUrl: './region.component.scss'
 })
-export class RegionComponent implements OnInit {
+export class RegionComponent implements OnInit, AfterViewInit {
+  @ViewChild(InterRegionDistanceComponent) interRegionDistanceComponent!: InterRegionDistanceComponent;
   regionForm: FormGroup;
   regionId: string;
   consoleText: string = '';
@@ -146,7 +151,6 @@ export class RegionComponent implements OnInit {
   notesText: string = 'Notes:';
   linksText: string = 'Links:';
   imageUploadText: string = 'Upload_Images:';
-  interRegionText: string = 'Inter-Region_Distance (4 Minimum):';
 
   galaxySelectPlaceholder: string = 'Euclid, Hilbert Dimension, etc...';
   regionNamePlaceholder: string = 'Kitisba-Instability, etc...';
@@ -167,12 +171,6 @@ export class RegionComponent implements OnInit {
   legacyWikiLinkPlaceholder: string = 'Legacy Wiki Link';
   externalLinkPlaceholder: string = 'External Link';
   videoLinkPlaceholder: string = 'Video Link';
-  interRegionDistancePlaceholder: string = 'Distance (LY)';
-  localSystemNamePlaceholder: string = 'Local System';
-  adjacentRegionNamePlaceholder: string = 'Adjacent Region';
-  adjacentRegionSystemNamePlaceholder: string = 'Adjacent Region System';
-  localSystemGlyphsPlaceholder: string = 'Local System Glyphs';
-  adjacentRegionSystemGlyphsPlaceholder: string = 'Adjacent System Glyphs';
   gameReleaseVersionNumberPlaceholder: string = 'Game Release Version Number';
   gameReleaseDatePlaceholder: string = 'Game Release Date';
 
@@ -225,6 +223,11 @@ export class RegionComponent implements OnInit {
         this.updateBreadcrumbs();
         this.initializeTerminal();
       });
+  }
+
+  ngAfterViewInit(): void {
+    this.interRegionDistanceComponent?.initializeDistances();
+    this.cdr.detectChanges();
   }
 
   showAllForm(): void {
@@ -280,19 +283,14 @@ export class RegionComponent implements OnInit {
       videoLink: new FormControl(null),
       interRegionDistances: this.formBuilder.array([])
     });
-
-    this.initializeDistances();
   }
 
   setRegion(region: IRegion): void {
     this.currentRegion = region;
 
-    if (region.interRegionDistances?.length) {
-      this.interRegionDistancesFormArray.clear();
-      region.interRegionDistances.forEach(() => this.addDistance());
-    }
-
     this.regionForm.patchValue(region);
+    this.interRegionDistanceComponent?.setRegion(region);
+
     if (this.isReadOnly) {
       this.regionForm.disable();
     }
@@ -355,35 +353,10 @@ export class RegionComponent implements OnInit {
     this.activeFormField = allFormFields[currentIndex + 1] as RegionInputFormFieldTypes;
 
     if (this.activeFormField === RegionInputFormFieldTypes.InterRegionDistance) {
-      this.initializeDistances();
-   }
+      this.interRegionDistanceComponent?.initializeDistances();
+    }
 
     this.activeFormFields.push(this.activeFormField);
-  }
-
-  addDistance(): void {
-    const distanceGroup = this.formBuilder.group({
-      distanceFormRegionName: [{ value: this.regionForm.get('regionName')?.value, disabled: true }],
-      adjacentRegionName: [null],
-      localSystemName: [null],
-      adjacentRegionSystemName: [null],
-      localSystemGlyphs: [null],
-      adjacentRegionSystemGlyphs: [null],
-      distance: [null, [Validators.min(0)]]
-    }, { validators: [FormHelpers.interRegionGroupValidator()] });
-
-    this.interRegionDistancesFormArray.push(distanceGroup);
-  }
-
-  addDistanceAndRefresh(): void {
-    this.addDistance();
-    this.cdr.detectChanges();
-  }
-
-  removeDistance(index: number): void {
-    if (index >= 4 && this.interRegionDistancesFormArray.length > 4) {
-      this.interRegionDistancesFormArray.removeAt(index);
-    }
   }
 
   onSelectedFiles(event: any) {
@@ -401,16 +374,8 @@ export class RegionComponent implements OnInit {
     this.totalSizePercent = (this.totalSize / this.maxFileSize) * 100;
   }
 
-  choose(event: any, callback: any) {
+  chooseImage(callback: any) {
     callback();
-  }
-
-  initializeDistances(): void {
-    if (this.interRegionDistances.length === 0) {
-      for (let i = 0; i < 4; i++) {
-        this.addDistance();
-      }
-    }
   }
 
   get isNextDisabled(): boolean {

@@ -632,7 +632,7 @@
 
           <!--Notes-->
           @if (activeFormFields.includes(FormFields.Notes) || !isNewRegion) {
-            <div class="flex flex-column gap-2">
+            <div class="flex flex-column mt-4 gap-2">
               <div class="flex-1 align-content-end">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Notes)"
@@ -711,7 +711,7 @@
 
           <!--Links-->
           @if (activeFormFields.includes(FormFields.Links) || !isNewRegion) {
-            <div class="flex flex-column lg:flex-row gap-2">
+            <div class="flex flex-column lg:flex-row gap-2 mt-6">
               <div class="flex-1 md:w-4">
                 <agt-terminal-communication
                   (typingDone)="onTypingComplete(FormFields.Links)"
@@ -843,7 +843,7 @@
                           <div class="flex flex-column gap-4 w-full">
                             <div class="flex-1 flex-row gap-2">
                               <p-button
-                                (onClick)="choose($event, chooseCallback)"
+                                (onClick)="chooseImage(chooseCallback)"
                                 icon="pi pi-images"
                                 label="Choose Image"
                                 class="mr-4"
@@ -935,7 +935,7 @@
                           <div class="flex flex-column gap-4 w-full">
                             <div class="flex-1 flex-row gap-2">
                               <p-button
-                                (onClick)="choose($event, chooseCallback)"
+                                (onClick)="chooseImage(chooseCallback)"
                                 icon="pi pi-images"
                                 label="Choose Image"
                                 class="mr-4"
@@ -1025,155 +1025,12 @@
 
           <!--Inter-Region Distances-->
           @if (activeFormFields.includes(FormFields.InterRegionDistance) || !isNewRegion) {
-            <div class="flex flex-column gap-2">
-              <div class="flex-1">
-                <agt-terminal-communication
-                  (typingDone)="onTypingComplete(FormFields.InterRegionDistance)"
-                  [typingSpeed]="25"
-                  [showAnimation]="isNewRegion"
-                  [message]="interRegionText">
-                </agt-terminal-communication>
-              </div>
-
-              @if (completedTyping[FormFields.InterRegionDistance] || !isNewRegion) {
-                <div class="terminal">
-                  <div class="flex flex-column gap-3 mt-2" formArrayName="interRegionDistances">
-                    @for (dist of interRegionDistancesFormArray.controls; track $index) {
-                      <div
-                        [formGroupName]="$index"
-                        class="border-1 border-dashed border-green-900 pl-3 py-2 flex flex-column gap-2">
-                        <div class="flex flex-column pb-3 pr-3 gap-2">
-                          <div class="flex-1">
-                            <label class="text-green font-bold uppercase underline">
-                              Distance {{ $index + 1 }}
-                            </label>
-                          </div>
-                          <div class="flex-1">
-                            <div class="flex flex-column lg:flex-row gap-2">
-                              <div class="flex-1 align-content-end">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="distanceFormRegionName"
-                                    formControlName="distanceFormRegionName"
-                                    placeholder="{{regionName}}"
-                                    [readonly]="true"
-                                    [fluid]="true"/>
-                                  <label for="distanceFormRegionName">Region Name</label>
-                                </p-floatlabel>
-                              </div>
-                              <div class="flex-1">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="localSystemName"
-                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('localSystemName')}"
-                                    formControlName="localSystemName"
-                                    variant="filled"
-                                    [fluid]="true"/>
-                                  <label for="distanceFormRegionName">{{ localSystemNamePlaceholder }}</label>
-                                </p-floatlabel>
-                              </div>
-                              <div class="flex-1">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="localSystemGlyphs"
-                                    formControlName="localSystemGlyphs"
-                                    variant="filled"
-                                    [fluid]="true"/>
-                                  <label for="localSystemGlyphs">{{ localSystemGlyphsPlaceholder }}</label>
-                                </p-floatlabel>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="flex-1">
-                            <div class="flex flex-column lg:flex-row gap-2">
-                              <div class="flex-1">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="adjacentRegionName"
-                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionName')}"
-                                    formControlName="adjacentRegionName"
-                                    variant="filled"
-                                    [disabled]="isReadOnly"
-                                    [fluid]="true"/>
-                                  <label for="adjacentRegionName">{{ adjacentRegionNamePlaceholder }}</label>
-                                </p-floatlabel>
-                              </div>
-                              <div class="flex-1">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="adjacentRegionSystemName"
-                                    [ngClass]="{'ng-invalid ng-touched': dist.hasError('adjacentRegionSystemName')}"
-                                    formControlName="adjacentRegionSystemName"
-                                    variant="filled"
-                                    [disabled]="isReadOnly"
-                                    [fluid]="true"/>
-                                  <label
-                                    for="adjacentRegionSystemName">{{ adjacentRegionSystemNamePlaceholder }}</label>
-                                </p-floatlabel>
-                              </div>
-                              <div class="flex-1">
-                                <p-floatlabel variant="on">
-                                  <input
-                                    pInputText
-                                    id="adjacentRegionSystemGlyphs"
-                                    formControlName="adjacentRegionSystemGlyphs"
-                                    variant="filled"
-                                    [disabled]="isReadOnly"
-                                    [fluid]="true"/>
-                                  <label
-                                    for="adjacentRegionSystemGlyphs">{{ adjacentRegionSystemGlyphsPlaceholder }}</label>
-                                </p-floatlabel>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="flex-1 w-full lg:w-4">
-                            <p-floatlabel variant="on">
-                              <p-inputnumber
-                                formControlName="distance"
-                                inputId="distance"
-                                [ngClass]="dist.hasError('distance') ? 'ng-invalid ng-touched' : ''"
-                                variant="filled"
-                                [fluid]="true"
-                                mode="decimal"
-                                [disabled]="isReadOnly"
-                                [min]="0"></p-inputnumber>
-                              <label for="distance">{{ interRegionDistancePlaceholder }}</label>
-                            </p-floatlabel>
-                          </div>
-                          @if (!isReadOnly && $index >= 4) {
-                            <div class="flex-initial align-content-center mt-2">
-
-                              <a
-                                (click)="removeDistance($index)"
-                                class="terminal-link text-xs"
-                                [attr.tabindex]="0">
-                                [-] REMOVE_DATA_POINT
-                              </a>
-                            </div>
-                          }
-                        </div>
-                      </div>
-                    }
-
-                    @if (!isReadOnly) {
-                      <div class="flex justify-content-start">
-                        <a
-                          (click)="addDistanceAndRefresh()"
-                          class="terminal-link text-xs"
-                          [attr.tabindex]="0">
-                          [+] ADD_ADDITIONAL_DATA_POINT
-                        </a>
-                      </div>
-                    }
-                  </div>
-                </div>
-              }
-            </div>
+            <agt-inter-region-distance
+              class="mt-4"
+              [regionForm]="regionForm"
+              [interRegionFormArray]="interRegionDistancesFormArray"
+              [activeFormField]="activeFormField"
+            ></agt-inter-region-distance>
           }
 
           <!-- Terminal Nano-style Footer -->

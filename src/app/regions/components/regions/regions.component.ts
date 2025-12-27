@@ -8,7 +8,7 @@ import { RegionService } from '@regions/services/region.service';
 import { IRegion } from '@regions/models/region';
 import {
   TerminalCommunicationComponent
-} from '@shared/components/terminal-communication/terminal-communication.component';
+} from '@shared/components/terminal-ui/terminal-communication/terminal-communication.component';
 import { ApiResponse } from '@shared/models/application/api-response';
 import { GalaxyTypes } from '@shared/models/in-game/galaxy-types';
 import { MenuItem } from 'primeng/api';
